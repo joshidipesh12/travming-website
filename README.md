@@ -7,7 +7,7 @@
 ***
 ***
 *** To avoid retyping too much info. Do a search and replace for the following:
-*** joshidipesh12, travming-website, twitter_handle, joshidipesh122@gmail.com, TravMing-Website, This project acts as the web platorm application for the TravMing mobile app. The main goal is to provide design overview with OpenSans fonts and glassmorphism wherever possible, providing a PWA experience with least efforts.
+*** joshidipesh12, travming-website, insta_page, joshidipesh122@gmail.com, TravMing-Website, This project acts as the web platorm application for the TravMing mobile app. The main goal is to provide design overview with OpenSans fonts and glassmorphism wherever possible, providing a PWA experience with least efforts.
 -->
 
 <!-- PROJECT SHIELDS -->
@@ -21,12 +21,8 @@
 
 [![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
 [![MIT License][license-shield]][license-url]
-[![LinkedIn][linkedin-shield]][linkedin-url]
-
-
 
 <!-- PROJECT LOGO -->
 <br />
@@ -54,7 +50,6 @@
 <img alt="Design Target" src="public/desktop.png"/>
 
 ### App Concept Design: [Figma](https://www.figma.com/file/6C0ORLsqN8OpPJZv6FMsjh/TravMing-Website-Concept?node-id=0%3A1)
-
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
@@ -91,7 +86,6 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
 
-
 <!-- TABLE OF CONTENTS -->
 <details open="open">
   <summary><h2 style="display: inline-block">Table of Contents</h2></summary>
@@ -118,10 +112,50 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
   </ol>
 </details>
 
+<!-- ROADMAP -->
+
+## Roadmap
+
+See the [open issues](https://github.com/joshidipesh12/travming-website/issues) for a list of proposed features (and known issues).
+
+<!-- CONTRIBUTING -->
+
+## Contributing
+
+Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+<!-- LICENSE -->
+
+## License
+
+Distributed under the MIT License. See `LICENSE` for more information.
+
+<!-- CONTACT -->
+
+## Contact
+
+[![Instagram][insta-shield]][insta-url]
+[![LinkedIn][linkedin-shield]][linkedin-url]
+
+Project Link: [https://github.com/joshidipesh12/travming-website](https://github.com/joshidipesh12/travming-website)
+
+<!-- ACKNOWLEDGEMENTS -->
+
+## Acknowledgements
+
+- []()
+- []()
+- []()
+
 ## About The Project
 
 [![Product Name Screen Shot][product-screenshot]](https://example.com)
-
 
 ### Built With
 
@@ -191,7 +225,8 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 ## Contact
 
-Your Name - [@twitter_handle](https://twitter.com/twitter_handle) - joshidipesh122@gmail.com
+[![Instagram][insta-shield]][insta-url]
+[![LinkedIn][linkedin-shield]][linkedin-url]
 
 Project Link: [https://github.com/joshidipesh12/travming-website](https://github.com/joshidipesh12/travming-website)
 
@@ -206,15 +241,17 @@ Project Link: [https://github.com/joshidipesh12/travming-website](https://github
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 
-[contributors-shield]: https://img.shields.io/github/contributors/joshidipesh12/repo.svg?style=for-the-badge
+[contributors-shield]: https://img.shields.io/github/contributors/joshidipesh12/travming-website?style=for-the-badge
 [contributors-url]: https://github.com/joshidipesh12/repo/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/joshidipesh12/repo.svg?style=for-the-badge
+[forks-shield]: https://img.shields.io/github/forks/joshidipesh12/travming-website?style=for-the-badge
 [forks-url]: https://github.com/joshidipesh12/repo/network/members
-[stars-shield]: https://img.shields.io/github/stars/joshidipesh12/repo.svg?style=for-the-badge
+[stars-shield]: https://img.shields.io/github/stars/joshidipesh12/travming-website?style=for-the-badge
 [stars-url]: https://github.com/joshidipesh12/repo/stargazers
-[issues-shield]: https://img.shields.io/github/issues/joshidipesh12/repo.svg?style=for-the-badge
-[issues-url]: https://github.com/joshidipesh12/repo/issues
-[license-shield]: https://img.shields.io/github/license/joshidipesh12/repo.svg?style=for-the-badge
-[license-url]: https://github.com/joshidipesh12/repo/blob/master/LICENSE.txt
+[issues-shield]: https://img.shields.io/github/issues/joshidipesh12/travming-website?style=for-the-badge
+[issues-url]: https://github.com/joshidipesh12/travming-website/issues
+[license-shield]: https://img.shields.io/github/license/joshidipesh12/travming-website?style=for-the-badge
+[license-url]: https://github.com/joshidipesh12/travming-website/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/joshidipesh12
+[insta-shield]: https://img.shields.io/badge/Instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white
+[insta-url]: https://www.instagram.com/_joshi_dipesh_/
