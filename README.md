@@ -7,10 +7,8 @@
 ***
 ***
 *** To avoid retyping too much info. Do a search and replace for the following:
-*** github_username, repo_name, twitter_handle, email, project_title, project_description
+*** joshidipesh12, travming-website, twitter_handle, joshidipesh122@gmail.com, TravMing-Website, This project acts as the web platorm application for the TravMing mobile app. The main goal is to provide design overview with OpenSans fonts and glassmorphism wherever possible, providing a PWA experience with least efforts.
 -->
-
-
 
 <!-- PROJECT SHIELDS -->
 <!--
@@ -20,6 +18,7 @@
 *** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
 *** https://www.markdownguide.org/basic-syntax/#reference-style-links
 -->
+
 [![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
@@ -27,6 +26,34 @@
 [![MIT License][license-shield]][license-url]
 [![LinkedIn][linkedin-shield]][linkedin-url]
 
+
+
+<!-- PROJECT LOGO -->
+<br />
+<p align="center">
+  <a href="https://github.com/joshidipesh12/travming-website">
+    <img src="public/logo.png" alt="Logo" height="80">
+  </a>
+
+  <h3 style="margin-top: -1em;" align="center">TravMing-Website</h3>
+
+  <p align="center">
+    This project acts as the web platorm application for the TravMing mobile app. The main goal is to provide design overview with OpenSans fonts and glassmorphism wherever possible, providing a PWA experience with least efforts.
+    <br />
+    <a href="https://github.com/joshidipesh12/travming-website"><strong>Explore the docs »</strong></a>
+    <br />
+    <br />
+    <a href="https://github.com/joshidipesh12/travming-website">View Demo</a>
+    ·
+    <a href="https://github.com/joshidipesh12/travming-website/issues">Report Bug</a>
+    ·
+    <a href="https://github.com/joshidipesh12/travming-website/issues">Request Feature</a>
+  </p>
+</p>
+
+<img alt="Design Target" src="public/desktop.png"/>
+
+### App Concept Design: [Figma](https://www.figma.com/file/6C0ORLsqN8OpPJZv6FMsjh/TravMing-Website-Concept?node-id=0%3A1)
 
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
@@ -65,31 +92,6 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
 
 
-<!-- PROJECT LOGO -->
-<br />
-<p align="center">
-  <a href="https://github.com/github_username/repo_name">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
-  </a>
-
-  <h3 align="center">project_title</h3>
-
-  <p align="center">
-    project_description
-    <br />
-    <a href="https://github.com/github_username/repo_name"><strong>Explore the docs »</strong></a>
-    <br />
-    <br />
-    <a href="https://github.com/github_username/repo_name">View Demo</a>
-    ·
-    <a href="https://github.com/github_username/repo_name/issues">Report Bug</a>
-    ·
-    <a href="https://github.com/github_username/repo_name/issues">Request Feature</a>
-  </p>
-</p>
-
-
-
 <!-- TABLE OF CONTENTS -->
 <details open="open">
   <summary><h2 style="display: inline-block">Table of Contents</h2></summary>
@@ -116,27 +118,19 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
   </ol>
 </details>
 
-
-
-<!-- ABOUT THE PROJECT -->
 ## About The Project
 
 [![Product Name Screen Shot][product-screenshot]](https://example.com)
 
-Here's a blank template to get started:
-**To avoid retyping too much info. Do a search and replace with your text editor for the following:**
-`github_username`, `repo_name`, `twitter_handle`, `email`, `project_title`, `project_description`
-
 
 ### Built With
 
-* []()
-* []()
-* []()
-
-
+- []()
+- []()
+- []()
 
 <!-- GETTING STARTED -->
+
 ## Getting Started
 
 To get a local copy up and running follow these simple steps.
@@ -144,7 +138,8 @@ To get a local copy up and running follow these simple steps.
 ### Prerequisites
 
 This is an example of how to list things you need to use the software and how to install them.
-* npm
+
+- npm
   ```sh
   npm install npm@latest -g
   ```
@@ -153,32 +148,29 @@ This is an example of how to list things you need to use the software and how to
 
 1. Clone the repo
    ```sh
-   git clone https://github.com/github_username/repo_name.git
+   git clone https://github.com/joshidipesh12/travming-website.git
    ```
 2. Install NPM packages
    ```sh
    npm install
    ```
 
-
-
 <!-- USAGE EXAMPLES -->
+
 ## Usage
 
 Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
 
 _For more examples, please refer to the [Documentation](https://example.com)_
 
-
-
 <!-- ROADMAP -->
+
 ## Roadmap
 
-See the [open issues](https://github.com/github_username/repo_name/issues) for a list of proposed features (and known issues).
-
-
+See the [open issues](https://github.com/joshidipesh12/travming-website/issues) for a list of proposed features (and known issues).
 
 <!-- CONTRIBUTING -->
+
 ## Contributing
 
 Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
@@ -189,46 +181,40 @@ Contributions are what make the open source community such an amazing place to b
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-
-
 <!-- LICENSE -->
+
 ## License
 
 Distributed under the MIT License. See `LICENSE` for more information.
 
-
-
 <!-- CONTACT -->
+
 ## Contact
 
-Your Name - [@twitter_handle](https://twitter.com/twitter_handle) - email
+Your Name - [@twitter_handle](https://twitter.com/twitter_handle) - joshidipesh122@gmail.com
 
-Project Link: [https://github.com/github_username/repo_name](https://github.com/github_username/repo_name)
-
-
+Project Link: [https://github.com/joshidipesh12/travming-website](https://github.com/joshidipesh12/travming-website)
 
 <!-- ACKNOWLEDGEMENTS -->
+
 ## Acknowledgements
 
-* []()
-* []()
-* []()
-
-
-
-
+- []()
+- []()
+- []()
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/github_username/repo.svg?style=for-the-badge
-[contributors-url]: https://github.com/github_username/repo/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/github_username/repo.svg?style=for-the-badge
-[forks-url]: https://github.com/github_username/repo/network/members
-[stars-shield]: https://img.shields.io/github/stars/github_username/repo.svg?style=for-the-badge
-[stars-url]: https://github.com/github_username/repo/stargazers
-[issues-shield]: https://img.shields.io/github/issues/github_username/repo.svg?style=for-the-badge
-[issues-url]: https://github.com/github_username/repo/issues
-[license-shield]: https://img.shields.io/github/license/github_username/repo.svg?style=for-the-badge
-[license-url]: https://github.com/github_username/repo/blob/master/LICENSE.txt
+
+[contributors-shield]: https://img.shields.io/github/contributors/joshidipesh12/repo.svg?style=for-the-badge
+[contributors-url]: https://github.com/joshidipesh12/repo/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/joshidipesh12/repo.svg?style=for-the-badge
+[forks-url]: https://github.com/joshidipesh12/repo/network/members
+[stars-shield]: https://img.shields.io/github/stars/joshidipesh12/repo.svg?style=for-the-badge
+[stars-url]: https://github.com/joshidipesh12/repo/stargazers
+[issues-shield]: https://img.shields.io/github/issues/joshidipesh12/repo.svg?style=for-the-badge
+[issues-url]: https://github.com/joshidipesh12/repo/issues
+[license-shield]: https://img.shields.io/github/license/joshidipesh12/repo.svg?style=for-the-badge
+[license-url]: https://github.com/joshidipesh12/repo/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/github_username
+[linkedin-url]: https://linkedin.com/in/joshidipesh12
