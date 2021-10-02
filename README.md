@@ -7,13 +7,13 @@
 <br />
 <p align="center">
   <a href="https://github.com/joshidipesh12/travming-website">
-    <img src="public/logo.png" alt="Logo" height="80">
+    <img src="images/logo.png" alt="Logo" height="80">
   </a>
 
   <h3 style="margin-top: -1em;" align="center">TravMing-Website</h3>
 
   <p align="center">
-    This project acts as the web platorm application for the TravMing mobile app. The main goal is to provide design overview with OpenSans fonts and glassmorphism wherever possible, providing a PWA experience with least efforts.
+    This project acts as the web plaform application for the TravMing mobile app. The main goal is to provide design overview with OpenSans fonts and glassmorphism wherever possible, providing a PWA experience with least efforts.
     <br />
     <br />
     <a href="https://github.com/joshidipesh12/travming-website"><strong>Explore the docs »</strong></a>
@@ -26,7 +26,7 @@
   </p>
 </p>
 
-<img alt="Design Target" src="public/desktop.png"/>
+<img alt="Design Target" src="images/desktop.png"/>
 
 <!-- TABLE OF CONTENTS -->
 <details open="open">
