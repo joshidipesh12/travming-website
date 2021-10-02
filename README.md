@@ -1,24 +1,3 @@
-<!--
-*** Thanks for checking out the Best-README-Template. If you have a suggestion
-*** that would make this better, please fork the repo and create a pull request
-*** or simply open an issue with the tag "enhancement".
-*** Thanks again! Now go create something AMAZING! :D
-***
-***
-***
-*** To avoid retyping too much info. Do a search and replace for the following:
-*** joshidipesh12, travming-website, insta_page, joshidipesh122@gmail.com, TravMing-Website, This project acts as the web platorm application for the TravMing mobile app. The main goal is to provide design overview with OpenSans fonts and glassmorphism wherever possible, providing a PWA experience with least efforts.
--->
-
-<!-- PROJECT SHIELDS -->
-<!--
-*** I'm using markdown "reference style" links for readability.
-*** Reference links are enclosed in brackets [ ] instead of parentheses ( ).
-*** See the bottom of this document for the declaration of the reference variables
-*** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
-*** https://www.markdownguide.org/basic-syntax/#reference-style-links
--->
-
 [![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
 [![Issues][issues-shield]][issues-url]
@@ -36,8 +15,8 @@
   <p align="center">
     This project acts as the web platorm application for the TravMing mobile app. The main goal is to provide design overview with OpenSans fonts and glassmorphism wherever possible, providing a PWA experience with least efforts.
     <br />
-    <a href="https://github.com/joshidipesh12/travming-website"><strong>Explore the docs »</strong></a>
     <br />
+    <a href="https://github.com/joshidipesh12/travming-website"><strong>Explore the docs »</strong></a>
     <br />
     <a href="https://github.com/joshidipesh12/travming-website">View Demo</a>
     ·
@@ -49,17 +28,37 @@
 
 <img alt="Design Target" src="public/desktop.png"/>
 
-### App Concept Design: [Figma](https://www.figma.com/file/6C0ORLsqN8OpPJZv6FMsjh/TravMing-Website-Concept?node-id=0%3A1)
-
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<!-- TABLE OF CONTENTS -->
+<details open="open">
+  <summary><h2 style="display: inline-block">Table of Contents</h2></summary>
+  <ol>
+    <li><a href="#getting-started">Getting Started</a>
+    <ul>
+        <li><a href="#installation">Installation</a></li>
+        <li><a href="#learn-more">Learn More</a></li>
+        <li><a href="#deploy-on-vercel">Deploy</a></li>
+      </ul></li>
+    <li><a href="#roadmap">Roadmap</a></li>
+    <li><a href="#contributing">Contributing</a></li>
+    <li><a href="#license">License</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="#acknowledgements">Acknowledgements</a></li>
+  </ol>
+</details>
 
 ## Getting Started
+
+### Installation
+
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 First, run the development server:
 
 ```bash
 npm run dev
+
 # or
+
 yarn dev
 ```
 
@@ -71,7 +70,7 @@ You can start editing the page by modifying `pages/index.tsx`. The page auto-upd
 
 The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
 
-## Learn More
+### Learn More
 
 To learn more about Next.js, take a look at the following resources:
 
@@ -80,38 +79,12 @@ To learn more about Next.js, take a look at the following resources:
 
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
+### Deploy on Vercel
 
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
 
-<!-- TABLE OF CONTENTS -->
-<details open="open">
-  <summary><h2 style="display: inline-block">Table of Contents</h2></summary>
-  <ol>
-    <li>
-      <a href="#about-the-project">About The Project</a>
-      <ul>
-        <li><a href="#built-with">Built With</a></li>
-      </ul>
-    </li>
-    <li>
-      <a href="#getting-started">Getting Started</a>
-      <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Installation</a></li>
-      </ul>
-    </li>
-    <li><a href="#usage">Usage</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#license">License</a></li>
-    <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgements">Acknowledgements</a></li>
-  </ol>
-</details>
-
 <!-- ROADMAP -->
 
 ## Roadmap
@@ -130,96 +103,26 @@ Contributions are what make the open source community such an amazing place to b
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
+Similarly for Bug Fixes create branch: fix/WeirdBug
+
 <!-- LICENSE -->
 
 ## License
 
-Distributed under the MIT License. See `LICENSE` for more information.
-
-<!-- CONTACT -->
-
-## Contact
-
-[![Instagram][insta-shield]][insta-url]
-[![LinkedIn][linkedin-shield]][linkedin-url]
-
-Project Link: [https://github.com/joshidipesh12/travming-website](https://github.com/joshidipesh12/travming-website)
+Distributed under the Apache License 2.0. See `LICENSE` for more information.
 
 <!-- ACKNOWLEDGEMENTS -->
 
 ## Acknowledgements
 
+<!-- - []()
 - []()
-- []()
-- []()
-
-## About The Project
-
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+- []() -->
 
 ### Built With
 
-- []()
-- []()
-- []()
-
-<!-- GETTING STARTED -->
-
-## Getting Started
-
-To get a local copy up and running follow these simple steps.
-
-### Prerequisites
-
-This is an example of how to list things you need to use the software and how to install them.
-
-- npm
-  ```sh
-  npm install npm@latest -g
-  ```
-
-### Installation
-
-1. Clone the repo
-   ```sh
-   git clone https://github.com/joshidipesh12/travming-website.git
-   ```
-2. Install NPM packages
-   ```sh
-   npm install
-   ```
-
-<!-- USAGE EXAMPLES -->
-
-## Usage
-
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
-
-_For more examples, please refer to the [Documentation](https://example.com)_
-
-<!-- ROADMAP -->
-
-## Roadmap
-
-See the [open issues](https://github.com/joshidipesh12/travming-website/issues) for a list of proposed features (and known issues).
-
-<!-- CONTRIBUTING -->
-
-## Contributing
-
-Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
-
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-<!-- LICENSE -->
-
-## License
-
-Distributed under the MIT License. See `LICENSE` for more information.
+- [NextJs](https://nextjs.org/)
+- [Figma](https://www.figma.com/file/6C0ORLsqN8OpPJZv6FMsjh/TravMing-Website-Concept?node-id=0%3A1)
 
 <!-- CONTACT -->
 
@@ -229,14 +132,6 @@ Distributed under the MIT License. See `LICENSE` for more information.
 [![LinkedIn][linkedin-shield]][linkedin-url]
 
 Project Link: [https://github.com/joshidipesh12/travming-website](https://github.com/joshidipesh12/travming-website)
-
-<!-- ACKNOWLEDGEMENTS -->
-
-## Acknowledgements
-
-- []()
-- []()
-- []()
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
