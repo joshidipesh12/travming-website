@@ -5,14 +5,21 @@
   align-items: center;
   height: 100vh;
   width: 100vw;
-  background: center url("../images/background.png"),
-    linear-gradient(#77898e, #9a9d91, #1b2528);
+  /* background: center url("../images/background.png"),
+    linear-gradient(#77898e, #9a9d91, #1b2528); */
+  background: linear-gradient(
+    180deg,
+    #131317 -60.19%,
+    rgba(65, 66, 99, 0.09) 100%
+  );
+}
+
+.background {
+  z-index: -1;
 }
 
 .header {
   width: 100%;
-  height: 100px;
-  padding-inline: 10%;
 }
 
 .main {
@@ -25,10 +32,6 @@
 
 .footer {
   width: 100%;
-  height: 100px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .footer a {
