@@ -24,6 +24,7 @@
 .links {
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 
 .link {
@@ -41,6 +42,10 @@
   padding-bottom: 3px;
 }
 
+.icons {
+  display: grid;
+  place-items: center;
+}
 .searchIcon {
   display: block;
   cursor: pointer;

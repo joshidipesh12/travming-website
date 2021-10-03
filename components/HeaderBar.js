@@ -3,7 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import styles from "../styles/Header.module.css";
 
-const HeaderBar = ({}) => {
+const HeaderBar = ({ }) => {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
@@ -30,26 +30,28 @@ const HeaderBar = ({}) => {
         <h2 className={styles.link} onClick={() => alert("Coming Soon!")}>
           <Link href="#">Sign Up</Link>
         </h2>
-        {!isMobile ? (
-          <Image
-            src={require("../icons/search.png")}
-            // className={styles.searchIcon}
-            id="search-icon"
-            height={20}
-            width={20}
-            layout="fixed"
-            onClick={() =>
-              alert(`i: ${window.innerWidth}  o: ${window.outerWidth}`)
-            }
-          />
-        ) : (
-          <Image
-            src={require("../icons/menu.svg")}
-            // className={styles.menuIcon}
-            id="menu-icon"
-            onClick={() => alert("Hello!")}
-          />
-        )}
+        <div className={styles.icons}>
+          {!isMobile ? (
+            <Image
+              src={require("../icons/search.png")}
+              // className={styles.searchIcon}
+              id="search-icon"
+              height={20}
+              width={20}
+              layout="fixed"
+              onClick={() =>
+                alert(`i: ${window.innerWidth}  o: ${window.outerWidth}`)
+              }
+            />
+          ) : (
+            <Image
+              src={require("../icons/menu.svg")}
+              // className={styles.menuIcon}
+              id="menu-icon"
+              onClick={() => alert("Hello!")}
+            />
+          )}
+        </div>
       </div>
       <style jsx>
         {`
