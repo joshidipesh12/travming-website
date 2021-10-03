@@ -122,7 +122,7 @@ Distributed under the Apache License 2.0. See `LICENSE` for more information.
 ### Built With
 
 - [NextJs](https://nextjs.org/)
-- [Figma](https://www.figma.com/file/6C0ORLsqN8OpPJZv6FMsjh/TravMing-Website-Concept?node-id=0%3A1)
+- [Figma](https://www.figma.com/file/Np7FcjNaz3vbNldLmk6HL5/TravMing-Website-Concept?node-id=3%3A2)
 
 <!-- CONTACT -->
 
