@@ -1,5 +1,6 @@
 {
   "$schema": {},
+  "url": "https://source.unsplash.com/512x512/?city_name",
   "england": {
     "image": "https://source.unsplash.com/aLoN4KX1xSA/",
     "displayName": "England",
