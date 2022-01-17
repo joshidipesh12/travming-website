@@ -33,7 +33,6 @@ const HeaderBar = ({}) => {
         {!isMobile ? (
           <Image
             src={require("../icons/search.png")}
-            // className={styles.searchIcon}
             id="search-icon"
             height={20}
             width={20}
@@ -45,7 +44,6 @@ const HeaderBar = ({}) => {
         ) : (
           <Image
             src={require("../icons/menu.svg")}
-            // className={styles.menuIcon}
             id="menu-icon"
             onClick={() => alert("Hello!")}
           />

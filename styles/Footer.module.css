@@ -1,0 +1,50 @@
+.container {
+  display: flex;
+  flex: 1;
+  margin-inline: 10%;
+  padding-inline: 5px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(70px);
+  border-radius: 20px 20px 0px 0px;
+  transition: all 0.05s ease-out;
+  flex-direction: column;
+  padding-block: 1%;
+  padding-inline: 3%;
+}
+
+.container:focus,
+.container:hover {
+  display: block;
+}
+
+.title {
+  color: white;
+  font-family: "Noto Sans", sans-serif;
+  font-size: 15px;
+}
+
+.main {
+  display: flex;
+  flex: 1;
+  justify-content: space-between;
+}
+
+.button {
+  background-color: rgba(145, 203, 130, 1);
+  width: 240px;
+  height: 60px;
+  border-radius: 10px;
+  border: none;
+  transition: all 0.1s ease;
+}
+
+.button:hover {
+  background-color: rgba(121, 208, 99, 1);
+}
+
+@media (max-width: 750px) {
+  /* For Mobile Devices */
+  .container {
+    display: none;
+  }
+}

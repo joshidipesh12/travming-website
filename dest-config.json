@@ -1,7 +1,60 @@
 {
+  "$schema": {},
   "england": {
-    "eastbourn": "https://source.unsplash.com/jxgJUpL-SQg/",
-    "london": "https://source.unsplash.com/EXdXLrZXS9Q/",
-    "cambridge": "https://source.unsplash.com/--UPNZyCO94/"
+    "image": "https://source.unsplash.com/aLoN4KX1xSA/",
+    "displayName": "England",
+    "color": "#ffffff",
+    "provinces": {
+      "eastbourn": {
+        "image": "https://source.unsplash.com/jxgJUpL-SQg/",
+        "displayName": "Eastbourn"
+      },
+      "london": {
+        "image": "https://source.unsplash.com/EXdXLrZXS9Q/",
+        "displayName": "London"
+      },
+      "cambridge": {
+        "image": "https://source.unsplash.com/--UPNZyCO94/",
+        "displayName": "Cambridge"
+      }
+    }
+  },
+  "canada": {
+    "image": "https://source.unsplash.com/EIWCd0414xQ/",
+    "displayName": "Canada",
+    "color": "#ffffff",
+    "provinces": {
+      "toronto": {
+        "image": "https://source.unsplash.com/Onadzzr1yBU/",
+        "displayName": "Toronto"
+      },
+      "montreal": {
+        "image": "https://source.unsplash.com/mxH416bGjgg/",
+        "displayName": "Montreal"
+      },
+      "ottawa": {
+        "image": "https://source.unsplash.com/9DUcyYLbaD0/",
+        "displayName": "Ottawa"
+      }
+    }
+  },
+  "australia": {
+    "image": "https://source.unsplash.com/7Zb7kUyQg1E/",
+    "displayName": "Australia",
+    "color": "#ffffff",
+    "provinces": {
+      "sydney": {
+        "image": "https://source.unsplash.com/FUh6nK3s0po/",
+        "displayName": "Sydney"
+      },
+      "melbourne": {
+        "image": "https://source.unsplash.com/7isFaMweL60/",
+        "displayName": "Melbourne"
+      },
+      "adelaide": {
+        "image": "https://source.unsplash.com/_-6mVuLqN6c/",
+        "displayName": "Adelaide"
+      }
+    }
   }
 }

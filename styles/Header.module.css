@@ -41,33 +41,15 @@
   padding-bottom: 3px;
 }
 
-.searchIcon {
-  display: block;
-  cursor: pointer;
-}
-
-.menuIcon {
-  display: none;
-  cursor: pointer;
-}
-
 @media (max-width: 750px) {
   /* For Mobile Devices */
 
   .title {
     top: 8px;
-    left: 15px;
+    left: 12vw;
   }
 
   .link {
     display: none;
-  }
-
-  .searchIcon {
-    display: none;
-  }
-
-  .menuIcon {
-    display: block;
   }
 }

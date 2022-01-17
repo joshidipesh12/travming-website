@@ -19,3 +19,8 @@ a {
   -webkit-user-drag: none;
   box-sizing: border-box;
 }
+
+button {
+  outline: none;
+  border: none;
+}
