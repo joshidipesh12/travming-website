@@ -29,6 +29,10 @@
 .bottom {
 }
 
+.searchIcon {
+  cursor: pointer;
+}
+
 @media (max-width: 750px) {
   /* For Mobile Devices */
   .container {

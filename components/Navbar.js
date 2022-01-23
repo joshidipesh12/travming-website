@@ -23,9 +23,11 @@ function Navbar() {
           <Link href="/explore">Explore</Link>
         </div>
         <div className={styles.link}>
-          <a href="/">
-            <MdSearch size={20} />
-          </a>
+          <MdSearch
+            className={styles.searchIcon}
+            onClick={() => {}}
+            size={20}
+          />
         </div>
       </section>
     </header>
