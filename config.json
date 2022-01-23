@@ -1,6 +1,16 @@
 {
-    "acc_key": "",
-    "acc_host": "",
-    "city_key": "",
-    "city_host": ""
+  "url": "https://source.unsplash.com/512x512/?cityname",
+  "imgUrl": "https://source.unsplash.com/",
+  "countries": [
+    "France",
+    "United States",
+    "Italy",
+    "Australia",
+    "India",
+    "Turkey",
+    "Japan",
+    "Germany",
+    "Mexico",
+    "United Kingdom"
+  ]
 }

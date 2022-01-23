@@ -1,0 +1,37 @@
+.container {
+  height: 10vh;
+  display: flex;
+  flex: 1;
+  border-bottom: 1px solid #e7e7f2;
+  margin-inline: 10vw;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.name {
+  color: aliceblue;
+  font-family: 'Carter One', sans-serif;
+}
+
+.links {
+  display: flex;
+  flex-direction: row;
+}
+
+.link {
+  color: white;
+  margin-inline: 2vw;
+}
+
+.link:hover {
+}
+
+.bottom {
+}
+
+@media (max-width: 750px) {
+  /* For Mobile Devices */
+  .container {
+    margin-inline: 5vw;
+  }
+}

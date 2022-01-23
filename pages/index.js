@@ -1,136 +1,168 @@
-import Head from "next/head";
-import Image from "next/image";
-import styles from "../styles/Home.module.css";
-import { HeaderBar, FooterBar, Main } from "../components";
-import config from "../dest-config.json";
-import { useEffect, useState } from "react";
+import React, {useEffect, useRef, useState} from 'react';
+import {
+  RiHomeLine,
+  RiMapPinLine,
+  RiUserLine,
+  RiCalendarLine,
+} from 'react-icons/ri';
+import Head from 'next/head';
+import Image from 'next/image';
+import {Fade} from 'react-reveal';
+import {motion} from 'framer-motion';
+import {BiChevronDown} from 'react-icons/bi';
+import {useDispatch, useSelector} from 'react-redux';
+
+import Layout from '../components/Layout';
+import {getCities, getStates} from '../store/locations';
+import styles from '../styles/Home.module.css';
+import ScrollList from '../components/ScrollList';
+import useWindowDimensions from '../hooks/useWindowDimensions';
 
 export default function Home() {
-  const [country, setCountry_call] = useState("england");
-  const [province, setProvince] = useState("cambridge");
+  const titleRef = useRef(null);
+  const dispatch = useDispatch();
+  const {height, width} = useWindowDimensions();
+  const [titleVis, setTitleVisible] = useState(true);
+  const [date, setDate] = useState('19-06-2019');
+  const [guests, setGuests] = useState({a: 3, k: 0});
+  const [background, setBackground] = useState('/background.webp');
+  const [accomodation, setAccomodation] = useState(
+    '6730 Luna Land North Rhiannonmouth',
+  );
 
-  const setCountry = (newVal) => {
-    setProvince(Object.keys(config[newVal].provinces)[0]);
-    setCountry_call(newVal);
+  const country = useSelector(state => state.hotel.country);
+  const city = useSelector(state => state.hotel.city);
+
+  const toggleTitleVisibility = hide => {
+    if (hide) {
+      setTitleVisible(false);
+      titleRef.current.style.zIndex = -1;
+    } else {
+      titleRef.current.style.zIndex = 2;
+      setTitleVisible(true);
+    }
   };
 
   useEffect(() => {
-    // console.log(Object.keys(config[country].provinces)[0]);
+    // dispatch(getCities(country));
+    dispatch(getStates(country));
     return () => {};
   }, [country]);
 
-  const destProps = {
-    country,
-    setCountry,
-    province,
-    setProvince,
-  };
-
   return (
     <div className={styles.container}>
-      <header className={styles.header}>
-        <HeaderBar {...destProps} />
-      </header>
-
-      <div className={styles.background}>
-        <Image
-          src={`${config[country].image}1920x1080`}
-          blurDataURL={`${config[country].image}96x54`}
-          layout="fill"
-          objectFit="cover"
-          placeholder="blur"
-        />
-      </div>
-
-      <main className={styles.main}>
-        <Main {...destProps} />
-      </main>
-
-      <footer className={styles.footer}>
-        <FooterBar {...destProps} />
-      </footer>
-
       <Head>
-        <title>TravMing - Across the World, A Few Clicks Away!</title>
-        <meta
-          name="description"
-          content="TravMing - Across the World, Just a Few Clicks Away!"
-        />
-        <meta name="theme-color" content="#77898e" />
+        <title>TravMing - Round the World, Just A Few Clicks to Go ✈️</title>
+        <meta name="description" content="Round the World, Just A Few Clicks" />
         <link rel="icon" href="/favicon.ico" />
-        <link
-          rel="apple-touch-icon"
-          sizes="57x57"
-          href="/apple-icon-57x57.png"
-        />
-        <link
-          rel="apple-touch-icon"
-          sizes="60x60"
-          href="/apple-icon-60x60.png"
-        />
-        <link
-          rel="apple-touch-icon"
-          sizes="72x72"
-          href="/apple-icon-72x72.png"
-        />
-        <link
-          rel="apple-touch-icon"
-          sizes="76x76"
-          href="/apple-icon-76x76.png"
-        />
-        <link
-          rel="apple-touch-icon"
-          sizes="114x114"
-          href="/apple-icon-114x114.png"
-        />
-        <link
-          rel="apple-touch-icon"
-          sizes="120x120"
-          href="/apple-icon-120x120.png"
-        />
-        <link
-          rel="apple-touch-icon"
-          sizes="144x144"
-          href="/apple-icon-144x144.png"
-        />
-        <link
-          rel="apple-touch-icon"
-          sizes="152x152"
-          href="/apple-icon-152x152.png"
-        />
-        <link
-          rel="apple-touch-icon"
-          sizes="180x180"
-          href="/apple-icon-180x180.png"
-        />
-        <link
-          rel="icon"
-          type="image/png"
-          sizes="192x192"
-          href="/android-icon-192x192.png"
-        />
-        <link
-          rel="icon"
-          type="image/png"
-          sizes="32x32"
-          href="/favicon-32x32.png"
-        />
-        <link
-          rel="icon"
-          type="image/png"
-          sizes="96x96"
-          href="/favicon-96x96.png"
-        />
-        <link
-          rel="icon"
-          type="image/png"
-          sizes="16x16"
-          href="/favicon-16x16.png"
-        />
-        <link rel="manifest" href="/manifest.json" />
-        <meta name="msapplication-TileColor" content="#ffffff" />
-        <meta name="msapplication-TileImage" content="/ms-icon-144x144.png" />
       </Head>
+      <div>
+        <div className={styles.background}>
+          <div style={{position: 'relative', flex: 1}}>
+            <Image
+              priority={true}
+              layout="fill"
+              objectFit="cover"
+              alt="background image"
+              loading="eager"
+              src={background}
+            />
+          </div>
+        </div>
+        <div className={styles.background_cover} />
+        <Layout>
+          <ScrollList onScroll={toggleTitleVisibility} />
+          <div ref={titleRef} className={styles.titleText}>
+            <Fade left when={titleVis}>
+              <div className={styles.mainText}>
+                Beautiful Places of{' '}
+                <span className={styles.placeName}>{country}</span>
+              </div>
+              <div className={styles.subTitle}>
+                Plan your vacation on the most beatiful places.
+              </div>
+            </Fade>
+          </div>
+          <form className={styles.locOptions}>
+            <div className={styles.optionsTitle}>Plan Your Vacation</div>
+            <div className={styles.optionsMain}>
+              <div className={styles.menus} style={{borderWidth: '2px'}}>
+                <div className={styles.menu} style={{width: '35%'}}>
+                  <RiHomeLine size={20} color={iconColor} />
+                  <div style={{flex: 1, paddingInline: '10px'}}>
+                    <div className={styles.label}>Accomodation</div>
+                    <div className={styles.selection}>{accomodation}</div>
+                  </div>
+                  <BiChevronDown size={20} color={iconColor} />
+                </div>
+                <Divider />
+                <div className={styles.menu} style={{width: '25%'}}>
+                  <RiMapPinLine size={20} color={iconColor} />
+                  <div style={{flex: 1, paddingInline: '10px'}}>
+                    <div className={styles.label}>City</div>
+                    <div className={styles.selection}>{city}</div>
+                  </div>
+                  <BiChevronDown size={20} color={iconColor} />
+                </div>
+                <Divider />
+                <div className={styles.menu} style={{width: '20%'}}>
+                  <RiCalendarLine size={20} color={iconColor} />
+                  <div style={{flex: 1, paddingInline: '10px'}}>
+                    <div className={styles.label}>Date</div>
+                    <div className={styles.selection}>{date}</div>
+                  </div>
+                  <BiChevronDown size={20} color={iconColor} />
+                </div>
+                <Divider />
+                <div className={styles.menu} style={{width: '20%'}}>
+                  <RiUserLine size={20} color={iconColor} />
+                  <div style={{flex: 1, paddingInline: '10px'}}>
+                    <div className={styles.label}>Guests</div>
+                    <div className={styles.selection}>
+                      {guests.a > 0
+                        ? `${guests.a}${guests.k > 0 ? 'A' : ' Adults'} `
+                        : null}
+                      {guests.k > 0
+                        ? `${guests.k}${guests.a > 0 ? 'U' : ' Kids'}`
+                        : null}
+                    </div>
+                  </div>
+                  <BiChevronDown size={20} color={iconColor} />
+                </div>
+              </div>
+              <motion.button
+                whileTap={{scale: 0.9}}
+                className={styles.submit}
+                type="button"
+                onClick={() => {}}>
+                Search
+              </motion.button>
+            </div>
+          </form>
+        </Layout>
+      </div>
+      {/* <footer className={styles.footer}>
+        <a
+        href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
+        target="_blank"
+        rel="noopener noreferrer">
+        Powered by{' '}
+        <span className={styles.logo}>
+        <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
+        </span>
+        </a>
+      </footer> */}
     </div>
   );
 }
+
+const iconColor = 'rgba(231, 231, 242, 0.5)';
+
+const Divider = () => (
+  <div
+    style={{
+      backgroundColor: 'rgba(231, 231, 242, 0.3)',
+      height: '100%',
+      width: '2px',
+    }}></div>
+);
