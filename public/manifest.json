@@ -1,0 +1,39 @@
+{
+  "short_name": "TravMing",
+  "name": "TravMing - Round the World, Just A Few Clicks to Go ✈️",
+  "icons": [
+    {
+      "src": "/icon.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    },
+    {
+      "src": "/favicon.ico",
+      "type": "image/vnd",
+      "sizes": "32x32"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#7B8D91",
+  "display": "fullscreen",
+  "scope": "/",
+  "theme_color": "#86989A",
+  "shortcuts": [
+    {
+      "name": "Explore Nearby Places",
+      "short_name": "Explore",
+      "description": "Explore the top nearby places of your interest.",
+      "url": "/explore",
+      "icons": [{"src": "/favicon.ico", "sizes": "32x32"}]
+    },
+    {
+      "name": "Home",
+      "short_name": "Travming",
+      "description": "TravMing - Round the World, Just A Few Clicks to Go ✈️",
+      "url": "/",
+      "icons": [{"src": "/favicon.ico", "sizes": "32x32"}]
+    }
+  ],
+  "description": "Round the World, Just A Few Clicks to Go ✈️",
+  "screenshots": []
+}

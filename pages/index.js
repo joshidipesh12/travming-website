@@ -54,6 +54,9 @@ export default function Home() {
       <Head>
         <title>TravMing - Round the World, Just A Few Clicks to Go ✈️</title>
         <meta name="description" content="Round the World, Just A Few Clicks" />
+        <link rel="manifest" href="/manifest.json" />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div>
@@ -63,7 +66,7 @@ export default function Home() {
               priority={true}
               layout="fill"
               objectFit="cover"
-              alt="background image"
+              alt={`${country} Image`}
               loading="eager"
               src={background}
             />

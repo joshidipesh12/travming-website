@@ -104,6 +104,7 @@ const PlaceCard = ({item}) => {
           <Image
             layout="fill"
             objectFit="cover"
+            alt={`${item.name} Card`}
             onLoadingComplete={() => setLoading(false)}
             onError={() => setError(true)}
             src={`https://source.unsplash.com/${mainRef.current.clientWidth}x${mainRef.current.clientHeight}/?${item.name}`}
