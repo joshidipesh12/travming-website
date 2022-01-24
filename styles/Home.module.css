@@ -94,7 +94,7 @@
 
 .submit {
   background-color: rgb(145, 203, 130);
-  color: white;
+  color: rgb(0, 0, 0);
   width: 12%;
   border-radius: 10px;
   cursor: pointer;
@@ -104,6 +104,7 @@
 
 .submit:hover {
   background-color: rgb(102, 201, 77);
+  color: white;
 }
 
 .menus {
