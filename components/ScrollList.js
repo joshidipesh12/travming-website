@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import Image from 'next/image';
 import styles from '../styles/ScrollList.module.css';
 import useWindowDimensions from '../hooks/useWindowDimensions';
@@ -82,11 +82,23 @@ function ScrollList({onScroll}) {
 
 const PlaceCard = ({item}) => {
   const mainRef = useRef();
+  const [cardDims, setCardDims] = useState();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
 
+  useEffect(() => {
+    if (mainRef.current) {
+      setCardDims(
+        `${mainRef.current?.clientWidth}x${mainRef.current?.clientHeight}`,
+      );
+    }
+    return () => {};
+  }, [mainRef.current]);
+
   return (
     <motion.div
+      drag
+      dragConstraints={{left: 0, right: 0, top: 0, bottom: 0}}
       whileHover={{scale: 1.1}}
       whileTap={{scale: 0.9}}
       ref={mainRef}
@@ -107,7 +119,7 @@ const PlaceCard = ({item}) => {
             alt={`${item.name} Card`}
             onLoadingComplete={() => setLoading(false)}
             onError={() => setError(true)}
-            src={`https://source.unsplash.com/${mainRef.current.clientWidth}x${mainRef.current.clientHeight}/?${item.name}`}
+            src={`https://source.unsplash.com/${cardDims}/?${item.name}`}
           />
         ) : null}
         <div className={styles.placeName}>{item.name}</div>

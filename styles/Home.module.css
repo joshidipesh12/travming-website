@@ -46,12 +46,13 @@
 }
 
 .placeName {
-  transition: all 0.5s ease-out;
+  transition: all 0.2s ease-out;
 }
 
 .placeName:hover {
   cursor: pointer;
   color: rgb(255, 211, 155);
+  font-size: 4.2rem;
 }
 
 .subTitle {

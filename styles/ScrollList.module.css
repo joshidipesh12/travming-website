@@ -81,8 +81,8 @@
 
 .placeName {
   position: absolute;
-  bottom: 10%;
   left: 10%;
+  bottom: 10%;
   color: white;
   background-color: rgba(0, 0, 0, 0.3);
   backdrop-filter: blur(40px);

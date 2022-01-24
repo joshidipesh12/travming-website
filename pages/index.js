@@ -8,7 +8,7 @@ import {
 import Head from 'next/head';
 import Image from 'next/image';
 import {Fade} from 'react-reveal';
-import {motion} from 'framer-motion';
+import {AnimatePresence, motion} from 'framer-motion';
 import {BiChevronDown} from 'react-icons/bi';
 import {useDispatch, useSelector} from 'react-redux';
 
@@ -17,6 +17,7 @@ import {getCities, getStates} from '../store/locations';
 import styles from '../styles/Home.module.css';
 import ScrollList from '../components/ScrollList';
 import useWindowDimensions from '../hooks/useWindowDimensions';
+import Modal from '../components/Modal';
 
 export default function Home() {
   const titleRef = useRef(null);
@@ -29,6 +30,8 @@ export default function Home() {
   const [accomodation, setAccomodation] = useState(
     '6730 Luna Land North Rhiannonmouth',
   );
+
+  const [locModal, setLocModal] = useState(false);
 
   const country = useSelector(state => state.hotel.country);
   const city = useSelector(state => state.hotel.city);
@@ -56,7 +59,7 @@ export default function Home() {
         <meta name="description" content="Round the World, Just A Few Clicks" />
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta name="theme-color" content='#86989A'/>
+        <meta name="theme-color" content="#86989A" />
         <link rel="manifest" href="/manifest.json"></link>
         <link rel="icon" href="/favicon.ico" />
       </Head>
@@ -74,13 +77,26 @@ export default function Home() {
           </div>
         </div>
         <div className={styles.background_cover} />
+        <AnimatePresence initial={false} exitBeforeEnter={true}>
+          {locModal ? (
+            <Modal isVisible={locModal} close={() => setLocModal(false)}>
+              <div style={{textAlign: 'center', width: '100%'}}>
+                Under Construction
+              </div>
+            </Modal>
+          ) : null}
+        </AnimatePresence>
         <Layout>
           <ScrollList onScroll={toggleTitleVisibility} />
           <div ref={titleRef} className={styles.titleText}>
             <Fade left when={titleVis}>
               <div className={styles.mainText}>
                 Beautiful Places of{' '}
-                <span className={styles.placeName}>{country}</span>
+                <span
+                  onClick={() => setLocModal(true)}
+                  className={styles.placeName}>
+                  {country}
+                </span>
               </div>
               <div className={styles.subTitle}>
                 Plan your vacation on the most beatiful places.
