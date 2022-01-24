@@ -54,9 +54,10 @@ export default function Home() {
       <Head>
         <title>TravMing - Round the World, Just A Few Clicks to Go ✈️</title>
         <meta name="description" content="Round the World, Just A Few Clicks" />
-        <link rel="manifest" href="/manifest.json" />
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="theme-color" content='#86989A'/>
+        <link rel="manifest" href="/manifest.json"></link>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div>

@@ -10,7 +10,7 @@
     {
       "src": "/favicon.ico",
       "type": "image/vnd",
-      "sizes": "32x32"
+      "sizes": "256x256"
     }
   ],
   "start_url": "/",
@@ -24,14 +24,14 @@
       "short_name": "Explore",
       "description": "Explore the top nearby places of your interest.",
       "url": "/explore",
-      "icons": [{"src": "/favicon.ico", "sizes": "32x32"}]
+      "icons": [{"src": "/favicon.ico", "sizes": "256x256"}]
     },
     {
       "name": "Home",
       "short_name": "Travming",
       "description": "TravMing - Round the World, Just A Few Clicks to Go ✈️",
       "url": "/",
-      "icons": [{"src": "/favicon.ico", "sizes": "32x32"}]
+      "icons": [{"src": "/favicon.ico", "sizes": "256x256"}]
     }
   ],
   "description": "Round the World, Just A Few Clicks to Go ✈️",
