@@ -181,10 +181,11 @@
     color: rgb(255, 211, 155);
   }
 
-  .placeName:hover {
-    cursor: pointer;
-    font-size: 4.2rem;
+  .placeName:active {
+    font-size: 14vw;
+    color: rgb(216, 255, 124);
   }
+
   .subTitle {
     display: none;
   }
