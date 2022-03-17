@@ -117,6 +117,9 @@ export default function LocSelector({locModal, setLocModal}) {
               .container {
                 width: 80vw;
               }
+              h2{
+                font-size: 3vw;
+              }
             }
           `}</style>
         </Modal>
