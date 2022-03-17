@@ -19,6 +19,9 @@ const slice = createSlice({
     statesSuccess: (state, action) => {
       if (action.payload.response) {
         state.states = action.payload.response.data.states;
+        let arr = state.states;
+        shuffleArray(arr);
+        state.states = arr;
       }
       state.loading = false;
     },
@@ -57,7 +60,6 @@ export default slice.reducer;
 // Action Creators
 
 export const getStates = country => async dispatch => {
-  console.log({country});
   return dispatch(
     apiCallRequested({
       url: `https://countriesnow.space/api/v0.1/countries/states`,
@@ -84,3 +86,13 @@ export const getCities = (country, state) => async dispatch => {
     }),
   );
 };
+
+/* Randomize array in-place using Durstenfeld shuffle algorithm */
+function shuffleArray(array) {
+  for (var i = array.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var temp = array[i];
+    array[i] = array[j];
+    array[j] = temp;
+  }
+}
