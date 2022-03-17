@@ -1,6 +1,5 @@
 import {motion} from 'framer-motion';
 import React from 'react';
-import styles from '../styles/Modal.module.css';
 
 const dropIn = {
   hidden: {
@@ -14,31 +13,52 @@ const dropIn = {
     y: 0,
   },
   exit: {
-    scale: 0,
+    scale: 1,
     opacity: 0,
-    y: '30vh',
+    y: 0,
   },
 };
 
-function Modal({close, isVisible, children}) {
+function Modal({close, children}) {
   return (
     <motion.div
       initial={{opacity: 0}}
       animate={{opacity: 1}}
       exit={{opacity: 0}}
       onClick={close}
-      className={styles.backdrop}>
+      style={styles.backdrop}>
       <motion.div
         onClick={e => e.stopPropagation()}
         variants={dropIn}
         initial="hidden"
         animate="visible"
         exit="exit"
-        className={styles.container}>
+        style={styles.container}>
         {children}
       </motion.div>
     </motion.div>
   );
 }
+
+const styles = {
+  backdrop: {
+    display: 'flex',
+    zIndex: 3,
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    height: '100%',
+    width: '100%',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  container: {
+    margin: '0px',
+    padding: '0em',
+    display: 'flex',
+    alignItems: 'center',
+  },
+};
 
 export default Modal;

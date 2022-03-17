@@ -1,12 +1,18 @@
-@import url("https://fonts.googleapis.com/css2?family=Carter+One&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Carter+One&display=swap');
 
 html,
 body {
   padding: 0;
   margin: 0;
-  font-family: "Noto Sans", -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
+    Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
+  overflow: hidden;
+}
+
+html {
+  height: -webkit-fill-available;
 }
 
 a {

@@ -17,6 +17,8 @@
   height: 100vh;
   width: 100vw;
   display: flex;
+  background-color: #2f2f2f;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='124' height='124' viewBox='0 0 200 200'%3E%3Cdefs%3E%3ClinearGradient id='a' gradientUnits='userSpaceOnUse' x1='100' y1='33' x2='100' y2='-3'%3E%3Cstop offset='0' stop-color='%23000' stop-opacity='0'/%3E%3Cstop offset='1' stop-color='%23000' stop-opacity='1'/%3E%3C/linearGradient%3E%3ClinearGradient id='b' gradientUnits='userSpaceOnUse' x1='100' y1='135' x2='100' y2='97'%3E%3Cstop offset='0' stop-color='%23000' stop-opacity='0'/%3E%3Cstop offset='1' stop-color='%23000' stop-opacity='1'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cg fill='%23292929' fill-opacity='0.32'%3E%3Crect x='100' width='100' height='100'/%3E%3Crect y='100' width='100' height='100'/%3E%3C/g%3E%3Cg fill-opacity='0.32'%3E%3Cpolygon fill='url(%23a)' points='100 30 0 0 200 0'/%3E%3Cpolygon fill='url(%23b)' points='100 100 0 130 0 100 200 100 200 130'/%3E%3C/g%3E%3C/svg%3E");
 }
 
 .background_cover {
@@ -31,28 +33,33 @@
     rgba(19, 19, 23, 0.357) 100%
   );
 }
+
 .titleText {
   position: absolute;
   top: 25vh;
   left: 10vw;
-  width: 39vw;
+  width: 40vw;
 }
 
 .mainText {
   color: white;
   font-family: 'Carter One', sans-serif;
-  font-size: 4em;
+  font-size: 3.9em;
   line-height: 130%;
 }
 
 .placeName {
-  transition: all 0.2s ease-out;
+  transition: all 0.1s ease-out;
+  text-transform: uppercase;
+  line-height: 50px;
+  color: rgb(233, 255, 155);
 }
 
-.placeName:hover {
+.placeName:hover,
+.placeName:focus {
   cursor: pointer;
-  color: rgb(255, 211, 155);
-  font-size: 4.2rem;
+  font-size: 4.1rem;
+  color: rgb(216, 255, 124);
 }
 
 .subTitle {
@@ -94,18 +101,22 @@
 }
 
 .submit {
-  background-color: rgb(145, 203, 130);
-  color: rgb(0, 0, 0);
+  background-color: rgb(77, 201, 102);
+  color: white;
   width: 12%;
   border-radius: 10px;
   cursor: pointer;
   transition: all 0.2s ease;
   margin-left: 20px;
+  font-weight: bold;
+  font-size: medium;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande',
+    'Lucida Sans', Arial, sans-serif;
 }
 
 .submit:hover {
-  background-color: rgb(102, 201, 77);
-  color: white;
+  background-color: rgb(255, 255, 255);
+  color: grey;
 }
 
 .menus {
@@ -151,4 +162,43 @@
 
 @media (max-width: 750px) {
   /* For Mobile Devices */
+  .titleText {
+    top: 15vh;
+    align-self: center;
+    width: 80vw;
+    text-align: center;
+  }
+
+  .mainText {
+    color: white;
+    font-family: 'Carter One', sans-serif;
+    font-size: 4em;
+    line-height: 130%;
+  }
+
+  .placeName {
+    transition: all 0.2s ease-out;
+    color: rgb(255, 211, 155);
+  }
+
+  .placeName:hover {
+    cursor: pointer;
+    font-size: 4.2rem;
+  }
+  .subTitle {
+    display: none;
+  }
+
+  .mobLocOptions {
+    position: absolute;
+    bottom: 2vh;
+    margin-inline: 5vw;
+    width: 90vw;
+    height: 6vh;
+    border-radius: 10px;
+    color: aliceblue;
+    background-color: rgba(19, 19, 23, 0.186);
+    backdrop-filter: blur(40px);
+    font-size: larger;
+  }
 }

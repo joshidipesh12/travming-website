@@ -1,7 +1,6 @@
 .container {
   width: 80vw;
   height: 45vh;
-  /* background-color: wheat; */
   position: absolute;
   right: 10vw;
   top: 22vh;
@@ -63,11 +62,8 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
-}
-
-.listItem:hover {
-  /* transform: scale(1.05); */
-  box-shadow: 0px 0px 10px grey;
+  opacity: 0;
+  transform: translateY(30px);
 }
 
 .cardImg {
@@ -76,18 +72,85 @@
   width: 100%;
   border-radius: 16px;
   overflow: hidden;
-  cursor: pointer;
+}
+
+.place {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.83));
+  padding-inline-start: 10%;
+  padding-top: 15%;
+  padding-bottom: 5%;
+  display: flex;
+  flex-direction: column;
 }
 
 .placeName {
-  position: absolute;
-  left: 10%;
-  bottom: 10%;
-  color: white;
-  background-color: rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(40px);
-  padding-inline: 5%;
-  border-radius: 100px;
-  /* -webkit-font-smoothing: subpixel-antialiased; */
-  backface-visibility: hidden;
+  font-weight: bold;
+  color: aliceblue;
+  font-size: large;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.option {
+  padding-inline: 15px;
+  padding-block: 5px;
+  border-radius: 5px;
+  margin-right: 5px;
+  margin-block: 10px;
+  font-size: smaller;
+  cursor: pointer;
+  color: azure;
+  text-transform: uppercase;
+}
+
+@media (max-width: 750px) {
+  /* For Mobile Devices */
+  .container {
+    width: 100vw;
+    height: 78vh;
+    left: 0vw;
+    top: 12vh;
+  }
+
+  .rightIcon {
+    display: none;
+  }
+
+  .list {
+    overflow: auto;
+    mask-image: linear-gradient(
+      0deg,
+      transparent 1%,
+      black 10%,
+      black 90%,
+      transparent 99%
+    );
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+    align-items: center;
+  }
+
+  .list:first-child {
+    padding-top: 30vh;
+  }
+
+  .list:last-child {
+    padding-bottom: 5vh;
+  }
+
+  .listItem {
+    display: flex;
+    width: 80vw;
+    height: 25vh;
+    margin-inline: 10vw;
+    margin-block: 5%;
+    box-shadow: none;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transform: translateY(30px);
+  }
 }

@@ -2,6 +2,7 @@ import React, {useEffect, useRef, useState} from 'react';
 import Image from 'next/image';
 import styles from '../styles/ScrollList.module.css';
 import useWindowDimensions from '../hooks/useWindowDimensions';
+import useIsMobile from '../hooks/useIsMobile';
 import {Bounce, Sentry} from 'react-activity';
 import 'react-activity/dist/Bounce.css';
 import {motion} from 'framer-motion';
@@ -10,11 +11,13 @@ import {
   HiOutlineArrowNarrowLeft,
 } from 'react-icons/hi';
 import {useSelector} from 'react-redux';
+import {Fade} from 'react-reveal';
 
 function ScrollList({onScroll}) {
   const scrollViewRef = useRef();
   const leftButtonRef = useRef();
   const rightButtonRef = useRef();
+  const isMobile = useIsMobile();
   const {width, height} = useWindowDimensions();
   const states = useSelector(state => state.location.states);
 
@@ -33,7 +36,11 @@ function ScrollList({onScroll}) {
     <div className={styles.container}>
       <div
         onScroll={() => {
-          onScroll(width / 10 < scrollViewRef.current.scrollLeft);
+          onScroll(
+            isMobile
+              ? height / 15 < scrollViewRef.current.scrollTop
+              : width / 15 < scrollViewRef.current.scrollLeft,
+          );
           showLeftButton();
           hideRightButton();
         }}
@@ -41,7 +48,7 @@ function ScrollList({onScroll}) {
         className={styles.list}>
         <div style={{width: '40vw', display: 'inline-flex'}}></div>
         {states.length ? (
-          states.map((i, _) => <PlaceCard item={i} key={_} />)
+          states.slice(0, 10).map((i, _) => <PlaceCard item={i} key={_} />)
         ) : (
           <Sentry size={30} color="white" />
         )}
@@ -82,9 +89,11 @@ function ScrollList({onScroll}) {
 
 const PlaceCard = ({item}) => {
   const mainRef = useRef();
+  const isMobile = useIsMobile();
   const [cardDims, setCardDims] = useState();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
+  const [hover, setHover] = useState(false);
 
   useEffect(() => {
     if (mainRef.current) {
@@ -97,11 +106,10 @@ const PlaceCard = ({item}) => {
 
   return (
     <motion.div
-      drag
-      dragConstraints={{left: 0, right: 0, top: 0, bottom: 0}}
-      whileHover={{scale: 1.1}}
-      whileTap={{scale: 0.9}}
       ref={mainRef}
+      onHoverStart={() => setHover(true)}
+      onHoverEnd={() => setHover(false)}
+      animate={{opacity: 1, translateY: 0}}
       style={{display: error ? 'none' : ''}}
       className={styles.listItem}>
       <div className={styles.cardImg}>
@@ -122,7 +130,22 @@ const PlaceCard = ({item}) => {
             src={`https://source.unsplash.com/${cardDims}/?${item.name}`}
           />
         ) : null}
-        <div className={styles.placeName}>{item.name}</div>
+        <div className={styles.place}>
+          <div className={styles.placeName}>
+            {item.name}
+            {'\n'}
+          </div>
+          <Fade duration={500} when={isMobile || hover} collapse right cascade>
+            <div style={{display: 'flex'}}>
+              <div
+                className={styles.option}
+                style={{backgroundColor: 'Highlight'}}>
+                Select
+              </div>
+              <div className={styles.option}>Explore</div>
+            </div>
+          </Fade>
+        </div>
       </div>
     </motion.div>
   );
