@@ -115,7 +115,7 @@ export default function LocSelector({locModal, setLocModal}) {
 
             @media (max-width: 750px) {
               .container {
-                width: 80vw;
+                width: 90vw;
               }
               h2{
                 font-size: 3vw;
