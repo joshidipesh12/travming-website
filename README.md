@@ -7,7 +7,7 @@
 <br />
 <p align="center">
   <a href="https://github.com/joshidipesh12/travming-website">
-    <img src="images/logo.png" alt="Logo" height="80">
+    <img src="./public/icons/logo.png" alt="Logo" height="80">
   </a>
 
   <h3 style="margin-top: -1em;" align="center">TravMing-Website</h3>
@@ -26,7 +26,7 @@
   </p>
 </p>
 
-<img alt="Design Target" src="images/desktop.png"/>
+<img alt="Design Target" src="./public/desktop_ss.png"/>
 
 <!-- TABLE OF CONTENTS -->
 <details open="open">
