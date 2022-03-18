@@ -40,44 +40,46 @@ export default function Home() {
   }, [country]);
 
   return (
-    <div className={styles.container}>
-      <div className={styles.background}>
-        <motion.div
-          animate={bgOpacity}
-          style={{position: 'relative', flex: 1, opacity: 0}}>
-          <Image
-            priority={true}
-            layout="fill"
-            objectFit="cover"
-            alt={`${country} Image`}
-            loading="eager"
-            src={background}
-            onLoadingComplete={() => bgOpacity.start({opacity: 1})}
-          />
-        </motion.div>
-      </div>
-      <div className={styles.background_cover} />
-      <LocSelector locModal={locModal} setLocModal={setLocModal} />
-      <Layout>
-        <ScrollList onScroll={toggleTitleVisibility} />
-        <div ref={titleRef} className={styles.titleText}>
-          <Fade duration={400} appear when={titleVis}>
-            <div className={styles.mainText}>
-              Beautiful Places of{' '}
-              <span
-                onClick={() => setLocModal(true)}
-                className={styles.placeName}>
-                {country}
-              </span>
-            </div>
-            <div className={styles.subTitle}>
-              Plan your vacation on the most beatiful places.
-            </div>
-          </Fade>
+    <html lang="en">
+      <div className={styles.container}>
+        <div className={styles.background}>
+          <motion.div
+            animate={bgOpacity}
+            style={{position: 'relative', flex: 1, opacity: 0}}>
+            <Image
+              priority={true}
+              layout="fill"
+              objectFit="cover"
+              alt={`${country} Image`}
+              loading="eager"
+              src={background}
+              onLoadingComplete={() => bgOpacity.start({opacity: 1})}
+            />
+          </motion.div>
         </div>
-        <BottomMenu />
-      </Layout>
-    </div>
+        <div className={styles.background_cover} />
+        <LocSelector locModal={locModal} setLocModal={setLocModal} />
+        <Layout>
+          <ScrollList onScroll={toggleTitleVisibility} />
+          <div ref={titleRef} className={styles.titleText}>
+            <Fade duration={400} appear when={titleVis}>
+              <div className={styles.mainText}>
+                Beautiful Places of{' '}
+                <span
+                  onClick={() => setLocModal(true)}
+                  className={styles.placeName}>
+                  {country}
+                </span>
+              </div>
+              <div className={styles.subTitle}>
+                Plan your vacation on the most beatiful places.
+              </div>
+            </Fade>
+          </div>
+          <BottomMenu />
+        </Layout>
+      </div>
+    </html>
   );
 }
 

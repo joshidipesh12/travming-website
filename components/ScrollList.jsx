@@ -139,7 +139,7 @@ const PlaceCard = ({item}) => {
             <div style={{display: 'flex'}}>
               <div
                 className={styles.option}
-                style={{backgroundColor: 'Highlight'}}>
+                style={{backgroundColor: '#0a66c2'}}>
                 Select
               </div>
               <div className={styles.option}>Explore</div>
