@@ -3,15 +3,15 @@ import Image from 'next/image';
 import styles from '../styles/ScrollList.module.css';
 import useWindowDimensions from '../hooks/useWindowDimensions';
 import useIsMobile from '../hooks/useIsMobile';
-import {Bounce, Sentry} from 'react-activity';
-import 'react-activity/dist/Bounce.css';
-import {motion} from 'framer-motion';
 import {
   HiOutlineArrowNarrowRight,
   HiOutlineArrowNarrowLeft,
 } from 'react-icons/hi';
+import Fade from 'react-reveal/Fade';
+import {motion} from 'framer-motion';
 import {useSelector} from 'react-redux';
-import {Fade} from 'react-reveal';
+import {Bounce, Sentry} from 'react-activity';
+import 'react-activity/dist/Bounce.css';
 
 function ScrollList({onScroll}) {
   const scrollViewRef = useRef();
@@ -38,8 +38,8 @@ function ScrollList({onScroll}) {
         onScroll={() => {
           onScroll(
             isMobile
-              ? height / 15 < scrollViewRef.current.scrollTop
-              : width / 15 < scrollViewRef.current.scrollLeft,
+              ? height / 10 > scrollViewRef.current.scrollTop
+              : width / 10 > scrollViewRef.current.scrollLeft,
           );
           showLeftButton();
           hideRightButton();
@@ -83,6 +83,13 @@ function ScrollList({onScroll}) {
           className={styles.leftIcon}
         />
       </div>
+      {/* <style jsx>{`
+        @media (max-width: 750px) {
+          ${styles.list}:first-child {
+            padding-top: ${mobTopOffset}px;
+          }
+        }
+      `}</style> */}
     </div>
   );
 }
@@ -115,8 +122,8 @@ const PlaceCard = ({item}) => {
       <div className={styles.cardImg}>
         {loading ? (
           <Bounce
-            style={{position: 'absolute', top: '50%', left: '40%'}}
-            size={30}
+            style={{position: 'absolute', top: '40%', left: '45%'}}
+            size={25}
             color="white"
           />
         ) : null}

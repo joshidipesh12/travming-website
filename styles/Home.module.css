@@ -44,7 +44,7 @@
 .mainText {
   color: white;
   font-family: 'Carter One', sans-serif;
-  font-size: 3.9em;
+  font-size: 3rem;
   line-height: 130%;
 }
 
@@ -53,6 +53,8 @@
   text-transform: uppercase;
   line-height: 50px;
   color: rgb(233, 255, 155);
+  display: inline;
+  white-space:nowrap;
 }
 
 .placeName:hover,

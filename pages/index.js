@@ -1,6 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react';
 import Image from 'next/image';
 import Fade from 'react-reveal/Fade';
+import Shake from 'react-reveal/Shake';
 import {motion, useAnimation} from 'framer-motion';
 import {useDispatch, useSelector} from 'react-redux';
 
@@ -13,7 +14,7 @@ import LocSelector from '../components/LocSelector';
 import Layout from '../components/Layout';
 
 export default function Home() {
-  const titleRef = useRef(null);
+  const titleRef = useRef();
   const bgOpacity = useAnimation();
   const dispatch = useDispatch();
   const isMobile = useIsMobile();
@@ -22,16 +23,6 @@ export default function Home() {
   const [background, setBackground] = useState('/background1.png');
 
   const country = useSelector(state => state.hotel.country);
-
-  const toggleTitleVisibility = hide => {
-    if (hide) {
-      setTitleVisible(false);
-      titleRef.current.style.zIndex = -1;
-    } else {
-      titleRef.current.style.zIndex = 2;
-      setTitleVisible(true);
-    }
-  };
 
   useEffect(() => {
     // dispatch(getCities(country));
@@ -59,15 +50,21 @@ export default function Home() {
       <div className={styles.background_cover} />
       <LocSelector locModal={locModal} setLocModal={setLocModal} />
       <Layout>
-        <ScrollList onScroll={toggleTitleVisibility} />
+        <ScrollList
+          titleCurr={
+            (titleRef.current?.clientHeight ?? 0) +
+            (titleRef.current?.offsetTop ?? 0)
+          }
+          onScroll={setTitleVisible}
+        />
         <div ref={titleRef} className={styles.titleText}>
-          <Fade duration={400} appear when={titleVis}>
+          <Fade collapse duration={400} appear when={titleVis}>
             <div className={styles.mainText}>
               Beautiful Places of{' '}
               <span
                 onClick={() => setLocModal(true)}
                 className={styles.placeName}>
-                {country}
+                <Shake delay={2000}>{country}</Shake>
               </span>
             </div>
             <div className={styles.subTitle}>
