@@ -8,12 +8,13 @@ import {
 import {BiChevronDown} from 'react-icons/bi';
 import styles from '../styles/Home.module.css';
 import {useSelector} from 'react-redux';
-import {motion} from 'framer-motion';
+import {AnimatePresence, motion} from 'framer-motion';
 import useIsMobile from '../hooks/useIsMobile';
+import Modal from './Modal';
 
 const BottomMenu = ({}) => {
   const isMobile = useIsMobile();
-
+  const [tripModal, setTripModal] = useState(false);
   const [date, setDate] = useState('19-06-2019');
   const [guests, setGuests] = useState({a: 3, k: 0});
   const [accomodation, setAccomodation] = useState(
@@ -23,9 +24,18 @@ const BottomMenu = ({}) => {
   const city = useSelector(state => state.hotel.city);
 
   return isMobile ? (
-    <motion.button className={styles.mobLocOptions}>
-      Setup Your Holiday
-    </motion.button>
+    <>
+      <motion.button className={styles.mobLocOptions}>
+        Setup Your Holiday
+      </motion.button>
+      {tripModal ? (
+        <AnimatePresence initial={false} exitBeforeEnter={true}>
+          <Modal close={() => setTripModal(false)}>
+            <div className="container" style={styles.modalContainer}></div>
+          </Modal>
+        </AnimatePresence>
+      ) : null}
+    </>
   ) : (
     <form className={styles.locOptions}>
       <div className={styles.optionsTitle}>Plan Your Vacation</div>

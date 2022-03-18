@@ -13,7 +13,8 @@ function Layout({children}) {
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="theme-color" content="#86989A" />
         <link rel="manifest" href="/manifest.json"></link>
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="apple-touch-icon" href="/icons/icon.png" />
+        <link rel="icon" href="/icons/favicon.ico" />
       </Head>
       <Navbar />
       <main className={styles.main}>{children}</main>

@@ -181,7 +181,8 @@
     color: rgb(255, 211, 155);
   }
 
-  .placeName:active {
+  .placeName:active,
+  .placeName:hover {
     font-size: 14vw;
     color: rgb(216, 255, 124);
   }
@@ -192,14 +193,19 @@
 
   .mobLocOptions {
     position: absolute;
-    bottom: 2vh;
-    margin-inline: 5vw;
-    width: 90vw;
-    height: 6vh;
-    border-radius: 10px;
+    bottom: 0;
+    width: 100vw;
+    height: 10vh;
     color: aliceblue;
-    background-color: rgba(19, 19, 23, 0.186);
+    background-color: rgba(19, 19, 23, 0.693);
     backdrop-filter: blur(40px);
     font-size: larger;
+  }
+
+  .modalContainer {
+    display: none;
+    background-color: #ffffff29;
+    backdrop-filter: blur(20px);
+    border-radius: 10px;
   }
 }
