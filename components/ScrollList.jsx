@@ -7,11 +7,13 @@ import {
   HiOutlineArrowNarrowRight,
   HiOutlineArrowNarrowLeft,
 } from 'react-icons/hi';
+import {MdExplore, MdOutlineArrowRightAlt} from 'react-icons/md';
 import Fade from 'react-reveal/Fade';
 import {motion} from 'framer-motion';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {Bounce, Sentry} from 'react-activity';
 import 'react-activity/dist/Bounce.css';
+import {setState} from '../store/hotels';
 
 function ScrollList({onScroll}) {
   const scrollViewRef = useRef();
@@ -97,6 +99,7 @@ function ScrollList({onScroll}) {
 const PlaceCard = ({item}) => {
   const mainRef = useRef();
   const isMobile = useIsMobile();
+  const dispatch = useDispatch();
   const [cardDims, setCardDims] = useState();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
@@ -140,16 +143,26 @@ const PlaceCard = ({item}) => {
         <div className={styles.place}>
           <div className={styles.placeName}>
             {item.name}
-            {'\n'}
+            {isMobile ? null : '\n'}
           </div>
           <Fade duration={500} when={isMobile || hover} collapse right cascade>
             <div style={{display: 'flex'}}>
-              <div
+              <button
+                onClick={() => dispatch(setState(item.name))}
                 className={styles.option}
                 style={{backgroundColor: '#0a66c2'}}>
-                Select
-              </div>
-              <div className={styles.option}>Explore</div>
+                {isMobile ? <MdExplore /> : 'Select'}
+              </button>
+              <button
+                onClick={() => {}}
+                className={styles.option}
+                style={{backgroundColor: isMobile ? 'white' : 'black'}}>
+                {isMobile ? (
+                  <MdOutlineArrowRightAlt color="black" />
+                ) : (
+                  'Explore'
+                )}
+              </button>
             </div>
           </Fade>
         </div>
