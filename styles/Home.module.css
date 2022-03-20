@@ -200,8 +200,8 @@
     height: 7vh;
     border-radius: 10px;
     border: 5px solid rgb(77, 201, 102);
-    color: rgb(77, 201, 102);
-    background-color: aliceblue;
+    background-color: rgb(77, 201, 102);
+    color: aliceblue;
     font-size: larger;
     font-weight: bolder;
     transition: all 0.3s ease;
@@ -210,8 +210,6 @@
   }
 
   .mobLocOptions:focus {
-    border-color: aliceblue;
-    color: aliceblue;
     background-color: rgb(64, 190, 131);
   }
 
