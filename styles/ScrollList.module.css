@@ -48,6 +48,10 @@
   display: none;
 }
 
+.listItem:last-child {
+  margin-right: 3rem;
+}
+
 .listItem {
   display: inline-flex;
   background-color: rgba(255, 255, 255, 0.15);
@@ -133,10 +137,6 @@
     border-bottom-left-radius: 30px;
     border-bottom-right-radius: 30px;
     align-items: center;
-  }
-
-  .list:first-child {
-    padding-top: 30vh;
   }
 
   .listItem:last-child {

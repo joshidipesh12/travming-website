@@ -7,7 +7,7 @@ import {
   HiOutlineArrowNarrowRight,
   HiOutlineArrowNarrowLeft,
 } from 'react-icons/hi';
-import {MdExplore, MdOutlineArrowRightAlt} from 'react-icons/md';
+import {MdExplore, MdOutlineArrowRightAlt, MdCheck} from 'react-icons/md';
 import Fade from 'react-reveal/Fade';
 import {motion} from 'framer-motion';
 import {useDispatch, useSelector} from 'react-redux';
@@ -48,7 +48,11 @@ function ScrollList({onScroll}) {
         }}
         ref={scrollViewRef}
         className={styles.list}>
-        <div style={{width: '40vw', display: 'inline-flex'}}></div>
+        {isMobile ? (
+          <div style={{height: '30vh', display: 'flex'}}></div>
+        ) : (
+          <div style={{width: '40vw', display: 'inline-flex'}}></div>
+        )}
         {states.length ? (
           states.slice(0, 10).map((i, _) => <PlaceCard item={i} key={_} />)
         ) : (
@@ -104,6 +108,8 @@ const PlaceCard = ({item}) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [hover, setHover] = useState(false);
+  const hotel = useSelector(s => s.hotel);
+  const isSelected = hotel.state === item.name;
 
   useEffect(() => {
     if (mainRef.current) {
@@ -150,8 +156,18 @@ const PlaceCard = ({item}) => {
               <button
                 onClick={() => dispatch(setState(item.name))}
                 className={styles.option}
-                style={{backgroundColor: '#0a66c2'}}>
-                {isMobile ? <MdExplore /> : 'Select'}
+                style={{backgroundColor: isSelected ? '#40be83' : '#0a66c2'}}>
+                {isSelected ? (
+                  isMobile ? (
+                    <MdCheck />
+                  ) : (
+                    'Active'
+                  )
+                ) : isMobile ? (
+                  <MdExplore />
+                ) : (
+                  'Select'
+                )}
               </button>
               <button
                 onClick={() => {}}

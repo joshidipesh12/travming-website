@@ -28,7 +28,7 @@ export default function Home() {
     // dispatch(getCities(country));
     dispatch(getStates(country));
     return () => {};
-  }, [country]);
+  }, [country?.length]);
 
   return (
     <div className={styles.container}>
