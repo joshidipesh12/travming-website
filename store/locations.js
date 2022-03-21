@@ -13,6 +13,7 @@ const slice = createSlice({
   reducers: {
     statesRequested: (state, action) => {
       state.cities = [];
+      state.states = [];
       state.statesError = false;
       state.loading = true;
     },
