@@ -56,7 +56,7 @@ function ScrollList({onScroll}) {
         {states.length ? (
           states.slice(0, 10).map((i, _) => <PlaceCard item={i} key={_} />)
         ) : (
-          <Sentry size={30} color="white" />
+          <PlaceCardLoading />
         )}
       </div>
       {states.length > 2 ? (
@@ -185,6 +185,14 @@ const PlaceCard = ({item}) => {
       </div>
     </motion.div>
   );
+};
+
+const PlaceCardLoading = () => {
+  return [1, 2, 3, 4, 5].map(() => (
+    <div
+      style={{opacity: 1}}
+      className={`${styles.listItem} ${styles.loadCard}`}></div>
+  ));
 };
 
 export default ScrollList;
