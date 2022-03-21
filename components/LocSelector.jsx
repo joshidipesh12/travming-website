@@ -117,7 +117,7 @@ export default function LocSelector({locModal, setLocModal}) {
               .container {
                 width: 90vw;
               }
-              h2{
+              h2 {
                 font-size: 3vw;
               }
             }
@@ -130,9 +130,9 @@ export default function LocSelector({locModal, setLocModal}) {
 
 const styles = {
   container: {
-    backgroundColor: '#ffffff29',
-    backdropFilter: 'blur(20px)',
-    borderRadius: 10,
+    backgroundColor: 'rgb(100, 100, 100)',
+    // backdropFilter: 'blur(20px)',
+    borderRadius: 15,
     padding: 10,
     height: '50vh',
     display: 'flex',

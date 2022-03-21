@@ -3,17 +3,14 @@ import React from 'react';
 
 const dropIn = {
   hidden: {
-    scale: 0,
-    opacity: 0,
+    opacity: 0.3,
     y: '30vh',
   },
   visible: {
-    scale: 1,
     opacity: 1,
     y: 0,
   },
   exit: {
-    scale: 1,
     opacity: 0,
     y: 0,
   },
@@ -52,6 +49,7 @@ const styles = {
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
     justifyContent: 'center',
     alignItems: 'center',
+    backdropFilter: 'blur(10px)',
   },
   container: {
     margin: '0px',
