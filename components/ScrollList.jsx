@@ -188,8 +188,9 @@ const PlaceCard = ({item}) => {
 };
 
 const PlaceCardLoading = () => {
-  return [1, 2, 3, 4, 5].map(() => (
+  return [1, 2, 3, 4, 5].map(i => (
     <div
+      key={i}
       style={{opacity: 1}}
       className={`${styles.listItem} ${styles.loadCard}`}></div>
   ));
