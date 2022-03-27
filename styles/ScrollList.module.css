@@ -14,6 +14,7 @@
   background-color: bisque;
   padding: 10px;
   border-radius: 20px;
+  transition: all 0.2s ease;
 }
 
 .leftIcon {
@@ -24,6 +25,13 @@
   background-color: bisque;
   padding: 10px;
   border-radius: 20px;
+  transition: all 0.1s ease;
+}
+
+.rightIcon:hover,
+.leftIcon:hover {
+  transform: scale(1.2);
+  background-color: white;
 }
 
 .list {
@@ -72,17 +80,17 @@
 
 .loadCard {
   transform: translateY(0px);
-  background-color: rgb(204, 204, 204);
   box-shadow: none;
-  animation: shimmer 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  animation: shimmer 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
 @keyframes shimmer {
-  0%, 100% {
-    opacity: 0.8;
+  0%,
+  100% {
+    background-color: rgb(204, 204, 204);
   }
   50% {
-    opacity: 1;
+    background-color: rgb(104, 104, 104);
   }
 }
 
