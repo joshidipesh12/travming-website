@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react';
 import Image from 'next/image';
 import Fade from 'react-reveal/Fade';
-import Shake from 'react-reveal/Shake';
+import Pulse from 'react-reveal/Pulse';
 import {motion, useAnimation} from 'framer-motion';
 import {useDispatch, useSelector} from 'react-redux';
 
@@ -12,6 +12,7 @@ import useIsMobile from '../hooks/useIsMobile';
 import BottomMenu from '../components/BottomMenu';
 import LocSelector from '../components/LocSelector';
 import Layout from '../components/Layout';
+import config from '../config.json';
 
 export default function Home() {
   const titleRef = useRef();
@@ -20,35 +21,34 @@ export default function Home() {
   const isMobile = useIsMobile();
   const [locModal, setLocModal] = useState(false);
   const [titleVis, setTitleVisible] = useState(true);
-  const [background, setBackground] = useState('/background1.png');
+  const [background, setBackground] = useState(config.countries['Australia']);
 
   const country = useSelector(state => state.hotel.country);
 
   useEffect(() => {
     // dispatch(getCities(country));
     dispatch(getStates(country));
+    setBackground(config.countries[country]);
+    // bgOpacity.start({opacity: 0})
     return () => {};
-  }, [country?.length]);
+  }, [country]);
 
   return (
     <div className={styles.container}>
       <div className={styles.background}>
-        <motion.div
-          animate={bgOpacity}
-          style={{position: 'relative', flex: 1, opacity: 0}}>
+        <motion.div animate={bgOpacity} style={{position: 'relative', flex: 1}}>
           <Image
             priority={true}
             layout="fill"
             objectFit="cover"
             alt={`${country} Image`}
-            loading="eager"
             src={background}
             onLoadingComplete={() => bgOpacity.start({opacity: 1})}
           />
         </motion.div>
       </div>
       <div className={styles.background_cover} />
-      <LocSelector locModal={locModal} setLocModal={setLocModal} />
+      <LocSelector visible={locModal} closeModal={() => setLocModal(false)} />
       <Layout>
         <ScrollList
           titleCurr={
@@ -64,7 +64,7 @@ export default function Home() {
               <span
                 onClick={() => setLocModal(true)}
                 className={styles.placeName}>
-                <Shake delay={2000}>{country}</Shake>
+                <Pulse delay={2000}>{country}</Pulse>
               </span>
             </div>
             <div className={styles.subTitle}>

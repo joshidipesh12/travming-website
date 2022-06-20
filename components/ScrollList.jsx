@@ -24,14 +24,18 @@ function ScrollList({onScroll}) {
   const states = useSelector(state => state.location.states);
 
   const showLeftButton = () => {
-    leftButtonRef.current.style.opacity =
-      width / 10 < scrollViewRef.current.scrollLeft ? 1 : 0;
+    leftButtonRef.current && scrollViewRef.current
+      ? (leftButtonRef.current.style.opacity =
+          width / 10 < scrollViewRef.current.scrollLeft ? 1 : 0)
+      : null;
   };
 
   const hideRightButton = () => {
     const node = scrollViewRef.current;
-    rightButtonRef.current.style.display =
-      node.offsetWidth + node.scrollLeft >= node.scrollWidth ? 'none' : '';
+    node && rightButtonRef.current
+      ? (rightButtonRef.current.style.display =
+          node.offsetWidth + node.scrollLeft >= node.scrollWidth ? 'none' : '')
+      : null;
   };
 
   return (
@@ -89,13 +93,10 @@ function ScrollList({onScroll}) {
           className={styles.leftIcon}
         />
       </div>
-      {/* <style jsx>{`
-        @media (max-width: 750px) {
-          ${styles.list}:first-child {
-            padding-top: ${mobTopOffset}px;
-          }
+      <style jsx>{`
+        @media (max-aspect-ratio: 2/3) {
         }
-      `}</style> */}
+      `}</style>
     </div>
   );
 }
@@ -121,17 +122,23 @@ const PlaceCard = ({item}) => {
   }, [mainRef.current]);
 
   return (
-    <motion.div
+    <motion.button
       ref={mainRef}
       onHoverStart={() => setHover(true)}
       onHoverEnd={() => setHover(false)}
+      whileFocus={{scale: 1.1}}
       animate={{opacity: 1, translateY: 0}}
       style={{display: error ? 'none' : ''}}
       className={styles.listItem}>
       <div className={styles.cardImg}>
         {loading ? (
           <Bounce
-            style={{position: 'absolute', top: '40%', left: '45%'}}
+            style={{
+              position: 'absolute',
+              top: '50%',
+              left: '50%',
+              transform: 'translate(-50%, -50%)',
+            }}
             size={25}
             color="white"
           />
@@ -183,7 +190,7 @@ const PlaceCard = ({item}) => {
           </Fade>
         </div>
       </div>
-    </motion.div>
+    </motion.button>
   );
 };
 

@@ -1,9 +1,9 @@
 .container {
   width: 80vw;
-  height: 45vh;
+  height: calc(45 * var(--vh));
   position: absolute;
   right: 10vw;
-  top: 22vh;
+  top: calc(22 * var(--vh));
 }
 
 .rightIcon {
@@ -62,7 +62,8 @@
 
 .listItem {
   display: inline-flex;
-  background-color: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(20px);
   overflow: hidden;
   border-radius: 16px;
   width: 25vw;
@@ -76,6 +77,7 @@
   align-items: center;
   opacity: 0;
   transform: translateY(40%);
+  cursor: pointer;
 }
 
 .loadCard {
@@ -136,13 +138,13 @@
   font-family: 'Lucida Sans', 'Lucida Sans Regular', Verdana, sans-serif;
 }
 
-@media (max-width: 750px) {
+@media (max-aspect-ratio: 2/3) {
   /* For Mobile Devices */
   .container {
     width: 100vw;
-    height: 78vh;
+    height: calc(78 * var(--vh));
     left: 0vw;
-    top: 12vh;
+    top: calc(12 * var(--vh));
   }
 
   .rightIcon {
@@ -172,7 +174,7 @@
     width: 80vw;
     height: 25vh;
     margin-inline: 10vw;
-    margin-block: 5%;
+    margin-block: 10%;
     box-shadow: none;
     flex-direction: row;
     justify-content: center;

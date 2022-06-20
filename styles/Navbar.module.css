@@ -1,5 +1,5 @@
 .container {
-  height: 10vh;
+  height: calc(10 * var(--vh));
   display: flex;
   flex: 1;
   border-bottom: 1px solid #e7e7f2;
@@ -27,13 +27,13 @@
   cursor: pointer;
 }
 
-@media (max-width: 750px) {
+@media (max-aspect-ratio: 2/3) {
   /* For Mobile Devices */
   .container {
     margin-inline: 5vw;
   }
 
-  .link{
+  .link {
     font-size: small;
   }
 }

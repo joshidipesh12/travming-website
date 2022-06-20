@@ -1,0 +1,46 @@
+.container {
+  width: 40vw;
+}
+
+li {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+h4 {
+  margin-top: 0px;
+  position: sticky;
+  top: 0;
+  color: rgb(200, 200, 200);
+  width: 100%;
+  background-color: rgb(100, 100, 100);
+  text-align: center;
+}
+
+.select {
+  margin-bottom: 15px;
+  transition: all 0.2s;
+  text-align: center;
+}
+
+.select:hover {
+  color: rgb(200, 200, 200);
+  cursor: pointer;
+  background-color: rgb(10, 10, 10);
+  width: 100%;
+}
+
+@media (max-aspect-ratio: 2/3) {
+  .container {
+    width: 80vw;
+  }
+
+  h2 {
+    font-size: 5vw;
+  }
+
+  .select {
+    margin-bottom: 15px;
+  }
+}

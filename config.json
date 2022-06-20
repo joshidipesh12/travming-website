@@ -1,16 +1,17 @@
 {
   "url": "https://source.unsplash.com/512x512/?cityname",
   "imgUrl": "https://source.unsplash.com/",
-  "countries": [
-    "France",
-    "United States",
-    "Italy",
-    "Australia",
-    "India",
-    "Turkey",
-    "Japan",
-    "Germany",
-    "Mexico",
-    "United Kingdom"
-  ]
+  "countries": {
+    "France": "https://images.pexels.com/photos/2901215/pexels-photo-2901215.jpeg",
+    "Italy": "https://images.pexels.com/photos/531602/pexels-photo-531602.jpeg",
+    "Australia": "https://images.pexels.com/photos/2265880/pexels-photo-2265880.jpeg",
+    "India": "https://images.pexels.com/photos/1786306/pexels-photo-1786306.jpeg",
+    "Turkey": "https://images.pexels.com/photos/2507031/pexels-photo-2507031.jpeg",
+    "Japan": "https://images.pexels.com/photos/1134166/pexels-photo-1134166.jpeg",
+    "Germany": "https://images.pexels.com/photos/591383/pexels-photo-591383.jpeg",
+    "Mexico": "https://images.pexels.com/photos/1802255/pexels-photo-1802255.jpeg",
+    "Philippines": "https://images.pexels.com/photos/2516406/pexels-photo-2516406.jpeg",
+    "Greece": "https://images.pexels.com/photos/951539/pexels-photo-951539.jpeg",
+    "Spain": "https://images.pexels.com/photos/9510830/pexels-photo-9510830.jpeg"
+  }
 }

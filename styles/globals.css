@@ -1,12 +1,16 @@
-@import url('https://fonts.googleapis.com/css2?family=Carter+One&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Carter+One&display=swap'); */
+
+:root {
+  --vh: 1vh;
+}
 
 html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
-    Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-  min-height: 100vh;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  min-height: calc(100 * var(--vh));
   min-height: -webkit-fill-available;
   overflow: hidden;
 }
@@ -24,9 +28,25 @@ a {
   user-select: none;
   -webkit-user-drag: none;
   box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
 }
 
 button {
   outline: none;
   border: none;
+  padding: 0;
+}
+
+*::-webkit-scrollbar {
+  width: 10px;
+}
+*::-webkit-scrollbar-track {
+  background: #f1f1f100;
+}
+*::-webkit-scrollbar-thumb {
+  background: #888;
+  max-height: 10px;
+}
+*::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
