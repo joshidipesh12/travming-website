@@ -122,13 +122,13 @@ const PlaceCard = ({item}) => {
   }, [mainRef.current]);
 
   return (
-    <motion.button
+    <motion.div
       ref={mainRef}
       onHoverStart={() => setHover(true)}
       onHoverEnd={() => setHover(false)}
-      whileFocus={{scale: 1.1}}
+      whileInView={() => ({scale: 1.05})}
       animate={{opacity: 1, translateY: 0}}
-      style={{display: error ? 'none' : ''}}
+      style={{display: error ? 'none' : '', scale: 0.6}}
       className={styles.listItem}>
       <div className={styles.cardImg}>
         {loading ? (
@@ -160,7 +160,8 @@ const PlaceCard = ({item}) => {
           </div>
           <Fade duration={500} when={isMobile || hover} collapse right cascade>
             <div style={{display: 'flex'}}>
-              <button
+              <motion.button
+                whileTap={{scale: 1.3}}
                 onClick={() => dispatch(setState(item.name))}
                 className={styles.option}
                 style={{backgroundColor: isSelected ? '#40be83' : '#0a66c2'}}>
@@ -175,8 +176,9 @@ const PlaceCard = ({item}) => {
                 ) : (
                   'Select'
                 )}
-              </button>
-              <button
+              </motion.button>
+              <motion.button
+                whileTap={{scale: 1.3}}
                 onClick={() => {}}
                 className={styles.option}
                 style={{backgroundColor: isMobile ? 'white' : 'black'}}>
@@ -185,12 +187,12 @@ const PlaceCard = ({item}) => {
                 ) : (
                   'Explore'
                 )}
-              </button>
+              </motion.button>
             </div>
           </Fade>
         </div>
       </div>
-    </motion.button>
+    </motion.div>
   );
 };
 
