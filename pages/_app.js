@@ -5,6 +5,8 @@ import {persistStore} from 'redux-persist';
 import {PersistGate} from 'redux-persist/lib/integration/react';
 import {Provider} from 'react-redux';
 import configureStore from '../store/store';
+import DayjsUtils from '@date-io/dayjs';
+import {MuiPickersUtilsProvider} from '@material-ui/pickers';
 
 const store = configureStore();
 const persistedStore = persistStore(store);
@@ -19,7 +21,9 @@ function MyApp({Component, pageProps}) {
   return (
     <Provider store={store}>
       <PersistGate persistor={persistedStore} loading={null}>
-        <Component {...pageProps} />
+        <MuiPickersUtilsProvider utils={DayjsUtils}>
+          <Component {...pageProps} />
+        </MuiPickersUtilsProvider>
       </PersistGate>
     </Provider>
   );
@@ -28,21 +32,16 @@ function MyApp({Component, pageProps}) {
 const serviceWorker = () => {
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', function () {
-      navigator.serviceWorker
-        .register('/sw.js', {
-          scope: '.',
-        })
-        .then(
-          function (registration) {
-            console.log(
-              '', // 'Service Worker registration successful with scope: ',
-              registration.scope,
-            );
-          },
-          function (err) {
-            console.log('Service Worker registration failed: ', err);
-          },
-        );
+      navigator.serviceWorker.register('../sw.js', {scope: '.'}).then(
+        registration =>
+          console.log(
+            'Service Worker registration successful with scope: ',
+            registration.scope,
+          ),
+        function (err) {
+          console.log('Service Worker registration failed: ', err);
+        },
+      );
     });
   }
 };

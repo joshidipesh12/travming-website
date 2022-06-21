@@ -1,19 +1,35 @@
 import React, {useEffect, useState} from 'react';
 import {AnimatePresence, motion} from 'framer-motion';
 import Modal from './Modal';
+import {useToggle} from '../hooks';
+import styles from '../styles/Components.module.css';
 import config from '../config.json';
 
 const LocSelector = ({visible, closeModal}) => {
+  const [isNearby, flipMode] = useToggle();
+
   return (
     <AnimatePresence initial={false} exitBeforeEnter>
       {visible ? (
-        <Modal close={closeModal}>
-          {/* Add Location Selector Logic here */}
+        <Modal animVariants={animVariant} close={closeModal}>
+          <div className={styles.LS_container}>
+            {isNearby ? (
+              <div style={{flex: 1}}></div>
+            ) : (
+              <div style={{flex: 1}}></div>
+            )}
+          </div>
         </Modal>
       ) : null}
     </AnimatePresence>
   );
 };
+
+const animVariant = () => ({
+  hidden: {translateY: '100vh'},
+  visible: {translateY: '0vh'},
+  exit: {translateY: '100vh'},
+});
 
 export default LocSelector;
 

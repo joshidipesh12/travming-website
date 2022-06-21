@@ -1,8 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react';
 import Image from 'next/image';
 import styles from '../styles/ScrollList.module.css';
-import useWindowDimensions from '../hooks/useWindowDimensions';
-import useIsMobile from '../hooks/useIsMobile';
+import {useWindowDimensions, useIsMobile} from '../hooks';
 import {
   HiOutlineArrowNarrowRight,
   HiOutlineArrowNarrowLeft,

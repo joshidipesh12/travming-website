@@ -1,6 +1,6 @@
-import { useRef } from "react";
+import {useRef} from 'react';
 
-export const usePrevious = (value) => {
+export default function usePrevious(value) {
   const currentRef = useRef(value);
   const previousRef = useRef();
   if (currentRef.current !== value) {
@@ -8,4 +8,4 @@ export const usePrevious = (value) => {
     currentRef.current = value;
   }
   return previousRef.current;
-};
+}

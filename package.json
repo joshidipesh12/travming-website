@@ -10,9 +10,12 @@
     "export": "next build && next export"
   },
   "dependencies": {
+    "@date-io/dayjs": "1.x",
+    "@material-ui/core": "^4.12.4",
+    "@material-ui/pickers": "^3.3.10",
     "@reduxjs/toolkit": "^1.7.1",
     "axios": "^0.25.0",
-    "dayjs": "^1.10.7",
+    "dayjs": "^1.11.3",
     "framer-motion": "^6.2.1",
     "next": "12.0.8",
     "react": "17.0.2",

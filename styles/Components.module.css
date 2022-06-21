@@ -1,14 +1,22 @@
-.container {
-  width: 40vw;
+.LS_container {
+  background: #f0f0f0;
+  /* border-radius: 10px; */
+  width: clamp(10rem, 90vw, 15rem);
+  height: 40vh;
+  display: flex;
 }
 
-li {
+.LS_innerContainer {
+  flex: 1;
+}
+
+.li {
   list-style-type: none;
   padding: 0;
   margin: 0;
 }
 
-h4 {
+.h4 {
   margin-top: 0px;
   position: sticky;
   top: 0;
@@ -36,7 +44,7 @@ h4 {
     width: 80vw;
   }
 
-  h2 {
+  .h2 {
     font-size: 5vw;
   }
 

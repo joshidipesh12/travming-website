@@ -8,7 +8,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {getCities, getStates} from '../store/locations';
 import styles from '../styles/Home.module.css';
 import ScrollList from '../components/ScrollList';
-import useIsMobile from '../hooks/useIsMobile';
+import {useIsMobile} from '../hooks';
 import BottomMenu from '../components/BottomMenu';
 import LocSelector from '../components/LocSelector';
 import Layout from '../components/Layout';
@@ -37,14 +37,14 @@ export default function Home() {
     <div className={styles.container}>
       <div className={styles.background}>
         <motion.div animate={bgOpacity} style={{position: 'relative', flex: 1}}>
-          <Image
+          {/* <Image
             priority={true}
             layout="fill"
             objectFit="cover"
             alt={`${country} Image`}
             src={background}
             onLoadingComplete={() => bgOpacity.start({opacity: 1})}
-          />
+          /> */}
         </motion.div>
       </div>
       <div className={styles.background_cover} />
@@ -62,13 +62,14 @@ export default function Home() {
             <div className={styles.mainText}>
               Beautiful Places of{' '}
               <span
+                data-width={country.length}
                 onClick={() => setLocModal(true)}
                 className={styles.placeName}>
                 <Pulse delay={2000}>{country}</Pulse>
               </span>
             </div>
             <div className={styles.subTitle}>
-              Plan your vacation on the most beatiful places.
+              Plan your vacation at the most beatiful places.
             </div>
           </Fade>
         </div>
