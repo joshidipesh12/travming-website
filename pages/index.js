@@ -37,14 +37,14 @@ export default function Home() {
     <div className={styles.container}>
       <div className={styles.background}>
         <motion.div animate={bgOpacity} style={{position: 'relative', flex: 1}}>
-          {/* <Image
+          <Image
             priority={true}
             layout="fill"
             objectFit="cover"
             alt={`${country} Image`}
             src={background}
             onLoadingComplete={() => bgOpacity.start({opacity: 1})}
-          /> */}
+          />
         </motion.div>
       </div>
       <div className={styles.background_cover} />
@@ -62,7 +62,6 @@ export default function Home() {
             <div className={styles.mainText}>
               Beautiful Places of{' '}
               <span
-                data-width={country.length}
                 onClick={() => setLocModal(true)}
                 className={styles.placeName}>
                 <Pulse delay={2000}>{country}</Pulse>

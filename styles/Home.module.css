@@ -69,7 +69,7 @@
 }
 
 .placeName > * {
-  width: min-content;
+  width: fit-content;
 }
 
 .placeName > *::before {
@@ -272,7 +272,8 @@
   .placeName {
     transition: all 0.2s ease-out;
     color: rgb(255, 211, 155);
-    width: auto;
+    display: flex;
+    justify-content: center;
   }
 
   .placeName:active,

@@ -108,7 +108,7 @@
   position: absolute;
   bottom: 0;
   width: 100%;
-  background: linear-gradient(transparent, rgba(0, 0, 0, 0.83));
+  background: linear-gradient(transparent, rgba(0, 0, 0, 1));
   padding-inline: 10%;
   padding-top: 15%;
   padding-bottom: 5%;

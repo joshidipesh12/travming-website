@@ -1,13 +1,50 @@
 .LS_container {
   background: #f0f0f0;
-  /* border-radius: 10px; */
+  border-radius: 4px;
   width: clamp(10rem, 90vw, 15rem);
-  height: 40vh;
+  height: 45vh;
   display: flex;
+  background: linear-gradient(#cac0e6, #9497e0);
 }
 
-.LS_innerContainer {
+.LS_container_select {
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.LS_label {
+  color: beige;
+  text-transform: uppercase;
+  font-size: small;
+  font-weight: bold;
+}
+
+.LS_selectButton {
+  color: #3b3c49;
+  background-color: #fafafc;
+  box-shadow: 0 0 3px grey;
+  width: 80%;
+  height: 15%;
+  border-radius: 7px;
+  font-weight: bold;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: -15%;
+  padding-inline: 10%;
+  flex-wrap: wrap;
+  position: relative;
+}
+
+.LS_chevronDown {
+  position: absolute;
+  right: 5%;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .li {

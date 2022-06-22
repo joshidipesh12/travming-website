@@ -125,7 +125,8 @@ const PlaceCard = ({item}) => {
       ref={mainRef}
       onHoverStart={() => setHover(true)}
       onHoverEnd={() => setHover(false)}
-      whileInView={() => ({scale: 1.05})}
+      whileHover={{scale: 1.1}}
+      whileInView={{scale: 0.9, elevation: 20}}
       animate={{opacity: 1, translateY: 0}}
       style={{display: error ? 'none' : '', scale: 0.6}}
       className={styles.listItem}>
@@ -157,12 +158,17 @@ const PlaceCard = ({item}) => {
             {item.name}
             {isMobile ? null : '\n'}
           </div>
-          <Fade duration={500} when={isMobile || hover} collapse right cascade>
+          <Fade
+            when={isMobile || hover}
+            delay={isMobile ? 1000 : 0}
+            duration={isMobile ? 1000 : 200}
+            collapse
+            right
+            cascade>
             <div style={{display: 'flex'}}>
               <motion.button
-                whileTap={{scale: 1.3}}
-                onClick={() => dispatch(setState(item.name))}
                 className={styles.option}
+                onClick={() => dispatch(setState(item.name))}
                 style={{backgroundColor: isSelected ? '#40be83' : '#0a66c2'}}>
                 {isSelected ? (
                   isMobile ? (

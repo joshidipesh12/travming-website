@@ -1,22 +1,90 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useRef} from 'react';
 import {AnimatePresence, motion} from 'framer-motion';
+import {useDispatch, useSelector} from 'react-redux';
 import Modal from './Modal';
 import {useToggle} from '../hooks';
 import styles from '../styles/Components.module.css';
 import config from '../config.json';
+import {FiChevronDown} from 'react-icons/fi';
+import {getLocByCoords, setCountry, setState} from '../store/hotels';
+import {Menu, MenuItem} from '@material-ui/core';
 
 const LocSelector = ({visible, closeModal}) => {
+  const {countries} = config;
+  const dispatch = useDispatch();
   const [isNearby, flipMode] = useToggle();
+  const [countryButton, setCountryButton] = useState(null);
+  const [stateButton, setStateButton] = useState(null);
+  const location = useSelector(state => state.hotel);
+  const {states, statesError} = useSelector(state => state.location);
 
   return (
     <AnimatePresence initial={false} exitBeforeEnter>
       {visible ? (
         <Modal animVariants={animVariant} close={closeModal}>
           <div className={styles.LS_container}>
-            {isNearby ? (
-              <div style={{flex: 1}}></div>
+            {!isNearby ? (
+              <div className={styles.LS_container_select}>
+                <div className={styles.LS_label}>Select Country</div>
+                <motion.button
+                  onClick={e => setCountryButton(e.currentTarget)}
+                  whileHover={{backgroundColor: '#e7e7ea'}}
+                  whileFocus={{boxShadow: 'none'}}
+                  className={styles.LS_selectButton}>
+                  {location.country}
+                  <FiChevronDown
+                    color="##c9ced7"
+                    className={styles.LS_chevronDown}
+                  />
+                </motion.button>
+                <Menu
+                  anchorOrigin={{horizontal: 'right'}}
+                  anchorEl={countryButton}
+                  open={Boolean(countryButton)}
+                  onClose={() => setCountryButton(null)}>
+                  {Object.keys(countries).map((c, i) => (
+                    <MenuItem
+                      selected={c === location.country}
+                      onClick={() => {
+                        dispatch(setCountry(c));
+                        setCountryButton(null);
+                      }}>
+                      {c}
+                    </MenuItem>
+                  ))}
+                </Menu>
+                <div className={styles.LS_label}>Select State</div>
+                <motion.button
+                  onClick={e => setStateButton(e.currentTarget)}
+                  whileHover={{backgroundColor: '#e7e7ea'}}
+                  whileFocus={{boxShadow: 'none'}}
+                  className={styles.LS_selectButton}>
+                  {location.state}
+                  <FiChevronDown
+                    color="##c9ced7"
+                    className={styles.LS_chevronDown}
+                  />
+                </motion.button>
+                <Menu
+                  anchorOrigin={{horizontal: 'right'}}
+                  anchorEl={stateButton}
+                  open={Boolean(stateButton)}
+                  onClose={() => setStateButton(null)}>
+                  {states.map((s, i) => (
+                    <MenuItem
+                      disabled={!states.length}
+                      selected={s.name === location.state}
+                      onClick={() => {
+                        dispatch(setState(s.name));
+                        setStateButton(null);
+                      }}>
+                      {states.length > 0 ? s.name : 'Loading'}
+                    </MenuItem>
+                  ))}
+                </Menu>
+              </div>
             ) : (
-              <div style={{flex: 1}}></div>
+              <div style={{flex: 1}}>here1</div>
             )}
           </div>
         </Modal>
@@ -40,13 +108,9 @@ export default LocSelector;
 //   RiRefreshLine,
 // } from 'react-icons/ri';
 // import {Sentry} from 'react-activity';
-// import {useDispatch, useSelector} from 'react-redux';
 // import 'react-activity/dist/library.css';
 
-// import {getLocByCoords, setCountry} from '../store/hotels';
-
 // export default function LocSelector({locModal, setLocModal}) {
-//   const dispatch = useDispatch();
 //   const [manual, setManual] = useState(true);
 //   const [loc, setLocation] = useState();
 //   const [activeMenu, setActiveMenu] = useState('');
