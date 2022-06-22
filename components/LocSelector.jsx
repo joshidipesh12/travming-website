@@ -18,6 +18,10 @@ const LocSelector = ({visible, closeModal}) => {
   const location = useSelector(state => state.hotel);
   const {states, statesError} = useSelector(state => state.location);
 
+  useEffect(() => {
+    if (states.length > 0) dispatch(setState(states[0].name));
+  }, [states]);
+
   return (
     <AnimatePresence initial={false} exitBeforeEnter>
       {visible ? (
@@ -38,12 +42,14 @@ const LocSelector = ({visible, closeModal}) => {
                   />
                 </motion.button>
                 <Menu
+                  variant="menu"
                   anchorOrigin={{horizontal: 'right'}}
                   anchorEl={countryButton}
                   open={Boolean(countryButton)}
                   onClose={() => setCountryButton(null)}>
                   {Object.keys(countries).map((c, i) => (
                     <MenuItem
+                      key={i}
                       selected={c === location.country}
                       onClick={() => {
                         dispatch(setCountry(c));
@@ -59,7 +65,7 @@ const LocSelector = ({visible, closeModal}) => {
                   whileHover={{backgroundColor: '#e7e7ea'}}
                   whileFocus={{boxShadow: 'none'}}
                   className={styles.LS_selectButton}>
-                  {location.state}
+                  {states.length > 0 ? location.state : 'Loading...'}
                   <FiChevronDown
                     color="##c9ced7"
                     className={styles.LS_chevronDown}
@@ -72,13 +78,14 @@ const LocSelector = ({visible, closeModal}) => {
                   onClose={() => setStateButton(null)}>
                   {states.map((s, i) => (
                     <MenuItem
+                      key={i}
                       disabled={!states.length}
                       selected={s.name === location.state}
                       onClick={() => {
                         dispatch(setState(s.name));
                         setStateButton(null);
                       }}>
-                      {states.length > 0 ? s.name : 'Loading'}
+                      {s.name}
                     </MenuItem>
                   ))}
                 </Menu>

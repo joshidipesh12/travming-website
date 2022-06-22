@@ -101,9 +101,9 @@ function ScrollList({onScroll}) {
 }
 
 const PlaceCard = ({item}) => {
-  const mainRef = useRef();
   const isMobile = useIsMobile();
   const dispatch = useDispatch();
+  const [mainDiv, setMainDiv] = useState(null);
   const [cardDims, setCardDims] = useState();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
@@ -112,17 +112,15 @@ const PlaceCard = ({item}) => {
   const isSelected = hotel.state === item.name;
 
   useEffect(() => {
-    if (mainRef.current) {
-      setCardDims(
-        `${mainRef.current?.clientWidth}x${mainRef.current?.clientHeight}`,
-      );
+    if (Boolean(mainDiv)) {
+      setCardDims(`${mainDiv?.clientWidth}x${mainDiv?.clientHeight}`);
     }
     return () => {};
-  }, [mainRef.current]);
+  }, [mainDiv]);
 
   return (
     <motion.div
-      ref={mainRef}
+      onLoad={e => setMainDiv(e.currentTarget)}
       onHoverStart={() => setHover(true)}
       onHoverEnd={() => setHover(false)}
       whileHover={{scale: 1.1}}
@@ -143,7 +141,7 @@ const PlaceCard = ({item}) => {
             color="white"
           />
         ) : null}
-        {mainRef.current ? (
+        {Boolean(mainDiv) ? (
           <Image
             layout="fill"
             objectFit="cover"

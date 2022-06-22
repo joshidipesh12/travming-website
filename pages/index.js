@@ -6,19 +6,16 @@ import {motion, useAnimation} from 'framer-motion';
 import {useDispatch, useSelector} from 'react-redux';
 
 import {getCities, getStates} from '../store/locations';
+import {ScrollList, BottomMenu, LocSelector, Layout, Head} from '../components';
 import styles from '../styles/Home.module.css';
-import ScrollList from '../components/ScrollList';
 import {useIsMobile} from '../hooks';
-import BottomMenu from '../components/BottomMenu';
-import LocSelector from '../components/LocSelector';
-import Layout from '../components/Layout';
 import config from '../config.json';
 
 export default function Home() {
   const titleRef = useRef();
-  const bgOpacity = useAnimation();
-  const dispatch = useDispatch();
   const isMobile = useIsMobile();
+  const dispatch = useDispatch();
+  const bgOpacity = useAnimation();
   const [locModal, setLocModal] = useState(false);
   const [titleVis, setTitleVisible] = useState(true);
   const [background, setBackground] = useState(config.countries['Australia']);
@@ -48,8 +45,9 @@ export default function Home() {
         </motion.div>
       </div>
       <div className={styles.background_cover} />
-      <LocSelector visible={locModal} closeModal={() => setLocModal(false)} />
       <Layout>
+        <Head />
+        <LocSelector visible={locModal} closeModal={() => setLocModal(false)} />
         <ScrollList
           titleCurr={
             (titleRef.current?.clientHeight ?? 0) +
