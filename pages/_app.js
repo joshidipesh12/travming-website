@@ -7,6 +7,7 @@ import {Provider} from 'react-redux';
 import configureStore from '../store/store';
 import DayjsUtils from '@date-io/dayjs';
 import {MuiPickersUtilsProvider} from '@material-ui/pickers';
+import {Head} from '../components';
 
 const store = configureStore();
 const persistedStore = persistStore(store);
@@ -22,6 +23,7 @@ function MyApp({Component, pageProps}) {
     <Provider store={store}>
       <PersistGate persistor={persistedStore} loading={null}>
         <MuiPickersUtilsProvider utils={DayjsUtils}>
+          <Head />
           <Component {...pageProps} />
         </MuiPickersUtilsProvider>
       </PersistGate>

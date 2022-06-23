@@ -53,12 +53,12 @@ const DrawerContent = ({anchor, toggle}) => {
           />
         </ListItem>
         <ListItem button>
-          <Link href="/">
+          <Link href="/" passHref>
             <ListItemText primary="Home" />
           </Link>
         </ListItem>
         <ListItem button>
-          <Link href="/explore">
+          <Link href="/explore" passHref>
             <ListItemText primary="Explore" />
           </Link>
         </ListItem>
@@ -71,12 +71,12 @@ const DrawerContent = ({anchor, toggle}) => {
         </ListItem>
         <Divider />
         <ListItem button>
-          <Link href="https://linkedin.com/in/joshidipesh12">
+          <Link href="https://linkedin.com/in/joshidipesh12" passHref>
             <ListItemText primary="Contact" />
           </Link>
         </ListItem>
         <ListItem button>
-          <Link href="https://joshidipesh12.github.io">
+          <Link href="https://joshidipesh12.github.io" passHref>
             <ListItemText primary="About" />
           </Link>
         </ListItem>

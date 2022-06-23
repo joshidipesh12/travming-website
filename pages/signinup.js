@@ -42,7 +42,6 @@ function Signinup({mode = 'signin'}) {
   return (
     <AccountContext.Provider value={contextValue}>
       <main className={styles.main}>
-        <Head />
         <motion.div
           initial={{opacity: 0}}
           animate={{opacity: 1}}
@@ -127,7 +126,7 @@ const LoginForm = ({switchTo}) => (
     </button>
     <Marginer direction="vertical" margin="1em" />
     <div className={styles.mutedLink}>
-      Don't have an accoun?{' '}
+      Don't have an accoun?
       <div className={styles.boldLink} onClick={switchTo}>
         <Link href="#">Signup</Link>
       </div>
