@@ -1,7 +1,7 @@
 .LS_container {
   background: #f0f0f0;
   border-radius: 4px;
-  width: clamp(10rem, 90vw, 15rem);
+  width: clamp(10rem, 95vw, 15rem);
   height: 45vh;
   display: flex;
   background: linear-gradient(#cac0e6, #9497e0);
@@ -25,7 +25,7 @@
 .LS_selectButton {
   color: #3b3c49;
   background-color: #fafafc;
-  box-shadow: 0 0 3px grey;
+  box-shadow: 0 0 5px grey;
   width: 80%;
   height: 15%;
   border-radius: 7px;
@@ -45,6 +45,18 @@
   right: 5%;
   top: 50%;
   transform: translateY(-50%);
+}
+
+.LS_done {
+  color: #fff;
+  background-color: #a1a3e1;
+  border-radius: 20px;
+  padding: 3% 8%;
+  box-shadow: 0 0 10px #797bbb;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin: -5% 0;
+  cursor: pointer;
 }
 
 .li {
@@ -77,6 +89,10 @@
 }
 
 @media (max-aspect-ratio: 2/3) {
+  .LS_container {
+    height: 35vh;
+  }
+
   .container {
     width: 80vw;
   }

@@ -7,32 +7,49 @@ import {
 } from 'react-icons/ri';
 import {BiChevronDown, BiX, BiSearch} from 'react-icons/bi';
 import styles from '../styles/Home.module.css';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import {AnimatePresence, motion} from 'framer-motion';
 import {DatePicker} from '@material-ui/pickers';
-import dayjs from 'dayjs';
 import {useIsMobile, useToggle} from '../hooks';
-import {Popover, Slider} from '@material-ui/core';
+import {Menu, MenuItem, Popover, Slider} from '@material-ui/core';
+import dayjs from 'dayjs';
 import Modal from './Modal';
+import {useEffect} from 'react';
+import {setCity} from '../store/hotels';
 
 const BottomMenu = ({}) => {
   const isMobile = useIsMobile();
-  const roomRef = useRef();
-  const [tripModal, setTripModal] = useState(false);
-  const [roomMenu, toggleRoom] = useToggle();
-  const [date, setDate] = useState(dayjs().format('ddd, MMM D YYYY'));
+  const dispatch = useDispatch();
+  const [roomMenu, setRoomMenu] = useState(null);
+  const [cityMenu, setCityMenu] = useState(null);
   const [rooms, setRooms] = useState({a: 3, k: 0});
+  const [tripModal, setTripModal] = useState(false);
+  const [date, setDate] = useState(dayjs().format('ddd, MMM D YYYY'));
   const [accomodation, setAccomodation] = useState(
     '6730 Luna Land North Rhiannonmouth',
   );
 
-  const city = useSelector(state => state.hotel.city);
+  const {city, state} = useSelector(state => state.hotel);
+  const {cities} = useSelector(state => state.location);
+
+  useEffect(() => {
+    window.addEventListener('keydown', e => {
+      if (e.code === 'Escape') {
+        setTripModal(false);
+        return () => window.removeEventListener('keydown');
+      }
+    });
+    return () => {};
+  }, []);
 
   return (
     <form onSubmit={e => e.preventDefault()}>
       {isMobile ? (
         <>
           <motion.button
+            transition={{delay: 0.6, duration: 0.6}}
+            animate={{translateY: '0%', scale: 1}}
+            initial={{translateY: '200%', scale: 0}}
             onClick={() => setTripModal(true)}
             whileTap={{scale: 0.9}}
             className={styles.mobLocOptions}>
@@ -75,8 +92,7 @@ const BottomMenu = ({}) => {
                     <Divider flip={true} />
                     <div className={styles.bottom_modalCheckInOut}>
                       <motion.button
-                        ref={roomRef}
-                        onClick={() => toggleRoom()}
+                        onClick={e => setRoomMenu(e.currentTarget)}
                         whileTap={{backgroundColor: 'rgba(231, 231, 242, 0.3)'}}
                         className={styles.bottom_modalSection}>
                         <RiUserLine size={23} color={iconColor} />
@@ -92,19 +108,17 @@ const BottomMenu = ({}) => {
                           </div>
                         </div>
                         <Popover
-                          open={roomMenu}
-                          anchorEl={roomRef.current}
+                          open={Boolean(roomMenu)}
+                          anchorEl={roomMenu}
+                          onClose={() => setRoomMenu(null)}
                           PaperProps={{
                             style: {
                               width: '40vw',
-                              backgroundColor: '#424242',
+                              backgroundColor: 'rgba(255, 255, 255, 0.15)',
+                              backdropFilter: 'blur(40px)',
                               paddingInline: 15,
                               paddingTop: 15,
                             },
-                          }}
-                          anchorOrigin={{
-                            horizontal: 'left',
-                            vertical: 'bottom',
                           }}>
                           <div className={styles.label}>Adults</div>
                           <Slider {...sliderProps('a', rooms, setRooms)} />
@@ -126,13 +140,33 @@ const BottomMenu = ({}) => {
                     </div>
                     <Divider flip={true} />
                     <motion.button
+                      onClick={e => setCityMenu(e.currentTarget)}
                       whileTap={{backgroundColor: 'rgba(231, 231, 242, 0.3)'}}
                       className={styles.bottom_modalSection}>
                       <RiMapPinLine size={23} color={iconColor} />
                       <div style={{width: '56.5vw'}}>
                         <div className={styles.label}>City</div>
-                        <div className={styles.selection}>{city}</div>
+                        <div className={styles.selection}>
+                          {city}, {state}
+                        </div>
                       </div>
+                      <Menu
+                        variant="menu"
+                        anchorEl={cityMenu}
+                        open={Boolean(cityMenu)}
+                        onClose={() => setCityMenu(null)}>
+                        {cities.map((c, i) => (
+                          <MenuItem
+                            key={i}
+                            selected={c === city}
+                            onClick={() => {
+                              dispatch(setCity(c));
+                              setCityMenu(null);
+                            }}>
+                            {c}
+                          </MenuItem>
+                        ))}
+                      </Menu>
                     </motion.button>
                   </div>
                 </div>
@@ -141,7 +175,11 @@ const BottomMenu = ({}) => {
           </AnimatePresence>
         </>
       ) : (
-        <div className={styles.locOptions}>
+        <motion.div
+          transition={{delay: 1, duration: 0.6}}
+          animate={{translateX: '-50%', translateY: '0%'}}
+          initial={{translateX: '-50%', translateY: '100%'}}
+          className={styles.locOptions}>
           <div className={styles.optionsTitle}>Plan Your Vacation</div>
           <div className={styles.optionsMain}>
             <div className={styles.menus} style={{borderWidth: '2px'}}>
@@ -159,6 +197,7 @@ const BottomMenu = ({}) => {
               </motion.div>
               <Divider />
               <motion.div
+                onClick={e => setCityMenu(e.currentTarget)}
                 whileHover={{backgroundColor: '#ffffff26'}}
                 whileTap={{backgroundColor: '#ffffff4d'}}
                 className={styles.menu}
@@ -166,9 +205,27 @@ const BottomMenu = ({}) => {
                 <RiMapPinLine size={20} color={iconColor} />
                 <div style={{flex: 1, paddingInline: '10px'}}>
                   <div className={styles.label}>City</div>
-                  <div className={styles.selection}>{city}</div>
+                  <div className={styles.selection}>
+                    {city}, {state}
+                  </div>
                 </div>
                 <BiChevronDown size={20} color={iconColor} />
+                <Menu
+                  anchorEl={cityMenu}
+                  open={Boolean(cityMenu)}
+                  onClose={() => setCityMenu(null)}>
+                  {cities.map((c, i) => (
+                    <MenuItem
+                      key={i}
+                      selected={c === city}
+                      onClick={() => {
+                        dispatch(setCity(c));
+                        setCityMenu(null);
+                      }}>
+                      {c}
+                    </MenuItem>
+                  ))}
+                </Menu>
               </motion.div>
               <Divider />
               <motion.div
@@ -186,8 +243,7 @@ const BottomMenu = ({}) => {
               </motion.div>
               <Divider />
               <motion.div
-                ref={roomRef}
-                onClick={() => toggleRoom()}
+                onClick={e => setRoomMenu(e.currentTarget)}
                 whileHover={{backgroundColor: '#ffffff26'}}
                 whileTap={{backgroundColor: '#ffffff4d'}}
                 className={styles.menu}
@@ -206,8 +262,9 @@ const BottomMenu = ({}) => {
                 </div>
                 <BiChevronDown size={20} color={iconColor} />
                 <Popover
-                  open={roomMenu}
-                  anchorEl={roomRef.current}
+                  open={Boolean(roomMenu)}
+                  anchorEl={roomMenu}
+                  onClose={() => setRoomMenu(null)}
                   PaperProps={{
                     style: {
                       width: '20vw',
@@ -215,10 +272,6 @@ const BottomMenu = ({}) => {
                       paddingInline: 15,
                       paddingTop: 15,
                     },
-                  }}
-                  anchorOrigin={{
-                    horizontal: 'left',
-                    vertical: 'bottom',
                   }}>
                   <div className={styles.label}>Adults</div>
                   <Slider {...sliderProps('a', rooms, setRooms)} />
@@ -235,7 +288,7 @@ const BottomMenu = ({}) => {
               Search
             </motion.button>
           </div>
-        </div>
+        </motion.div>
       )}
     </form>
   );

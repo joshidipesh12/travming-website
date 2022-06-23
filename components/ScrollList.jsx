@@ -123,8 +123,8 @@ const PlaceCard = ({item}) => {
       onLoad={e => setMainDiv(e.currentTarget)}
       onHoverStart={() => setHover(true)}
       onHoverEnd={() => setHover(false)}
-      whileHover={{scale: 1.1}}
-      whileInView={{scale: 0.9, elevation: 20}}
+      whileHover={{scale: 1.05}}
+      whileInView={{scale: 0.9}}
       animate={{opacity: 1, translateY: 0}}
       style={{display: error ? 'none' : '', scale: 0.6}}
       className={styles.listItem}>

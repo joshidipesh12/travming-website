@@ -7,20 +7,31 @@ import styles from '../styles/Components.module.css';
 import config from '../config.json';
 import {FiChevronDown} from 'react-icons/fi';
 import {getLocByCoords, setCountry, setState} from '../store/hotels';
-import {Menu, MenuItem} from '@material-ui/core';
+import {CircularProgress, Menu, MenuItem} from '@material-ui/core';
 
 const LocSelector = ({visible, closeModal}) => {
   const {countries} = config;
   const dispatch = useDispatch();
   const [isNearby, flipMode] = useToggle();
-  const [countryButton, setCountryButton] = useState(null);
-  const [stateButton, setStateButton] = useState(null);
-  const location = useSelector(state => state.hotel);
-  const {states, statesError} = useSelector(state => state.location);
+  const [countryMenu, setCountryMenu] = useState(null);
+  const [stateMenu, setStateMenu] = useState(null);
+
+  const {state, country} = useSelector(state => state.hotel);
+  const {states, statesError, loading} = useSelector(state => state.location);
 
   useEffect(() => {
-    if (states.length > 0) dispatch(setState(states[0].name));
+    if (states.length) dispatch(setState(states[0].name));
   }, [states]);
+
+  useEffect(() => {
+    window.addEventListener('keydown', e => {
+      if (e.code === 'Escape') {
+        closeModal();
+        return () => window.removeEventListener('keydown');
+      }
+    });
+    return () => {};
+  }, []);
 
   return (
     <AnimatePresence initial={false} exitBeforeEnter>
@@ -31,11 +42,13 @@ const LocSelector = ({visible, closeModal}) => {
               <div className={styles.LS_container_select}>
                 <div className={styles.LS_label}>Select Country</div>
                 <motion.button
-                  onClick={e => setCountryButton(e.currentTarget)}
-                  whileHover={{backgroundColor: '#e7e7ea'}}
-                  whileFocus={{boxShadow: 'none'}}
-                  className={styles.LS_selectButton}>
-                  {location.country}
+                  onClick={e => setCountryMenu(e.currentTarget)}
+                  className={styles.LS_selectButton}
+                  whileHover={{
+                    backgroundColor: '#e7e7ea',
+                    boxShadow: '0 0 0 grey',
+                  }}>
+                  {country}
                   <FiChevronDown
                     color="##c9ced7"
                     className={styles.LS_chevronDown}
@@ -43,17 +56,17 @@ const LocSelector = ({visible, closeModal}) => {
                 </motion.button>
                 <Menu
                   variant="menu"
-                  anchorOrigin={{horizontal: 'right'}}
-                  anchorEl={countryButton}
-                  open={Boolean(countryButton)}
-                  onClose={() => setCountryButton(null)}>
+                  anchorOrigin={{horizontal: 'center'}}
+                  anchorEl={countryMenu}
+                  open={Boolean(countryMenu)}
+                  onClose={() => setCountryMenu(null)}>
                   {Object.keys(countries).map((c, i) => (
                     <MenuItem
                       key={i}
-                      selected={c === location.country}
+                      selected={c === country}
                       onClick={() => {
                         dispatch(setCountry(c));
-                        setCountryButton(null);
+                        setCountryMenu(null);
                       }}>
                       {c}
                     </MenuItem>
@@ -61,34 +74,49 @@ const LocSelector = ({visible, closeModal}) => {
                 </Menu>
                 <div className={styles.LS_label}>Select State</div>
                 <motion.button
-                  onClick={e => setStateButton(e.currentTarget)}
+                  onClick={e => setStateMenu(e.currentTarget)}
                   whileHover={{backgroundColor: '#e7e7ea'}}
-                  whileFocus={{boxShadow: 'none'}}
+                  whileFocus={{boxShadow: '0 0 0 grey'}}
                   className={styles.LS_selectButton}>
-                  {states.length > 0 ? location.state : 'Loading...'}
-                  <FiChevronDown
-                    color="##c9ced7"
-                    className={styles.LS_chevronDown}
-                  />
+                  {states.length ? state : 'Loading...'}
+                  {states.length ? (
+                    <FiChevronDown
+                      color="##c9ced7"
+                      className={styles.LS_chevronDown}
+                    />
+                  ) : (
+                    <CircularProgress
+                      size={10}
+                      className={styles.LS_chevronDown}
+                    />
+                  )}
                 </motion.button>
-                <Menu
-                  anchorOrigin={{horizontal: 'right'}}
-                  anchorEl={stateButton}
-                  open={Boolean(stateButton)}
-                  onClose={() => setStateButton(null)}>
-                  {states.map((s, i) => (
-                    <MenuItem
-                      key={i}
-                      disabled={!states.length}
-                      selected={s.name === location.state}
-                      onClick={() => {
-                        dispatch(setState(s.name));
-                        setStateButton(null);
-                      }}>
-                      {s.name}
-                    </MenuItem>
-                  ))}
-                </Menu>
+                {states.length ? (
+                  <Menu
+                    anchorOrigin={{horizontal: 'right'}}
+                    anchorEl={stateMenu}
+                    open={Boolean(stateMenu)}
+                    onClose={() => setStateMenu(null)}>
+                    {states.map((s, i) => (
+                      <MenuItem
+                        key={i}
+                        selected={s.name === state}
+                        onClick={() => {
+                          dispatch(setState(s.name));
+                          setStateMenu(null);
+                        }}>
+                        {s.name}
+                      </MenuItem>
+                    ))}
+                  </Menu>
+                ) : null}
+                <motion.button
+                  onClick={() => closeModal()}
+                  whileHover={{scale: 1.05}}
+                  whileTap={{scale: 0.95}}
+                  className={styles.LS_done}>
+                  Done
+                </motion.button>
               </div>
             ) : (
               <div style={{flex: 1}}>here1</div>
@@ -185,7 +213,7 @@ export default LocSelector;
 //                       <>
 //                         <img src="/icons/home_loc.svg" />
 //                         <h2 style={{color: 'HighlightText'}}>
-//                           {location.state}, {location.country}
+//                           {state}, {country}
 //                         </h2>
 //                       </>
 //                     )}

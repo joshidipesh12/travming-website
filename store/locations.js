@@ -19,6 +19,7 @@ const slice = createSlice({
     },
     statesSuccess: (state, action) => {
       if (action.payload.response) {
+        state.cities = [];
         let arr = action.payload.response.data.states ?? [];
         shuffleArray(arr);
         state.states = arr;

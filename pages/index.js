@@ -2,51 +2,48 @@ import React, {useEffect, useRef, useState} from 'react';
 import Image from 'next/image';
 import Fade from 'react-reveal/Fade';
 import Pulse from 'react-reveal/Pulse';
-import {motion, useAnimation} from 'framer-motion';
 import {useDispatch, useSelector} from 'react-redux';
+import {setCity} from '../store/hotels';
 
 import {getCities, getStates} from '../store/locations';
-import {ScrollList, BottomMenu, LocSelector, Layout, Head} from '../components';
+import {
+  ScrollList,
+  BottomMenu,
+  LocSelector,
+  Layout,
+  Background,
+} from '../components';
 import styles from '../styles/Home.module.css';
 import {useIsMobile} from '../hooks';
-import config from '../config.json';
 
 export default function Home() {
   const titleRef = useRef();
   const isMobile = useIsMobile();
   const dispatch = useDispatch();
-  const bgOpacity = useAnimation();
   const [locModal, setLocModal] = useState(false);
   const [titleVis, setTitleVisible] = useState(true);
-  const [background, setBackground] = useState(config.countries['Australia']);
 
-  const country = useSelector(state => state.hotel.country);
+  const {country, state, city} = useSelector(state => state.hotel);
+  const {states, cities} = useSelector(state => state.location);
 
   useEffect(() => {
-    // dispatch(getCities(country));
     dispatch(getStates(country));
-    setBackground(config.countries[country]);
-    // bgOpacity.start({opacity: 0})
     return () => {};
   }, [country]);
 
+  useEffect(() => {
+    dispatch(getCities(country, state));
+  }, [state]);
+
+  useEffect(() => {
+    if (cities.length) dispatch(setCity(cities[0]));
+  }, [cities]);
+
+  useEffect(() => {}, []);
+
   return (
-    <div className={styles.container}>
-      <div className={styles.background}>
-        <motion.div animate={bgOpacity} style={{position: 'relative', flex: 1}}>
-          <Image
-            priority={true}
-            layout="fill"
-            objectFit="cover"
-            alt={`${country} Image`}
-            src={background}
-            onLoadingComplete={() => bgOpacity.start({opacity: 1})}
-          />
-        </motion.div>
-      </div>
-      <div className={styles.background_cover} />
+    <Background>
       <Layout>
-        <Head />
         <LocSelector visible={locModal} closeModal={() => setLocModal(false)} />
         <ScrollList
           titleCurr={
@@ -72,7 +69,7 @@ export default function Home() {
         </div>
         <BottomMenu />
       </Layout>
-    </div>
+    </Background>
   );
 }
 

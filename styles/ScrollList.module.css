@@ -68,8 +68,8 @@
   border-radius: 16px;
   width: 25vw;
   height: 85%;
-  margin-inline: 20px;
-  margin-block: 2%;
+  gap: 3%;
+  margin-block: 3%;
   transition: all 0.2s ease-out;
   box-shadow: 0px 0px 5px grey;
   flex-direction: row;
@@ -82,7 +82,7 @@
 
 .loadCard {
   transform: translateY(0px);
-  box-shadow: none;
+  transform: scale(0.9);
   animation: shimmer 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
@@ -174,13 +174,18 @@
     width: 80vw;
     height: 25vh;
     margin-inline: 10vw;
-    margin-block: 10%;
-    box-shadow: none;
+    margin-block: 0;
+    box-shadow: 0 0 0 grey;
     flex-direction: row;
     justify-content: center;
     align-items: center;
     opacity: 0;
     transform: translateY(30px);
+  }
+
+  .loadCard {
+    margin-block: 2%;
+    scale: 0.8;
   }
 
   .place {
@@ -195,5 +200,9 @@
     border-radius: 15px;
     margin-left: 10px;
     margin-block: 0px;
+  }
+
+  .listItem:last-child {
+    margin-right: 0rem;
   }
 }

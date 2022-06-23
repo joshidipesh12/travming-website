@@ -6,34 +6,66 @@
   margin-inline: 10vw;
   justify-content: space-between;
   align-items: center;
+  font-size: 1vw;
+  position: relative;
 }
 
 .name {
   color: aliceblue;
   font-family: 'Carter One', sans-serif;
+  font-size: 2em;
 }
 
 .links {
   display: flex;
   flex-direction: row;
+  position: relative;
 }
 
 .link {
+  cursor: pointer;
   color: white;
   margin-inline: 2vw;
+  text-transform: uppercase;
+}
+
+.hide {
+  position: relative;
+}
+
+.hide::before {
+  width: 0%;
+  content: ' ';
+  display: block;
+  height: 5%;
+  left: -5%;
+  bottom: 0%;
+  position: absolute;
+  background: #ffffff;
+  transition: all 0.2s ease-out;
+  z-index: -1;
+  border-radius: 5px;
+}
+
+.hide:hover::before {
+  width: 110%;
 }
 
 .searchIcon {
   cursor: pointer;
 }
 
+.listItem {
+}
+
 @media (max-aspect-ratio: 2/3) {
   /* For Mobile Devices */
   .container {
     margin-inline: 5vw;
+    padding-left: 5vw;
+    font-size: 3vw;
   }
-
-  .link {
-    font-size: small;
+  .hide {
+    display: none;
   }
 }

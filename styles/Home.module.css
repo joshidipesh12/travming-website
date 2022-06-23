@@ -76,14 +76,14 @@
   width: 0%;
   content: ' ';
   display: block;
-  height: 100%;
+  height: 5%;
   left: -5%;
+  bottom: 0%;
   position: absolute;
   background: #ffd500;
   transition: all 0.2s ease-out;
   z-index: -1;
   border-radius: 5px;
-  box-shadow: 0 0 5px #2f2f2f;
 }
 
 .placeName > *:hover::before {
@@ -271,15 +271,8 @@
 
   .placeName {
     transition: all 0.2s ease-out;
-    color: rgb(255, 211, 155);
     display: flex;
     justify-content: center;
-  }
-
-  .placeName:active,
-  .placeName:hover {
-    font-size: 14vw;
-    color: rgb(216, 255, 124);
   }
 
   .subTitle {
@@ -322,7 +315,8 @@
 
 @media (min-height: 800px) {
   .locOptions {
-    bottom: calc(1 * var(--vh));
+    bottom: calc(6 * var(--vh));
     border-radius: 20px;
+    height: calc(5 * var(--vh));
   }
 }
