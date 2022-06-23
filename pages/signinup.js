@@ -126,7 +126,7 @@ const LoginForm = ({switchTo}) => (
     </button>
     <Marginer direction="vertical" margin="1em" />
     <div className={styles.mutedLink}>
-      Don't have an accoun?
+      Dont have an accoun?{'  '}
       <div className={styles.boldLink} onClick={switchTo}>
         <Link href="#">Signup</Link>
       </div>
