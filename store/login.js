@@ -6,28 +6,28 @@ const slice = createSlice({
   initialState: {
     loginLoading: false,
     signupLoading: false,
-    usename: null,
+    username: null,
     password: null,
     loggedIn: false,
   },
   reducers: {
     login: (state, action) => {
-      state.usename = action.payload.username;
+      state.username = action.payload.username;
       state.loggedIn = true;
     },
     signup: (state, action) => {
-      state.usename = action.payload.username;
+      state.username = action.payload.username;
       state.loggedIn = true;
     },
     logout: (state, action) => {
       state.loggedIn = false;
-      state.usename = null;
+      state.username = null;
       state.password = null;
     },
   },
 });
 
-export const {login, signup} = slice.actions;
+export const {login, signup, logout} = slice.actions;
 export default slice.reducer;
 
 // Action Creators

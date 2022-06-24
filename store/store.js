@@ -4,7 +4,7 @@ import createWebStorage from 'redux-persist/lib/storage/createWebStorage';
 
 import reducer from './reducer';
 import api from './middleware/api';
-// import {logout} from './login';
+import {logout} from './login';
 
 const createNoopStorage = () => {
   return {
@@ -31,10 +31,10 @@ const persistConfig = {
 };
 
 const rootReducer = (state, action) => {
-  // if (action.type === logout.type) {
-  //   persistConfig.storage.removeItem('persist:root');
-  //   state = undefined;
-  // }
+  if (action.type === logout.type) {
+    persistConfig.storage.removeItem('persist:root');
+    state = undefined;
+  }
   return reducer(state, action);
 };
 

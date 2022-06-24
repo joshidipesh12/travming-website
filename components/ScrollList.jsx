@@ -103,8 +103,7 @@ function ScrollList({onScroll}) {
 const PlaceCard = ({item}) => {
   const isMobile = useIsMobile();
   const dispatch = useDispatch();
-  const [mainDiv, setMainDiv] = useState(null);
-  const [cardDims, setCardDims] = useState();
+  const [imageSrc, setImageSrc] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [hover, setHover] = useState(false);
@@ -112,15 +111,14 @@ const PlaceCard = ({item}) => {
   const isSelected = hotel.state === item.name;
 
   useEffect(() => {
-    if (Boolean(mainDiv)) {
-      setCardDims(`${mainDiv?.clientWidth}x${mainDiv?.clientHeight}`);
-    }
+    setImageSrc(
+      `https://source.unsplash.com/${window?.innerWidth}x${window?.innerHeight}/?${item.name}`,
+    );
     return () => {};
-  }, [mainDiv]);
+  }, []);
 
   return (
     <motion.div
-      onLoad={e => setMainDiv(e.currentTarget)}
       onHoverStart={() => setHover(true)}
       onHoverEnd={() => setHover(false)}
       whileHover={{scale: 1.03}}
@@ -141,14 +139,14 @@ const PlaceCard = ({item}) => {
             color="white"
           />
         ) : null}
-        {Boolean(mainDiv) ? (
+        {imageSrc?.length ? (
           <Image
             layout="fill"
             objectFit="cover"
             alt={`${item.name} Card`}
             onLoadingComplete={() => setLoading(false)}
             onError={() => setError(true)}
-            src={`https://source.unsplash.com/${cardDims}/?${item.name}`}
+            src={imageSrc}
           />
         ) : null}
         <div className={styles.place}>
@@ -158,9 +156,7 @@ const PlaceCard = ({item}) => {
           </div>
           <Fade
             when={isMobile || hover}
-            delay={isMobile ? 1000 : 0}
             duration={isMobile ? 1000 : 400}
-            collapse
             right
             cascade>
             <div style={{display: 'flex'}}>

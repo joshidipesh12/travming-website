@@ -1,6 +1,13 @@
-import axios from 'axios';
+import {setup} from 'axios-cache-adapter';
 import {REHYDRATE, PERSIST} from 'redux-persist';
 import * as actions from '../api';
+
+const axios = setup({
+  cache: {
+    maxAge: 5 * 24 * 60 * 60 * 1000,
+    exclude: {methods: ['put', 'patch', 'delete']},
+  },
+});
 
 const api =
   ({dispatch}) =>

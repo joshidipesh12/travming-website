@@ -6,4 +6,3 @@ export {default as Modal} from './Modal';
 export {default as Navbar} from './Navbar';
 export {default as ScrollList} from './ScrollList';
 export {default as Background} from './Background';
-export {default as Marginer} from './Marginer';

@@ -5,12 +5,11 @@ import styles from '../styles/Signinup.module.css';
 import Link from 'next/link';
 import {BsLinkedin, BsGoogle, BsFacebook} from 'react-icons/bs';
 import {MdOutlineVisibilityOff, MdOutlineVisibility} from 'react-icons/md';
-import {
-  TextField,
-  IconButton,
-  InputAdornment,
-  withStyles,
-} from '@material-ui/core';
+import {TextField, InputAdornment, withStyles} from '@material-ui/core';
+import {useDispatch} from 'react-redux';
+import {signup} from '../store/login';
+import {Spinner} from 'react-activity';
+import 'react-activity/dist/library.css';
 
 const CssTextField = withStyles({
   root: {
@@ -33,6 +32,7 @@ const CssTextField = withStyles({
 
 function Signup({}) {
   const bgRef = useRef();
+  const dispatch = useDispatch();
   const [passwordVisible, togglePassword] = useToggle(false);
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
@@ -40,23 +40,25 @@ function Signup({}) {
 
   useEffect(() => {
     const image = new Image();
-    const url = `https://source.unsplash.com/${window.innerWidth}x${window.innerHeight}/?traveling`;
+    const url = `https://source.unsplash.com/${window.innerWidth}x${window.innerHeight}/?travelling`;
     image.addEventListener('load', e => {
-      setDisplay('flex');
       bgRef.current.style.backgroundImage = `url(${url})`;
+      setDisplay('flex');
       return () => image.removeEventListener('load');
     });
     image.src = url;
   }, []);
 
   return (
-    <main>
+    <main className={styles.main}>
       <form onSubmit={e => e.preventDefault()}>
-        <motion.div ref={bgRef} className={styles.container} style={{display}}>
+        <motion.div
+          ref={bgRef}
+          initial={{opacity: 0}}
+          animate={{opacity: 1}}
+          className={styles.container}
+          style={{display}}>
           <div className={styles.backdrop}>
-            <div className={styles.logo2}>
-              TRAV<span style={{color: '#03a6a7'}}>MING</span>
-            </div>
             <div className={styles.boxContainer}>
               <div className={styles.logo}>
                 TRAV<span style={{color: '#03a6a7'}}>MING</span>
@@ -84,48 +86,62 @@ function Signup({}) {
                 type="email"
                 size="small"
                 variant="outlined"
+                fullWidth={true}
                 onChange={e => setEmail(e.target.value)}
               />
               <CssTextField
-                type="password"
+                type={passwordVisible ? 'text' : 'password'}
                 size="small"
                 label="Password"
                 variant="outlined"
                 onChange={e => setPassword(e.target.value)}
-                endAdornment={
-                  <InputAdornment position="end">
-                    {!passwordVisible ? (
-                      <MdOutlineVisibility
-                        aria-label="toggle password visibility"
-                        onClick={togglePassword}
-                        onMouseDown={e => e.preventDefault()}
-                      />
-                    ) : (
-                      <MdOutlineVisibilityOff
-                        aria-label="toggle password visibility"
-                        onClick={togglePassword}
-                        onMouseDown={e => e.preventDefault()}
-                      />
-                    )}
-                  </InputAdornment>
-                }
+                fullWidth={true}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      {!passwordVisible ? (
+                        <MdOutlineVisibility
+                          aria-label="toggle password visibility"
+                          onClick={togglePassword}
+                          onMouseDown={e => e.preventDefault()}
+                          color="white"
+                        />
+                      ) : (
+                        <MdOutlineVisibilityOff
+                          aria-label="toggle password visibility"
+                          onClick={togglePassword}
+                          onMouseDown={e => e.preventDefault()}
+                          color="white"
+                        />
+                      )}
+                    </InputAdornment>
+                  ),
+                }}
               />
-              <motion.button
-                whileHover={{backgroundColor: '#037e7e'}}
-                whileTap={{scale: 0.95}}
-                className={styles.button}>
-                SIGN UP
-              </motion.button>
+              <Link href={email ? '/' : '#'}>
+                <motion.button
+                  whileHover={{backgroundColor: '#037e7e'}}
+                  whileTap={{scale: 0.95}}
+                  className={styles.button}
+                  onClick={() => {
+                    if (email) dispatch(signup({username: email}));
+                  }}>
+                  SIGN UP
+                </motion.button>
+              </Link>
               <div className={styles.text}>
-                Dont have a account?{' '}
+                Already have an account?{' '}
                 <span style={{color: '#03a6a7'}}>
-                  <Link href="/signin">Sign In</Link>
+                  <Link href="/signin" replace>
+                    Sign In
+                  </Link>
                 </span>
               </div>
             </div>
           </div>
         </motion.div>
       </form>
+      {display === 'none' ? <Spinner color="#03a6a7" size={50} /> : null}
     </main>
   );
 }

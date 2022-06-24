@@ -9,18 +9,25 @@ import {useSelector} from 'react-redux';
 
 function Navbar() {
   const [drawer, toggleDrawer] = useToggle();
-  const {loggedIn, username} = useSelector(state => state.login);
+  const {username, loggedIn} = useSelector(state => state.login);
 
   return (
     <header className={styles.container}>
       <section className={`${styles.links} ${styles.hide}`}>
-        <span className={styles.link}>
-          <Link href="/signup">Sign Up</Link>
-        </span>
-        {'/'}
-        <span className={styles.link}>
-          <Link href="/signup">Sign In</Link>
-        </span>
+        {loggedIn && username ? (
+          <div style={{textTransform: 'uppercase'}} className={styles.link}>
+            {username}
+          </div>
+        ) : (
+          <>
+            <div className={styles.link}>
+              <Link href="/signup">Sign Up</Link>
+            </div>
+            <div className={styles.link}>
+              <Link href="/signin">Sign In</Link>
+            </div>
+          </>
+        )}
       </section>
       <Link href="/">
         <motion.div className={styles.name}>
@@ -52,13 +59,16 @@ const DrawerContent = ({anchor, toggle}) => {
       <List>
         <ListItem>
           <ListItemText
-            style={{
-              color: 'white',
-              fontWeight: 800,
-              fontFamily: 'sans-serif',
-              textAlign: 'center',
-              textShadow: '0 0 4px grey',
+            primaryTypographyProps={{
+              style: {
+                color: 'white',
+                fontWeight: 800,
+                fontFamily: 'sans-serif',
+                textAlign: 'center',
+                textShadow: '0 0 4px grey',
+              },
             }}
+            style={{}}
             primary="TRAVMING"
           />
         </ListItem>
@@ -79,7 +89,9 @@ const DrawerContent = ({anchor, toggle}) => {
           </Link>
         </ListItem>
         <ListItem button>
-          <ListItemText primary="Sign Up" />
+          <Link href="/signup" passHref>
+            <ListItemText primary="Sign Up" />
+          </Link>
         </ListItem>
         <Divider />
         <ListItem button>
@@ -88,7 +100,9 @@ const DrawerContent = ({anchor, toggle}) => {
           </Link>
         </ListItem>
         <ListItem button>
-          <Link href="https://joshidipesh12.github.io" passHref>
+          <Link
+            href="https://github.com/joshidipesh12/travming-website"
+            passHref>
             <ListItemText primary="About" />
           </Link>
         </ListItem>

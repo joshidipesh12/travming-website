@@ -21,7 +21,7 @@ const BottomMenu = ({}) => {
   const isMobile = useIsMobile();
   const dispatch = useDispatch();
   const [roomMenu, setRoomMenu] = useState(null);
-  const [cityMenu, setCityMenu] = useState(null);
+  const cityMenu = useRef(null);
   const [rooms, setRooms] = useState({a: 3, k: 0});
   const [tripModal, setTripModal] = useState(false);
   const [date, setDate] = useState(dayjs().format('ddd, MMM D YYYY'));
@@ -140,7 +140,9 @@ const BottomMenu = ({}) => {
                     </div>
                     <Divider flip={true} />
                     <motion.button
-                      onClick={e => setCityMenu(e.currentTarget)}
+                      onClick={e => {
+                        cityMenu.current = e.currentTarget;
+                      }}
                       whileTap={{backgroundColor: 'rgba(231, 231, 242, 0.3)'}}
                       className={styles.bottom_modalSection}>
                       <RiMapPinLine size={23} color={iconColor} />
@@ -152,16 +154,18 @@ const BottomMenu = ({}) => {
                       </div>
                       <Menu
                         variant="menu"
-                        anchorEl={cityMenu}
-                        open={Boolean(cityMenu)}
-                        onClose={() => setCityMenu(null)}>
+                        anchorEl={cityMenu.current}
+                        open={Boolean(cityMenu.current)}
+                        onClose={() => {
+                          cityMenu.current = null;
+                        }}>
                         {cities.map((c, i) => (
                           <MenuItem
                             key={i}
                             selected={c === city}
                             onClick={() => {
                               dispatch(setCity(c));
-                              setCityMenu(null);
+                              cityMenu.current = null;
                             }}>
                             {c}
                           </MenuItem>
@@ -176,9 +180,9 @@ const BottomMenu = ({}) => {
         </>
       ) : (
         <motion.div
-          transition={{delay: 1, duration: 0.6}}
-          animate={{translateX: '-50%', translateY: '0%'}}
-          initial={{translateX: '-50%', translateY: '100%'}}
+          transition={{delay: 0.6, duration: 0.6}}
+          animate={{translateX: '-50%', translateY: '0%', scale: 1}}
+          initial={{translateX: '-50%', translateY: '100%', scale: 0}}
           className={styles.locOptions}>
           <div className={styles.optionsTitle}>Plan Your Vacation</div>
           <div className={styles.optionsMain}>
@@ -197,7 +201,9 @@ const BottomMenu = ({}) => {
               </motion.div>
               <Divider />
               <motion.div
-                onClick={e => setCityMenu(e.currentTarget)}
+                onClick={e => {
+                  cityMenu.current = e.currentTarget;
+                }}
                 whileHover={{backgroundColor: '#ffffff26'}}
                 whileTap={{backgroundColor: '#ffffff4d'}}
                 className={styles.menu}
@@ -210,22 +216,6 @@ const BottomMenu = ({}) => {
                   </div>
                 </div>
                 <BiChevronDown size={20} color={iconColor} />
-                <Menu
-                  anchorEl={cityMenu}
-                  open={Boolean(cityMenu)}
-                  onClose={() => setCityMenu(null)}>
-                  {cities.map((c, i) => (
-                    <MenuItem
-                      key={i}
-                      selected={c === city}
-                      onClick={() => {
-                        dispatch(setCity(c));
-                        setCityMenu(null);
-                      }}>
-                      {c}
-                    </MenuItem>
-                  ))}
-                </Menu>
               </motion.div>
               <Divider />
               <motion.div

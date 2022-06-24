@@ -43,6 +43,7 @@
     rgba(19, 19, 23, 0.755) -8.21%,
     rgba(19, 19, 23, 0.357) 100%
   );
+  backdrop-filter: blur(2px);
 }
 
 .titleText {
@@ -190,6 +191,10 @@
 }
 
 /*  Bottom Modal Styles  */
+.mobLocOptions {
+  display: none;
+}
+
 .bottom_modalContainer {
   background: linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
     rgba(255, 255, 255, 0.15);
@@ -280,6 +285,7 @@
   }
 
   .mobLocOptions {
+    display: block;
     position: absolute;
     bottom: calc(2.5 * var(--vh));
     left: 5vw;
@@ -310,6 +316,10 @@
 
   .label {
     margin-bottom: 10px;
+  }
+
+  .locOptions {
+    display: none;
   }
 }
 

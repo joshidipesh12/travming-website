@@ -62,7 +62,7 @@
 
 .listItem {
   display: inline-flex;
-  background: rgba(255, 255, 255, 0.15);
+  background-color: rgba(25, 25, 25, 0.35);
   backdrop-filter: blur(20px);
   overflow: hidden;
   border-radius: 16px;
