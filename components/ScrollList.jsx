@@ -123,7 +123,7 @@ const PlaceCard = ({item}) => {
       onLoad={e => setMainDiv(e.currentTarget)}
       onHoverStart={() => setHover(true)}
       onHoverEnd={() => setHover(false)}
-      whileHover={{scale: 1.05}}
+      whileHover={{scale: 1.03}}
       whileInView={{scale: 0.9}}
       animate={{opacity: 1, translateY: 0}}
       style={{display: error ? 'none' : '', scale: 0.6}}
@@ -159,7 +159,7 @@ const PlaceCard = ({item}) => {
           <Fade
             when={isMobile || hover}
             delay={isMobile ? 1000 : 0}
-            duration={isMobile ? 1000 : 200}
+            duration={isMobile ? 1000 : 400}
             collapse
             right
             cascade>

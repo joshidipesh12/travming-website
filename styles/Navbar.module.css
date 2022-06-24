@@ -27,13 +27,14 @@
   color: white;
   margin-inline: 2vw;
   text-transform: uppercase;
+  position: relative;
 }
 
 .hide {
   position: relative;
 }
 
-.hide::before {
+.link::before {
   width: 0%;
   content: ' ';
   display: block;

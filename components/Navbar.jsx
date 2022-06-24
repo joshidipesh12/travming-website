@@ -5,18 +5,28 @@ import {MdMenu} from 'react-icons/md';
 import {motion} from 'framer-motion';
 import {Divider, Drawer, List, ListItem, ListItemText} from '@material-ui/core';
 import {useToggle} from '../hooks';
+import {useSelector} from 'react-redux';
 
 function Navbar() {
   const [drawer, toggleDrawer] = useToggle();
+  const {loggedIn, username} = useSelector(state => state.login);
 
   return (
     <header className={styles.container}>
       <section className={`${styles.links} ${styles.hide}`}>
-        <div className={styles.link}>Sign Up / Sign In</div>
+        <span className={styles.link}>
+          <Link href="/signup">Sign Up</Link>
+        </span>
+        {'/'}
+        <span className={styles.link}>
+          <Link href="/signup">Sign In</Link>
+        </span>
       </section>
-      <motion.div className={styles.name}>
-        <Link href="/">TRAVMING</Link>
-      </motion.div>
+      <Link href="/">
+        <motion.div className={styles.name}>
+          TRAV<span style={{color: '#03a6a7'}}>MING</span>
+        </motion.div>
+      </Link>
       <section className={styles.links}>
         <div className={`${styles.link} ${styles.hide}`}>
           <Link href="/explore">Explore</Link>
@@ -64,7 +74,9 @@ const DrawerContent = ({anchor, toggle}) => {
         </ListItem>
         <Divider />
         <ListItem button>
-          <ListItemText primary="Sign In" />
+          <Link href="/signin" passHref>
+            <ListItemText primary="Sign In" />
+          </Link>
         </ListItem>
         <ListItem button>
           <ListItemText primary="Sign Up" />
