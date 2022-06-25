@@ -12,4 +12,9 @@ module.exports = {
       },
     ];
   },
+  async rewrites() {
+    return {
+      afterFiles: [{source: '/:path*', destination: '/_404/:path*'}],
+    };
+  },
 };
