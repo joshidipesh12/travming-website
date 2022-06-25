@@ -1,11 +1,21 @@
-import Link from 'next/link';
 import React from 'react';
+import Link from 'next/link';
 import styles from '../styles/Navbar.module.css';
-import {MdMenu} from 'react-icons/md';
+import {
+  MdMenu,
+  MdHome,
+  MdLogin,
+  MdLogout,
+  MdOutlineExplore,
+  MdOutlineAccountCircle,
+} from 'react-icons/md';
+import {AiFillGithub, AiFillLinkedin} from 'react-icons/ai';
 import {motion} from 'framer-motion';
 import {Divider, Drawer, List, ListItem, ListItemText} from '@material-ui/core';
 import {useToggle} from '../hooks';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
+import {logout} from '../store/login';
+import Image from 'next/image';
 
 function Navbar() {
   const [drawer, toggleDrawer] = useToggle();
@@ -54,59 +64,95 @@ function Navbar() {
 }
 
 const DrawerContent = ({anchor, toggle}) => {
+  const dispatch = useDispatch();
+  const {loggedIn, username} = useSelector(state => state.login);
+
   return (
     <div role="presentation" onClick={toggle} style={{width: 250}}>
       <List>
         <ListItem>
-          <ListItemText
-            primaryTypographyProps={{
-              style: {
-                color: 'white',
-                fontWeight: 800,
-                fontFamily: 'sans-serif',
-                textAlign: 'center',
-                textShadow: '0 0 4px grey',
-              },
-            }}
-            style={{}}
-            primary="TRAVMING"
-          />
+          <Link href="/">
+            <ListItemText
+              primaryTypographyProps={{
+                style: {
+                  color: 'rgb(3, 166, 167)',
+                  fontFamily: 'Carter One',
+                  textAlign: 'center',
+                  fontSize: 'large',
+                },
+              }}
+              primary="TRAVMING"
+            />
+          </Link>
         </ListItem>
         <ListItem button>
+          <MdHome />
           <Link href="/" passHref>
-            <ListItemText primary="Home" />
+            <ListItemText inset primary="Home" />
           </Link>
         </ListItem>
         <ListItem button>
+          <MdOutlineExplore />
           <Link href="/explore" passHref>
-            <ListItemText primary="Explore" />
+            <ListItemText inset primary="Explore" />
           </Link>
         </ListItem>
         <Divider />
-        <ListItem button>
-          <Link href="/signin" passHref>
-            <ListItemText primary="Sign In" />
-          </Link>
-        </ListItem>
-        <ListItem button>
-          <Link href="/signup" passHref>
-            <ListItemText primary="Sign Up" />
-          </Link>
-        </ListItem>
+        {loggedIn ? (
+          <>
+            <ListItem button>
+              <MdOutlineAccountCircle />
+              <ListItemText
+                inset
+                primary={username.split('@')[0].toUpperCase()}
+              />
+            </ListItem>
+            <ListItem button onClick={() => dispatch(logout())}>
+              <MdLogout />
+              <Link href="/" replace shallow>
+                <ListItemText inset primary="Logout" />
+              </Link>
+            </ListItem>
+          </>
+        ) : (
+          <>
+            <ListItem button>
+              <MdLogin />
+              <Link href="/signin" passHref>
+                <ListItemText inset primary="Sign In" />
+              </Link>
+            </ListItem>
+            <ListItem button>
+              <MdOutlineAccountCircle />
+              <Link href="/signup" passHref>
+                <ListItemText inset primary="Sign Up" />
+              </Link>
+            </ListItem>
+          </>
+        )}
         <Divider />
         <ListItem button>
+          <AiFillLinkedin />
           <Link href="https://linkedin.com/in/joshidipesh12" passHref>
-            <ListItemText primary="Contact" />
+            <ListItemText inset primary="Contact" />
           </Link>
         </ListItem>
         <ListItem button>
+          <AiFillGithub />
           <Link
             href="https://github.com/joshidipesh12/travming-website"
             passHref>
-            <ListItemText primary="About" />
+            <ListItemText inset primary="About" />
           </Link>
         </ListItem>
-        <Divider />
+        <Image
+          src="/giphy.gif"
+          objectFit="contain"
+          layout="responsive"
+          height="70vh"
+          width="100%"
+          alt="yoda"
+        />
       </List>
     </div>
   );

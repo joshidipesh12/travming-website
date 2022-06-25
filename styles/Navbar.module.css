@@ -62,7 +62,8 @@
   cursor: pointer;
 }
 
-.listItem {
+.yoda {
+  position: relative;
 }
 
 @media (max-aspect-ratio: 2/3) {

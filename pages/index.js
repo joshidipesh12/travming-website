@@ -18,7 +18,6 @@ import {useIsMobile} from '../hooks';
 
 export default function Home() {
   const titleRef = useRef();
-  const isMobile = useIsMobile();
   const dispatch = useDispatch();
   const [locModal, setLocModal] = useState(false);
   const [titleVis, setTitleVisible] = useState(true);
