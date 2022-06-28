@@ -60,10 +60,12 @@ export default slice.reducer;
 
 // Action Creators
 
+const base = 'https://countriesnow.space/api/v0.1';
+
 export const getStates = country => async dispatch => {
   return dispatch(
     apiCallRequested({
-      url: `https://countriesnow.space/api/v0.1/countries/states`,
+      url: `${base}/countries/states`,
       method: 'post',
       data: {country},
       // headers: {Authorization: `Bearer ${token}`},
@@ -77,7 +79,7 @@ export const getStates = country => async dispatch => {
 export const getCities = (country, state) => async dispatch => {
   return dispatch(
     apiCallRequested({
-      url: `https://countriesnow.space/api/v0.1/countries/state/cities`,
+      url: `${base}/countries/state/cities`,
       method: 'post',
       data: {country, state},
       // headers: {Authorization: `Bearer ${token}`},

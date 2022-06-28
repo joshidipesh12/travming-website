@@ -7,9 +7,9 @@ const slice = createSlice({
     loading: false,
     locLoading: false,
     hotels: [],
-    country: 'Australia',
-    state: 'New South Whales',
-    city: 'Sydney',
+    country: 'India',
+    state: 'Uttrakhand',
+    city: null,
   },
   reducers: {
     setCountry: (state, action) => {

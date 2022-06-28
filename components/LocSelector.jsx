@@ -17,7 +17,7 @@ const LocSelector = ({visible, closeModal}) => {
   const [stateMenu, setStateMenu] = useState(null);
 
   const {state, country} = useSelector(state => state.hotel);
-  const {states, statesError, loading} = useSelector(state => state.location);
+  const {states} = useSelector(state => state.location);
 
   useEffect(() => {
     if (states.length) dispatch(setState(states[0].name));
@@ -45,12 +45,13 @@ const LocSelector = ({visible, closeModal}) => {
                   onClick={e => setCountryMenu(e.currentTarget)}
                   className={styles.LS_selectButton}
                   whileHover={{
+                    cursor: 'pointer',
                     backgroundColor: '#e7e7ea',
                     boxShadow: '0 0 0 grey',
                   }}>
                   {country}
                   <FiChevronDown
-                    color="##c9ced7"
+                    color="#c9ced7"
                     className={styles.LS_chevronDown}
                   />
                 </motion.button>
@@ -75,13 +76,16 @@ const LocSelector = ({visible, closeModal}) => {
                 <div className={styles.LS_label}>Select State</div>
                 <motion.button
                   onClick={e => setStateMenu(e.currentTarget)}
-                  whileHover={{backgroundColor: '#e7e7ea'}}
-                  whileFocus={{boxShadow: '0 0 0 grey'}}
+                  whileHover={{
+                    cursor: 'pointer',
+                    backgroundColor: '#e7e7ea',
+                    boxShadow: '0 0 0 grey',
+                  }}
                   className={styles.LS_selectButton}>
                   {states.length ? state : 'Loading...'}
                   {states.length ? (
                     <FiChevronDown
-                      color="##c9ced7"
+                      color="#c9ced7"
                       className={styles.LS_chevronDown}
                     />
                   ) : (

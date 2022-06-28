@@ -1,13 +1,6 @@
-import {setup} from 'axios-cache-adapter';
 import {REHYDRATE, PERSIST} from 'redux-persist';
 import * as actions from '../api';
-
-const axios = setup({
-  cache: {
-    maxAge: 5 * 24 * 60 * 60 * 1000,
-    exclude: {methods: ['put', 'patch', 'delete']},
-  },
-});
+import axios from './axios';
 
 const api =
   ({dispatch}) =>
@@ -19,7 +12,7 @@ const api =
     if (action.type !== actions.apiCallRequested.type) return next(action);
 
     const {
-      customUrl,
+      // customUrl,
       url,
       method,
       headers,
@@ -36,8 +29,6 @@ const api =
     next(action);
 
     try {
-      // console.log(`${method ?? `post`}: http://nalandabazaar.com/api/${url}`);
-
       let response = await axios.request({
         // baseURL: customUrl ?? '', //AVD_LocalHost: 10.0.2.2:8082
         url,
@@ -83,7 +74,6 @@ const api =
         });
       }
     }
-    // }
   };
 
 export default api;

@@ -7,7 +7,7 @@ try {
     'https://images.pexels.com/photos/2901215/pexels-photo-2901215.jpeg',
     'https://images.pexels.com/photos/531602/pexels-photo-531602.jpeg',
     'https://images.pexels.com/photos/2265880/pexels-photo-2265880.jpeg',
-    'https://images.pexels.com/photos/1786306/pexels-photo-1786306.jpeg',
+    'https://images.pexels.com/photos/1542620/pexels-photo-1542620.jpeg',
     'https://images.pexels.com/photos/2507031/pexels-photo-2507031.jpeg',
     'https://images.pexels.com/photos/1134166/pexels-photo-1134166.jpeg',
     'https://images.pexels.com/photos/591383/pexels-photo-591383.jpeg',
@@ -20,35 +20,35 @@ try {
   // The install handler takes care of precaching the resources we always need.
   self.addEventListener('install', event => {
     console.log('installing sw');
-    // event.waitUntil(
-    //   caches
-    //     .open(PRECACHE)
-    //     .then(cache => cache.addAll(PRECACHE_URLS))
-    //     .then(() => self.skipWaiting()),
-    // );
+    event.waitUntil(
+      caches
+        .open(PRECACHE)
+        .then(cache => cache.addAll(PRECACHE_URLS))
+        .then(() => self.skipWaiting()),
+    );
   });
   // The activate handler takes care of cleaning up old caches.
   self.addEventListener('activate', event => {
-    // const currentCaches = [PRECACHE, RUNTIME];
-    // console.log('activate cache');
-    // event.waitUntil(
-    //   caches
-    //     .keys()
-    //     .then(cacheNames => {
-    //       return cacheNames.filter(
-    //         cacheName => !currentCaches.includes(cacheName),
-    //       );
-    //     })
-    //     .then(cachesToDelete => {
-    //       console.log('deleting old cache');
-    //       return Promise.all(
-    //         cachesToDelete.map(cacheToDelete => {
-    //           return caches.delete(cacheToDelete);
-    //         }),
-    //       );
-    //     })
-    //     .then(() => self.clients.claim()),
-    // );
+    const currentCaches = [PRECACHE, RUNTIME];
+    console.log('activate cache');
+    event.waitUntil(
+      caches
+        .keys()
+        .then(cacheNames => {
+          return cacheNames.filter(
+            cacheName => !currentCaches.includes(cacheName),
+          );
+        })
+        .then(cachesToDelete => {
+          console.log('deleting old cache');
+          return Promise.all(
+            cachesToDelete.map(cacheToDelete => {
+              return caches.delete(cacheToDelete);
+            }),
+          );
+        })
+        .then(() => self.clients.claim()),
+    );
   });
 
   // The fetch handler serves responses for same-origin resources from a cache.

@@ -34,10 +34,6 @@ export default function Home() {
     dispatch(getCities(country, state));
   }, [state]);
 
-  useEffect(() => {
-    if (cities.length) dispatch(setCity(cities[0]));
-  }, [cities]);
-
   useEffect(() => {}, []);
 
   return (

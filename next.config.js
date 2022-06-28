@@ -17,4 +17,9 @@ module.exports = {
       afterFiles: [{source: '/:path*', destination: '/_404/:path*'}],
     };
   },
+  webpack: config => {
+    config.experiments = config.experiments || {};
+    config.experiments.topLevelAwait = true;
+    return config;
+  },
 };
