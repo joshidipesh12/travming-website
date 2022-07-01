@@ -16,9 +16,28 @@
   scroll-snap-align: end;
   display: flex;
   align-items: center;
-  justify-content:  center;
+  justify-content: center;
   flex-direction: column;
+  position: relative;
   padding: 0;
+}
+
+.see_all {
+  position: absolute;
+  background: #39ff14;
+  box-shadow: 0 0 50px #39ff14;
+  height: 7vh;
+  width: 7vh;
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -70%);
+  transition: all 0.1s ease-in;
+}
+
+.see_all:hover {
+  cursor: pointer;
+  transform: scale(0.98) translate(-50%, -70%);
 }
 
 .bottom_container {

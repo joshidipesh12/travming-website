@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {Layout, Background, LocSelector} from '../../components';
 import {useWindowDimensions} from '../../hooks';
 import styles from '../../styles/Explore.module.css';
@@ -8,6 +8,7 @@ import {
   MdSettings,
   MdOutlinePinDrop,
   MdOutlineMobiledataOff,
+  MdOutlineVerticalAlignBottom,
 } from 'react-icons/md';
 import {IconButton} from '@material-ui/core';
 import {useSelector} from 'react-redux';
@@ -15,8 +16,13 @@ import {useSelector} from 'react-redux';
 export default function Home() {
   const containerRef = useRef();
   const [locModal, setLocModal] = useState(false);
-  const {nearbys, hotels} = useSelector(state => state.hotel);
+  const {nearbys, hotels, country, city, state} = useSelector(
+    state => state.hotel,
+  );
   const {height, width} = useWindowDimensions();
+  const [search, setSearch] = useState('');
+
+  useEffect(() => {}, [state, country, city]);
 
   return (
     <div ref={containerRef} className={styles.container}>
@@ -24,6 +30,17 @@ export default function Home() {
       <Background>
         <Layout>
           <div className={styles.main}>
+            <motion.button
+              onClick={() => {
+                containerRef?.current?.scrollBy({
+                  top: height,
+                  left: 0,
+                  behavior: 'smooth',
+                });
+              }}
+              className={styles.see_all}>
+              <MdOutlineVerticalAlignBottom color="white" size={20} />
+            </motion.button>
             <motion.div
               initial={{scaleX: 0}}
               animate={{scaleX: 1, transition: {delay: 1, duraion: 0.8}}}
@@ -48,7 +65,12 @@ export default function Home() {
               dragConstraints={{left: 0, right: 0}}
               className={styles.top_card_container}>
               {[1, 2, 3, 4].map((i, _) => (
-                <motion.div key={_} className={styles.card}></motion.div>
+                <motion.div
+                  transition={{delay: 0.5}}
+                  initial={{scale: 0, translateY: -100}}
+                  animate={{scale: 1, translateY: 0}}
+                  key={_}
+                  className={styles.card}></motion.div>
               ))}
             </motion.div>
             <motion.div
@@ -56,7 +78,12 @@ export default function Home() {
               dragConstraints={{left: 0, right: 0}}
               className={styles.top_card_container}>
               {[1, 2, 3, 4].map((i, _) => (
-                <motion.div key={_} className={styles.card}></motion.div>
+                <motion.div
+                  transition={{delay: 0.5}}
+                  initial={{scale: 0, translateY: -100}}
+                  animate={{scale: 1, translateY: 0}}
+                  key={_}
+                  className={styles.card}></motion.div>
               ))}
             </motion.div>
           </div>
