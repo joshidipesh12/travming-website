@@ -7,6 +7,7 @@ const slice = createSlice({
     loading: false,
     locLoading: false,
     hotels: [],
+    nearbys: [],
     country: 'India',
     state: 'Uttrakhand',
     city: null,

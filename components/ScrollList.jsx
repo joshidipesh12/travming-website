@@ -13,6 +13,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {Bounce, Sentry} from 'react-activity';
 import 'react-activity/dist/Bounce.css';
 import {setState} from '../store/hotels';
+import Link from 'next/link';
 
 function ScrollList({onScroll}) {
   const scrollViewRef = useRef();
@@ -57,7 +58,7 @@ function ScrollList({onScroll}) {
           <div style={{width: '40vw', display: 'inline-flex'}}></div>
         )}
         {states.length ? (
-          states.slice(0, 10).map((i, _) => <PlaceCard item={i} key={_} />)
+          states.slice(0, 15).map((i, _) => <PlaceCard item={i} key={_} />)
         ) : (
           <PlaceCardLoading />
         )}
@@ -178,14 +179,16 @@ const PlaceCard = ({item}) => {
               </motion.button>
               <motion.button
                 whileTap={{scale: 1.3}}
-                onClick={() => {}}
+                onClick={() => dispatch(setState(item.name))}
                 className={styles.option}
                 style={{backgroundColor: isMobile ? 'white' : 'black'}}>
-                {isMobile ? (
-                  <MdOutlineArrowRightAlt color="black" />
-                ) : (
-                  'Explore'
-                )}
+                <Link passHref href="/explore">
+                  {isMobile ? (
+                    <MdOutlineArrowRightAlt color="black" />
+                  ) : (
+                    'Explore'
+                  )}
+                </Link>
               </motion.button>
             </div>
           </Fade>

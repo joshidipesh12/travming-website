@@ -1,6 +1,7 @@
 import {useEffect} from 'react';
 import '../styles/globals.css';
 
+import SnackbarProvider from 'react-simple-snackbar';
 import {persistStore} from 'redux-persist';
 import {PersistGate} from 'redux-persist/lib/integration/react';
 import {Provider} from 'react-redux';
@@ -23,8 +24,10 @@ function MyApp({Component, pageProps}) {
     <Provider store={store}>
       <PersistGate persistor={persistedStore} loading={null}>
         <MuiPickersUtilsProvider utils={DayjsUtils}>
-          <Head />
-          <Component {...pageProps} />
+          <SnackbarProvider>
+            <Head />
+            <Component {...pageProps} />
+          </SnackbarProvider>
         </MuiPickersUtilsProvider>
       </PersistGate>
     </Provider>

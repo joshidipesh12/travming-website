@@ -15,10 +15,12 @@ import {
 } from '../components';
 import styles from '../styles/Home.module.css';
 import {useIsMobile} from '../hooks';
+import {useSnackbar} from 'react-simple-snackbar';
 
 export default function Home() {
   const titleRef = useRef();
   const dispatch = useDispatch();
+  const [openSnackbar, closeSnackbar] = useSnackbar();
   const [locModal, setLocModal] = useState(false);
   const [titleVis, setTitleVisible] = useState(true);
 
@@ -31,7 +33,11 @@ export default function Home() {
   }, [country]);
 
   useEffect(() => {
-    dispatch(getCities(country, state));
+    if (state) {
+      dispatch(getCities(country, state));
+      dispatch(setCity(null));
+      openSnackbar(`State/Region Set to ${state}.`, [1500]);
+    }
   }, [state]);
 
   useEffect(() => {}, []);

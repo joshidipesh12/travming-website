@@ -6,7 +6,7 @@ import {useToggle} from '../hooks';
 import styles from '../styles/Components.module.css';
 import config from '../config.json';
 import {FiChevronDown} from 'react-icons/fi';
-import {getLocByCoords, setCountry, setState} from '../store/hotels';
+import {getLocByCoords, setCity, setCountry, setState} from '../store/hotels';
 import {CircularProgress, Menu, MenuItem} from '@material-ui/core';
 
 const LocSelector = ({visible, closeModal}) => {
@@ -15,9 +15,10 @@ const LocSelector = ({visible, closeModal}) => {
   const [isNearby, flipMode] = useToggle();
   const [countryMenu, setCountryMenu] = useState(null);
   const [stateMenu, setStateMenu] = useState(null);
+  const [cityMenu, setCityMenu] = useState(null);
 
-  const {state, country} = useSelector(state => state.hotel);
-  const {states} = useSelector(state => state.location);
+  const {state, country, city} = useSelector(state => state.hotel);
+  const {states, cities} = useSelector(state => state.location);
 
   useEffect(() => {
     if (states.length) dispatch(setState(states[0].name));
@@ -73,7 +74,7 @@ const LocSelector = ({visible, closeModal}) => {
                     </MenuItem>
                   ))}
                 </Menu>
-                <div className={styles.LS_label}>Select State</div>
+                <div className={styles.LS_label}>Select State/Region</div>
                 <motion.button
                   onClick={e => setStateMenu(e.currentTarget)}
                   whileHover={{
@@ -82,7 +83,7 @@ const LocSelector = ({visible, closeModal}) => {
                     boxShadow: '0 0 0 grey',
                   }}
                   className={styles.LS_selectButton}>
-                  {states.length ? state : 'Loading...'}
+                  {states.length ? state : 'Loading States...'}
                   {states.length ? (
                     <FiChevronDown
                       color="#c9ced7"
@@ -110,6 +111,60 @@ const LocSelector = ({visible, closeModal}) => {
                           setStateMenu(null);
                         }}>
                         {s.name}
+                      </MenuItem>
+                    ))}
+                  </Menu>
+                ) : null}
+                <div className={styles.LS_label}>Select City/Town</div>
+                <motion.button
+                  onClick={e => setCityMenu(e.currentTarget)}
+                  whileHover={{
+                    cursor: 'pointer',
+                    backgroundColor: '#e7e7ea',
+                    boxShadow: '0 0 0 grey',
+                  }}
+                  className={styles.LS_selectButton}>
+                  {cities.length
+                    ? city
+                      ? city
+                      : `All Cities`
+                    : 'Loading Cities...'}
+                  {cities.length ? (
+                    <FiChevronDown
+                      color="#c9ced7"
+                      className={styles.LS_chevronDown}
+                    />
+                  ) : (
+                    <CircularProgress
+                      size={10}
+                      className={styles.LS_chevronDown}
+                    />
+                  )}
+                </motion.button>
+                {states.length ? (
+                  <Menu
+                    anchorOrigin={{horizontal: 'right'}}
+                    anchorEl={cityMenu}
+                    open={Boolean(cityMenu)}
+                    onClose={() => setCityMenu(null)}>
+                    <MenuItem
+                      key={-1}
+                      selected={city === null}
+                      onClick={() => {
+                        dispatch(setCity(null));
+                        setCityMenu(null);
+                      }}>
+                      All Cities of {state}
+                    </MenuItem>
+                    {cities.map((c, i) => (
+                      <MenuItem
+                        key={i}
+                        selected={c === city}
+                        onClick={() => {
+                          dispatch(setCity(c));
+                          setCityMenu(null);
+                        }}>
+                        {c}
                       </MenuItem>
                     ))}
                   </Menu>
