@@ -48,7 +48,7 @@ export default function Home() {
               dragConstraints={{left: 0, right: 0}}
               className={styles.top_card_container}>
               {[1, 2, 3, 4].map((i, _) => (
-                <motion.div className={styles.card}></motion.div>
+                <motion.div key={_} className={styles.card}></motion.div>
               ))}
             </motion.div>
             <motion.div
@@ -56,7 +56,7 @@ export default function Home() {
               dragConstraints={{left: 0, right: 0}}
               className={styles.top_card_container}>
               {[1, 2, 3, 4].map((i, _) => (
-                <motion.div className={styles.card}></motion.div>
+                <motion.div key={_} className={styles.card}></motion.div>
               ))}
             </motion.div>
           </div>

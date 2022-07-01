@@ -118,7 +118,7 @@ function Signup({}) {
                   ),
                 }}
               />
-              <Link href={email ? '/' : '#'}>
+              <Link href={email ? '/' : '#'} passHref>
                 <motion.button
                   whileHover={{backgroundColor: '#037e7e'}}
                   whileTap={{scale: 0.95}}
@@ -132,7 +132,7 @@ function Signup({}) {
               <div className={styles.text}>
                 Dont have an account?{' '}
                 <span style={{color: '#03a6a7'}}>
-                  <Link href="/signup" replace>
+                  <Link href="/signup" replace passHref>
                     Sign Up
                   </Link>
                 </span>

@@ -31,22 +31,22 @@ function Navbar() {
         ) : (
           <>
             <div className={styles.link}>
-              <Link href="/signup">Sign Up</Link>
+              <Link passHref href="/signup">Sign Up</Link>
             </div>
             <div className={styles.link}>
-              <Link href="/signin">Sign In</Link>
+              <Link passHref href="/signin">Sign In</Link>
             </div>
           </>
         )}
       </section>
-      <Link href="/">
+      <Link passHref href="/">
         <motion.div className={styles.name}>
           TRAV<span style={{color: '#03a6a7'}}>MING</span>
         </motion.div>
       </Link>
       <section className={styles.links}>
         <div className={`${styles.link} ${styles.hide}`}>
-          <Link href="/explore">Explore</Link>
+          <Link passHref href="/explore">Explore</Link>
         </div>
         <div className={styles.link}>
           <MdMenu
@@ -71,7 +71,7 @@ const DrawerContent = ({anchor, toggle}) => {
     <div role="presentation" onClick={toggle} style={{width: 250}}>
       <List>
         <ListItem>
-          <Link href="/">
+          <Link passHref href="/">
             <ListItemText
               primaryTypographyProps={{
                 style: {
