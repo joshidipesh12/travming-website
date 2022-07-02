@@ -10,10 +10,12 @@ import {Menu, MenuItem, Popover, Slider} from '@material-ui/core';
 import {setCity} from '../store/hotels';
 import dayjs from 'dayjs';
 import Modal from './Modal';
+import {useRouter} from 'next/router';
 
 const BottomMenu = ({}) => {
   const isMobile = useIsMobile();
   const dispatch = useDispatch();
+  const router = useRouter();
   const [roomMenu, setRoomMenu] = useState();
   const [cityMenu, setCityMenu] = useState();
   const [rooms, setRooms] = useState({a: 3, k: 0});
@@ -32,6 +34,8 @@ const BottomMenu = ({}) => {
     });
     return () => {};
   }, []);
+
+  const search = () => router.push('/explore');
 
   return (
     <form onSubmit={e => e.preventDefault()}>
@@ -56,7 +60,7 @@ const BottomMenu = ({}) => {
                   Book your vacation
                   <div className={styles.bottom_modalButtons}>
                     <motion.button
-                      onClick={() => {}}
+                      onClick={search}
                       whileTap={{backgroundColor: '#609060'}}
                       className={styles.bottom_modalButton}>
                       <BiSearch color="white" size={20} />
@@ -270,7 +274,7 @@ const BottomMenu = ({}) => {
             whileTap={{scale: 0.9}}
             className={styles.submit}
             type="button"
-            onClick={() => {}}>
+            onClick={search}>
             Search
           </motion.button>
         </div>

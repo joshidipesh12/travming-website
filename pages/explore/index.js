@@ -22,7 +22,9 @@ export default function Home() {
   const {height, width} = useWindowDimensions();
   const [search, setSearch] = useState('');
 
-  useEffect(() => {}, [state, country, city]);
+  useEffect(() => {
+    setSearch(`${city ? `${city}, ` : ''}${state}, ${country}`);
+  }, [state, country, city]);
 
   return (
     <div ref={containerRef} className={styles.container}>
@@ -39,6 +41,7 @@ export default function Home() {
                 });
               }}
               className={styles.see_all}>
+              <div className={styles.see_more}>See More</div>
               <MdOutlineVerticalAlignBottom color="white" size={20} />
             </motion.button>
             <motion.div
@@ -50,8 +53,10 @@ export default function Home() {
               <MdSearch color="grey" style={{marginRight: 10}} />
               <motion.input
                 type="text"
+                value={search}
                 placeholder="Search Nearby"
                 className={styles.search_input}
+                onChange={e => setSearch(e.currentTarget.value)}
               />
               <IconButton onClick={() => setLocModal(true)}>
                 <MdOutlinePinDrop size={15} color="grey" />
@@ -108,9 +113,9 @@ const NoData = () => (
     }}>
     <MdOutlineMobiledataOff color="grey" size={30} />
     <div style={{color: 'grey', textAlign: 'center'}}>
-      No data revieved
+      No data recieved
       <br />
-      Make sure you connection is working.
+      Make sure your connection is working.
     </div>
   </div>
 );

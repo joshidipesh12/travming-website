@@ -24,20 +24,38 @@
 
 .see_all {
   position: absolute;
-  background: #39ff14;
-  box-shadow: 0 0 50px #39ff14;
+  background: rgb(0, 0, 0);
+  box-shadow: 0 0 50px rgba(255, 255, 255, 0);
   height: 7vh;
-  width: 7vh;
-  border-radius: 50%;
-  top: 50%;
+  width: fit-content;
+  border-radius: 20px;
+  top: 48.5%;
   left: 50%;
   transform: translate(-50%, -70%);
   transition: all 0.1s ease-in;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-inline: 15px;
 }
 
 .see_all:hover {
   cursor: pointer;
-  transform: scale(0.98) translate(-50%, -70%);
+  background-color: rgb(57, 255, 20);
+  box-shadow: 0 0 50px rgb(57, 255, 20);
+}
+
+.see_more {
+  color: #f0f0f0;
+  transition: all 0.3s ease;
+  width: 0;
+  overflow: hidden;
+  text-overflow: hidden;
+  white-space: nowrap;
+}
+
+.see_all:hover > .see_more {
+  width: 8ch;
 }
 
 .bottom_container {
@@ -50,7 +68,7 @@
 
 .search_container {
   position: sticky;
-  top: 80vh;
+  top: 82vh;
   max-width: 90vw;
   height: 45px;
   background-color: #ffffff;
@@ -64,7 +82,7 @@
 }
 
 .search_container:hover {
-  box-shadow: 0 0 40px -13px rgba(128, 128, 128, 0.719);
+  box-shadow: 0 0 40px 0px rgba(128, 128, 128, 0.719);
 }
 
 .search_input {
