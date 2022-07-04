@@ -20,7 +20,7 @@ function ScrollList({onScroll}) {
   const leftButtonRef = useRef();
   const rightButtonRef = useRef();
   const isMobile = useIsMobile();
-  const {width, height} = useWindowDimensions();
+  const [width, height] = useWindowDimensions();
   const states = useSelector(state => state.location.states);
 
   const showLeftButton = () => {

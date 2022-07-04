@@ -19,11 +19,11 @@ export default function Home() {
   const {nearbys, hotels, country, city, state} = useSelector(
     state => state.hotel,
   );
-  const {height, width} = useWindowDimensions();
-  const [search, setSearch] = useState('');
+  const [height, width] = useWindowDimensions();
+  const search = useState('');
 
   useEffect(() => {
-    setSearch(`${city ? `${city}, ` : ''}${state}, ${country}`);
+    search[1](`${city ? `${city}, ` : ''}${state}, ${country}`);
   }, [state, country, city]);
 
   return (
@@ -44,62 +44,99 @@ export default function Home() {
               <div className={styles.see_more}>See More</div>
               <MdOutlineVerticalAlignBottom color="white" size={20} />
             </motion.button>
-            <motion.div
-              initial={{scaleX: 0}}
-              animate={{scaleX: 1, transition: {delay: 1, duraion: 0.8}}}
-              style={{translateY: '120%'}}
-              whileHover={{scale: 0.98}}
-              className={styles.search_container}>
-              <MdSearch color="grey" style={{marginRight: 10}} />
-              <motion.input
-                type="text"
-                value={search}
-                placeholder="Search Nearby"
-                className={styles.search_input}
-                onChange={e => setSearch(e.currentTarget.value)}
-              />
-              <IconButton onClick={() => setLocModal(true)}>
-                <MdOutlinePinDrop size={15} color="grey" />
-              </IconButton>
-              <IconButton onClick={() => setLocModal(true)}>
-                <MdSettings size={15} color="grey" />
-              </IconButton>
-            </motion.div>
+            <SearchBar
+              searchState={search}
+              showLocationSettings={() => setLocModal(true)}
+            />
             <motion.div
               drag="x"
-              dragConstraints={{left: 0, right: 0}}
+              style={{paddingLeft: '10%'}}
+              whileHover={{cursor: 'grab'}}
+              whileTap={{cursor: 'grabbing'}}
+              dragConstraints={{left: -width / 1.9, right: width / 2.1}}
               className={styles.top_card_container}>
-              {[1, 2, 3, 4].map((i, _) => (
-                <motion.div
-                  transition={{delay: 0.5}}
-                  initial={{scale: 0, translateY: -100}}
-                  animate={{scale: 1, translateY: 0}}
-                  key={_}
-                  className={styles.card}></motion.div>
+              {[1, 2, 3, 4, 5].map((i, _) => (
+                <PlaceCard item={i} key={_} />
               ))}
             </motion.div>
             <motion.div
               drag="x"
-              dragConstraints={{left: 0, right: 0}}
+              style={{paddingRight: '10%'}}
+              whileHover={{cursor: 'grab'}}
+              whileTap={{cursor: 'grabbing'}}
+              dragConstraints={{left: -width / 2.1, right: width / 1.9}}
               className={styles.top_card_container}>
-              {[1, 2, 3, 4].map((i, _) => (
-                <motion.div
-                  transition={{delay: 0.5}}
-                  initial={{scale: 0, translateY: -100}}
-                  animate={{scale: 1, translateY: 0}}
-                  key={_}
-                  className={styles.card}></motion.div>
+              {[1, 2, 3, 4, 5].map((i, _) => (
+                <PlaceCard item={i} key={_} />
               ))}
             </motion.div>
           </div>
         </Layout>
         <div className={styles.bottom_container}>
-          {nearbys.length ? <></> : <NoData />}
+          <SearchBar
+            searchState={search}
+            showLocationSettings={() => setLocModal(true)}
+          />
+          <div className={styles.main_bottom_container}>
+            <div className={styles.list_container}>
+              {nearbys.length ? <></> : <NoData />}
+            </div>
+            <div className={styles.details_container}></div>
+          </div>
         </div>
       </Background>
     </div>
   );
 }
+
+const PlaceCard = ({item, active, setActive}) => {
+  const thisRef = useRef();
+  const [isShown, setShow] = useState(false);
+
+  const tap2 = e => {
+    // setActive(item);
+  };
+
+  return (
+    <motion.div
+      ref={thisRef}
+      tabIndex={item}
+      onClick={e => (!isShown ? setShow(true) : tap2(e))}
+      initial={{scale: 0, translateY: 100}}
+      animate={{scale: 1, translateY: 0, transition: {delay: 0.5}}}
+      whileHover={{scale: 1.07}}
+      whileFocus={{scale: 1.07}}
+      whileTap={{scale: 0.97}}
+      className={styles.card}></motion.div>
+  );
+};
+
+const SearchBar = ({searchState, showLocationSettings}) => {
+  const [search, setSearch] = searchState;
+
+  return (
+    <motion.div
+      initial={{scaleX: 0}}
+      animate={{scaleX: 1, transition: {delay: 1, duraion: 0.8}}}
+      whileHover={{scale: 0.98}}
+      className={styles.search_container}>
+      <MdSearch color="grey" style={{marginRight: 10}} />
+      <motion.input
+        type="text"
+        value={search}
+        placeholder="Search Nearby"
+        className={styles.search_input}
+        onChange={e => setSearch(e.currentTarget.value)}
+      />
+      <IconButton onMouseDown={showLocationSettings}>
+        <MdOutlinePinDrop size={15} color="grey" />
+      </IconButton>
+      <IconButton onMouseDown={showLocationSettings}>
+        <MdSettings size={15} color="grey" />
+      </IconButton>
+    </motion.div>
+  );
+};
 
 const NoData = () => (
   <div
