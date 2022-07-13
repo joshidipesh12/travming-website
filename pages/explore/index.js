@@ -211,6 +211,7 @@ const SearchBar = ({searchState, showLocationSettings}) => {
             <ul style={{padding: 0, margin: 0}}>
               {autoSuggestions.map((item, idx) => (
                 <motion.li
+                  key={idx}
                   onClick={() => {
                     dispatch(addSuggestionToHistory(item));
                     console.log(item.geometry.coordinates);

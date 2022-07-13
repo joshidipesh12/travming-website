@@ -31,10 +31,14 @@ function Navbar() {
         ) : (
           <>
             <div className={styles.link}>
-              <Link passHref href="/signup">Sign Up</Link>
+              <Link passHref href="/signup">
+                Sign Up
+              </Link>
             </div>
             <div className={styles.link}>
-              <Link passHref href="/signin">Sign In</Link>
+              <Link passHref href="/signin">
+                Sign In
+              </Link>
             </div>
           </>
         )}
@@ -46,7 +50,9 @@ function Navbar() {
       </Link>
       <section className={styles.links}>
         <div className={`${styles.link} ${styles.hide}`}>
-          <Link passHref href="/explore">Explore</Link>
+          <Link passHref href="/explore">
+            Explore
+          </Link>
         </div>
         <div className={styles.link}>
           <MdMenu
@@ -109,7 +115,7 @@ const DrawerContent = ({anchor, toggle}) => {
             </ListItem>
             <ListItem button onClick={() => dispatch(logout())}>
               <MdLogout />
-              <Link href="/" replace shallow>
+              <Link href="/" replace passHref shallow>
                 <ListItemText inset primary="Logout" />
               </Link>
             </ListItem>
