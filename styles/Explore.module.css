@@ -71,6 +71,7 @@
   align-items: center;
   padding-inline: 15px;
   z-index: 1;
+  position: relative;
 }
 
 .search_container:hover {
@@ -82,12 +83,32 @@
   border: none;
   width: 30vw;
   padding: 0;
-  transition: all 0.5s ease-out;
+  transition: all 0.4s ease-in-out;
+  overflow: hidden;
 }
 
 .search_input:focus {
   width: 60vw;
   pointer-events: none;
+}
+
+.search_suggestion {
+  position: absolute;
+  background-color: #ffffff;
+  align-self: center;
+  top: 120%;
+  z-index: 2;
+  box-shadow: 0 5px 20px rgba(36, 36, 36, 0.718);
+  left: 50%;
+  transform: translateX(-50%);
+  pointer-events: all;
+  overflow: hidden;
+}
+
+.suggestion {
+  width: 100%;
+  list-style: none;
+  padding: 3% 5%;
 }
 
 .buttons_container {
@@ -108,28 +129,44 @@
   width: 25vw;
   max-width: 15rem;
   background-color: #f0f0f0;
-  border-radius: 10px;
+  box-shadow: 0 0 0px 0px rgba(0, 0, 0, 0);
+  transition: box-shadow 0.4s ease;
   animation: loading 1s ease-out 0.5s infinite;
+  display: flex;
+  overflow-x: hidden;
+  overflow-y: scroll;
 }
 
-.card_loading {
-  flex: 1;
-  height: 30vh;
-  width: 25vw;
-  max-width: 15rem;
-  background-color: #f0f0f0;
-  border-radius: 10px;
-  animation: loading 1s ease-out 0.5s infinite;
+.card::-webkit-scrollbar {
+  display: none;
+}
+
+.card:focus {
+  box-shadow: 0 10px 20px -10px rgba(157, 55, 210, 1);
 }
 
 @keyframes loading {
   0%,
   100% {
-    background: rgba(128, 128, 128, 0.719);
+    background: rgba(118, 118, 118);
   }
   50% {
-    background: rgb(128, 128, 128);
+    background: rgba(188, 188, 188);
   }
+}
+
+.cardImage {
+  position: relative;
+  flex: 1;
+  overflow: hidden;
+}
+
+.cardImage > * {
+  transition: all 0.5s ease;
+}
+
+.card:hover > .cardImage > * {
+  transform: scale(1.2);
 }
 
 .bottom_container {

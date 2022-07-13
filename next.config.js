@@ -2,7 +2,12 @@ module.exports = {
   reactStrictMode: true,
   defaultLocale: 'en-US',
   images: {
-    domains: ['source.unsplash.com', 'images.pexels.com'],
+    domains: [
+      'source.unsplash.com',
+      'images.unsplash.com',
+      'images.pexels.com',
+      'random.imagecdn.app',
+    ],
   },
   async headers() {
     return [

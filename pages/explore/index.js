@@ -1,17 +1,26 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {Layout, Background, LocSelector} from '../../components';
-import {useWindowDimensions} from '../../hooks';
+import {useToggle, useWindowDimensions} from '../../hooks';
 import styles from '../../styles/Explore.module.css';
-import {motion} from 'framer-motion';
+import {motion, AnimatePresence} from 'framer-motion';
 import {
   MdSearch,
   MdSettings,
   MdOutlinePinDrop,
   MdOutlineMobiledataOff,
   MdOutlineVerticalAlignBottom,
+  MdClose,
 } from 'react-icons/md';
 import {IconButton} from '@material-ui/core';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
+import Img from 'next/image';
+import {
+  addSuggestionToHistory,
+  getAutoCompleteSuggestions,
+  resetSuggestions,
+} from '../../store/explore';
+import LinearProgress from '@material-ui/core/LinearProgress';
+import decodeBH from '../../public/utils/blurHashDecoder';
 
 export default function Home() {
   const containerRef = useRef();
@@ -32,7 +41,7 @@ export default function Home() {
       <Background>
         <Layout>
           <div className={styles.main}>
-            <motion.button
+            {/* <motion.button
               onClick={() => {
                 containerRef?.current?.scrollBy({
                   top: height,
@@ -43,7 +52,7 @@ export default function Home() {
               className={styles.see_all}>
               <div className={styles.see_more}>See More</div>
               <MdOutlineVerticalAlignBottom color="white" size={20} />
-            </motion.button>
+            </motion.button> */}
             <SearchBar
               searchState={search}
               showLocationSettings={() => setLocModal(true)}
@@ -52,31 +61,31 @@ export default function Home() {
               drag="x"
               style={{paddingLeft: '10%'}}
               whileHover={{cursor: 'grab'}}
-              whileTap={{cursor: 'grabbing'}}
-              dragConstraints={{left: -width / 1.9, right: width / 2.1}}
+              whileDrag={{cursor: 'grabbing'}}
+              dragConstraints={{left: -width, right: width}}
               className={styles.top_card_container}>
-              {[1, 2, 3, 4, 5].map((i, _) => (
-                <PlaceCard item={i} key={_} />
+              {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((i, _) => (
+                <PlaceCard store="hotel" item={i} key={_} index={_} />
               ))}
             </motion.div>
             <motion.div
               drag="x"
               style={{paddingRight: '10%'}}
               whileHover={{cursor: 'grab'}}
-              whileTap={{cursor: 'grabbing'}}
-              dragConstraints={{left: -width / 2.1, right: width / 1.9}}
+              whileDrag={{cursor: 'grabbing'}}
+              dragConstraints={{left: -width, right: width}}
               className={styles.top_card_container}>
-              {[1, 2, 3, 4, 5].map((i, _) => (
-                <PlaceCard item={i} key={_} />
+              {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((i, _) => (
+                <PlaceCard store="explore" item={i} key={_} index={_} />
               ))}
             </motion.div>
           </div>
         </Layout>
         <div className={styles.bottom_container}>
-          <SearchBar
+          {/* <SearchBar
             searchState={search}
             showLocationSettings={() => setLocModal(true)}
-          />
+          /> */}
           <div className={styles.main_bottom_container}>
             <div className={styles.list_container}>
               {nearbys.length ? <></> : <NoData />}
@@ -89,52 +98,143 @@ export default function Home() {
   );
 }
 
-const PlaceCard = ({item, active, setActive}) => {
+const PlaceCard = ({item, index, active, setActive, store}) => {
   const thisRef = useRef();
+  const [height, width] = useWindowDimensions();
+  const [isLoaded, setLoaded] = useState(false);
   const [isShown, setShow] = useState(false);
+
+  const imageData = useSelector(state => state[store].images?.[index] ?? null);
 
   const tap2 = e => {
     // setActive(item);
   };
 
-  return (
+  useEffect(() => {
+    let blurTimeout = setTimeout(() => {
+      setShow(false);
+      thisRef?.current?.blur();
+    }, 5000);
+    () => clearTimeout(blurTimeout);
+  }, [isShown]);
+
+  return imageData ? (
     <motion.div
       ref={thisRef}
       tabIndex={item}
       onClick={e => (!isShown ? setShow(true) : tap2(e))}
-      initial={{scale: 0, translateY: 100}}
-      animate={{scale: 1, translateY: 0, transition: {delay: 0.5}}}
+      initial={{scale: 0, translateY: 100, borderRadius: 500}}
+      animate={{
+        scale: 1,
+        translateY: 0,
+        borderRadius: 10,
+        transition: {delay: 0.5},
+      }}
       whileHover={{scale: 1.07}}
       whileFocus={{scale: 1.07}}
       whileTap={{scale: 0.97}}
-      className={styles.card}></motion.div>
-  );
+      className={styles.card}>
+      <div className={styles.cardImage}>
+        <Img
+          objectFit="cover"
+          layout="fill"
+          src={imageData.urls.regular}
+          placeholder="blur"
+          blurDataURL={decodeBH(imageData.blur_hash)}
+        />
+      </div>
+    </motion.div>
+  ) : null;
 };
 
 const SearchBar = ({searchState, showLocationSettings}) => {
+  const inputRef = useRef();
+  const [searchTimeout, setSearchTimeout] = useState();
   const [search, setSearch] = searchState;
+  const dispatch = useDispatch();
+  const [suggestions, tSuggestions] = useToggle();
+  const {autoSuggestions, suggestionHistory, auto_load} = useSelector(
+    state => state.explore,
+  );
+
+  useEffect(() => {
+    if (search.length < 2) dispatch(resetSuggestions());
+    else {
+      clearTimeout(searchTimeout);
+      setSearchTimeout(() =>
+        setTimeout(() => {
+          dispatch(getAutoCompleteSuggestions(search));
+        }, 600),
+      );
+    }
+    return () => {};
+  }, [search]);
 
   return (
-    <motion.div
-      initial={{scaleX: 0}}
-      animate={{scaleX: 1, transition: {delay: 1, duraion: 0.8}}}
-      whileHover={{scale: 0.98}}
-      className={styles.search_container}>
-      <MdSearch color="grey" style={{marginRight: 10}} />
-      <motion.input
-        type="text"
-        value={search}
-        placeholder="Search Nearby"
-        className={styles.search_input}
-        onChange={e => setSearch(e.currentTarget.value)}
-      />
-      <IconButton onMouseDown={showLocationSettings}>
-        <MdOutlinePinDrop size={15} color="grey" />
-      </IconButton>
-      <IconButton onMouseDown={showLocationSettings}>
-        <MdSettings size={15} color="grey" />
-      </IconButton>
-    </motion.div>
+    <div style={{position: 'relative'}}>
+      <motion.div
+        initial={{scaleX: 0}}
+        animate={{scaleX: 1, transition: {delay: 1, duraion: 0.8}}}
+        whileHover={{scale: 0.98}}
+        className={styles.search_container}>
+        <MdSearch color="grey" style={{marginRight: 10}} />
+        <motion.input
+          type="text"
+          value={search}
+          ref={inputRef}
+          onFocus={tSuggestions}
+          onBlur={tSuggestions}
+          placeholder="Search Nearby..."
+          className={styles.search_input}
+          onChange={e => setSearch(e.currentTarget.value)}
+        />
+        <IconButton
+          onClick={() => {
+            setSearch('');
+            inputRef.current.focus();
+          }}>
+          <MdClose size={15} color="grey" />
+        </IconButton>
+        <IconButton onMouseDown={showLocationSettings}>
+          <MdOutlinePinDrop size={15} color="grey" />
+        </IconButton>
+      </motion.div>
+      <AnimatePresence>
+        {suggestions && (autoSuggestions.length || suggestionHistory.length) ? (
+          <motion.div
+            transition={{duration: 0.3}}
+            initial={{height: '0', width: '0%', borderRadius: 500}}
+            animate={{height: 'fit-content', width: '100%', borderRadius: 5}}
+            exit={{height: '0', width: '0%', borderRadius: 500}}
+            className={styles.search_suggestion}>
+            {auto_load ? <LinearProgress /> : null}
+            <ul style={{padding: 0, margin: 0}}>
+              {autoSuggestions.map((item, idx) => (
+                <motion.li
+                  onClick={() => {
+                    dispatch(addSuggestionToHistory(item));
+                    console.log(item.geometry.coordinates);
+                  }}
+                  className={styles.suggestion}
+                  whileHover={{
+                    backgroundColor: 'rgba(200,200,200,1)',
+                    cursor: 'pointer',
+                  }}
+                  initial={{opacity: 0, translateY: '50%'}}
+                  animate={{
+                    opacity: 1,
+                    translateY: '0%',
+                    transition: {delay: 0.3, duration: 0.5},
+                  }}
+                  exit={{opacity: 0}}>
+                  {item.properties.formatted}
+                </motion.li>
+              ))}
+            </ul>
+          </motion.div>
+        ) : null}
+      </AnimatePresence>
+    </div>
   );
 };
 

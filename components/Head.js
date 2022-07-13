@@ -1,7 +1,19 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import Head from 'next/head';
+import {useDispatch, useSelector} from 'react-redux';
+import {getHotelImages} from '../store/hotels';
+import {getNearbyImages} from '../store/explore';
 
 function HeadTag({title}) {
+  const dispatch = useDispatch();
+  const hotelImages = useSelector(state => state.hotel.images);
+  const nearbyImages = useSelector(state => state.explore.images);
+
+  useEffect(() => {
+    if (!hotelImages.length) dispatch(getHotelImages());
+    if (!nearbyImages.length) dispatch(getNearbyImages());
+  }, []);
+
   return (
     <Head>
       <title>TravMing - Round the World, Just A Few Clicks to Go ✈️</title>

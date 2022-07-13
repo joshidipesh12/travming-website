@@ -1,4 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit';
+import {rotateArray, shuffleArray} from '../public/utils';
 import {apiCallRequested} from './api';
 
 const slice = createSlice({
@@ -11,6 +12,7 @@ const slice = createSlice({
     country: 'India',
     state: 'Uttrakhand',
     city: null,
+    images: [],
   },
   reducers: {
     setCountry: (state, action) => {
@@ -48,6 +50,16 @@ const slice = createSlice({
     locFailed: (state, action) => {
       state.locLoading = null;
     },
+    reorderImages: (state, action) => {
+      let images = state.images;
+      rotateArray(images, 10);
+      state.images = images;
+    },
+    imagesRequestSuccess: (state, action) => {
+      let images = action.payload.response?.results ?? [];
+      shuffleArray(images);
+      state.images = images;
+    },
   },
 });
 
@@ -62,6 +74,9 @@ export const {
   locStarted,
   locSuccess,
   locFailed,
+
+  imagesRequestSuccess,
+  reorderImages,
 } = slice.actions;
 export default slice.reducer;
 
@@ -90,6 +105,16 @@ export const getLocByCoords = (lat, long) => async dispatch => {
       onStart: locStarted.type,
       onSuccess: locSuccess.type,
       onError: locFailed.type,
+    }),
+  );
+};
+
+export const getHotelImages = () => async dispatch => {
+  return dispatch(
+    apiCallRequested({
+      url: `https://api.unsplash.com/search/photos?page=1&query=hotel%20resort&per_page=30&client_id=${process.env.NEXT_PUBLIC_UNSPLASH_KEY}`,
+      method: 'get',
+      onSuccess: imagesRequestSuccess.type,
     }),
   );
 };
