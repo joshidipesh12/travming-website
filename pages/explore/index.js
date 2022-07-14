@@ -119,7 +119,8 @@ const PlaceCard = ({item, index, active, setActive, store}) => {
   return imageData ? (
     <motion.div
       ref={thisRef}
-      onTap={e => (!isShown ? setShow(true) : tap2(e))}
+      tabIndex={index}
+      onTouchStart={e => (!isShown ? setShow(true) : tap2(e))}
       initial={{scale: 0, translateY: 100, borderRadius: 500}}
       animate={{
         scale: 1,
@@ -129,7 +130,7 @@ const PlaceCard = ({item, index, active, setActive, store}) => {
       }}
       whileHover={{scale: 1.07}}
       whileFocus={{scale: 1.07}}
-      whileTap={{scale: 0.97}}
+      whileTap={{scale: !isMobile ? 0.97 : 1}}
       className={styles.card}>
       <div className={styles.cardImage}>
         <Img
@@ -138,9 +139,11 @@ const PlaceCard = ({item, index, active, setActive, store}) => {
           src={imageData.urls[isMobile ? 'small' : 'regular']}
           placeholder="blur"
           draggable={false}
+          onContextMenu={e => e.preventDefault()}
           blurDataURL={decodeBH(imageData.blur_hash)}
         />
       </div>
+      <div className={styles.card_content}></div>
     </motion.div>
   ) : null;
 };

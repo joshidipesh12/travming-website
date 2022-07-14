@@ -135,8 +135,8 @@
   transition: box-shadow 0.4s ease;
   animation: loading 1s ease-out 0.5s infinite;
   display: flex;
-  overflow-x: hidden;
-  overflow-y: scroll;
+  overflow: hidden;
+  position: relative;
 }
 
 .card::-webkit-scrollbar {
@@ -167,6 +167,14 @@
 
 .card:hover > .cardImage > * {
   transform: scale(1.2);
+}
+
+.card_content {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.123);
+  display: flex;
 }
 
 .bottom_container {

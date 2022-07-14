@@ -3,10 +3,11 @@ import {motion} from 'framer-motion';
 import {useToggle} from '../hooks';
 import styles from '../styles/Signinup.module.css';
 import Link from 'next/link';
+import {useRouter} from 'next/router';
 import {BsLinkedin, BsGoogle, BsFacebook} from 'react-icons/bs';
 import {MdOutlineVisibilityOff, MdOutlineVisibility} from 'react-icons/md';
 import {TextField, InputAdornment, withStyles} from '@material-ui/core';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {login} from '../store/login';
 import {Spinner} from 'react-activity';
 import 'react-activity/dist/library.css';
@@ -32,13 +33,17 @@ const CssTextField = withStyles({
 
 function Signup({}) {
   const bgRef = useRef();
+  const router = useRouter();
   const dispatch = useDispatch();
   const [passwordVisible, togglePassword] = useToggle(false);
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [display, setDisplay] = useState('none');
+  const loggedIn = useSelector(state => state.login.loggedIn);
 
   useEffect(() => {
+    if (loggedIn) router.replace('/');
+
     const image = new Image();
     const url = `https://source.unsplash.com/${window.innerWidth}x${window.innerHeight}/?hotels`;
     image.addEventListener('load', e => {
@@ -60,9 +65,11 @@ function Signup({}) {
           style={{display}}>
           <div className={styles.backdrop}>
             <div className={styles.boxContainer}>
-              <div className={styles.logo}>
-                TRAV<span style={{color: '#03a6a7'}}>MING</span>
-              </div>
+              <Link href="/" passHref>
+                <div className={styles.logo}>
+                  TRAV<span style={{color: '#03a6a7'}}>MING</span>
+                </div>
+              </Link>
               <div className={styles.alterIcons}>
                 <BsGoogle
                   className={styles.alterIcon}
