@@ -1,11 +1,10 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {Layout, Background, LocSelector} from '../../components';
-import {useToggle, useWindowDimensions} from '../../hooks';
+import {useIsMobile, useToggle, useWindowDimensions} from '../../hooks';
 import styles from '../../styles/Explore.module.css';
 import {motion, AnimatePresence} from 'framer-motion';
 import {
   MdSearch,
-  MdSettings,
   MdOutlinePinDrop,
   MdOutlineMobiledataOff,
   MdOutlineVerticalAlignBottom,
@@ -25,15 +24,10 @@ import decodeBH from '../../public/utils/blurHashDecoder';
 export default function Home() {
   const containerRef = useRef();
   const [locModal, setLocModal] = useState(false);
+  const [height, width] = useWindowDimensions();
   const {nearbys, hotels, country, city, state} = useSelector(
     state => state.hotel,
   );
-  const [height, width] = useWindowDimensions();
-  const search = useState('');
-
-  useEffect(() => {
-    search[1](`${city ? `${city}, ` : ''}${state}, ${country}`);
-  }, [state, country, city]);
 
   return (
     <div ref={containerRef} className={styles.container}>
@@ -54,13 +48,14 @@ export default function Home() {
               <MdOutlineVerticalAlignBottom color="white" size={20} />
             </motion.button> */}
             <SearchBar
-              searchState={search}
+              initialValue={`${city ? `${city}, ` : ''}${state}, ${country}`}
               showLocationSettings={() => setLocModal(true)}
             />
             <motion.div
               drag="x"
               style={{paddingLeft: '10%'}}
               whileHover={{cursor: 'grab'}}
+              whileTap={{cursor: 'grabbing'}}
               whileDrag={{cursor: 'grabbing'}}
               dragConstraints={{left: -width, right: width}}
               className={styles.top_card_container}>
@@ -72,6 +67,7 @@ export default function Home() {
               drag="x"
               style={{paddingRight: '10%'}}
               whileHover={{cursor: 'grab'}}
+              whileTap={{cursor: 'grabbing'}}
               whileDrag={{cursor: 'grabbing'}}
               dragConstraints={{left: -width, right: width}}
               className={styles.top_card_container}>
@@ -100,6 +96,7 @@ export default function Home() {
 
 const PlaceCard = ({item, index, active, setActive, store}) => {
   const thisRef = useRef();
+  const isMobile = useIsMobile();
   const [height, width] = useWindowDimensions();
   const [isLoaded, setLoaded] = useState(false);
   const [isShown, setShow] = useState(false);
@@ -111,24 +108,24 @@ const PlaceCard = ({item, index, active, setActive, store}) => {
   };
 
   useEffect(() => {
-    let blurTimeout = setTimeout(() => {
+    if (!isShown) return () => {};
+    setTimeout(() => {
       setShow(false);
       thisRef?.current?.blur();
     }, 5000);
-    () => clearTimeout(blurTimeout);
+    return () => {};
   }, [isShown]);
 
   return imageData ? (
     <motion.div
       ref={thisRef}
-      tabIndex={item}
-      onClick={e => (!isShown ? setShow(true) : tap2(e))}
+      onTap={e => (!isShown ? setShow(true) : tap2(e))}
       initial={{scale: 0, translateY: 100, borderRadius: 500}}
       animate={{
         scale: 1,
         translateY: 0,
-        borderRadius: 10,
-        transition: {delay: 0.5},
+        borderRadius: 3,
+        transition: {delay: 1},
       }}
       whileHover={{scale: 1.07}}
       whileFocus={{scale: 1.07}}
@@ -138,8 +135,9 @@ const PlaceCard = ({item, index, active, setActive, store}) => {
         <Img
           objectFit="cover"
           layout="fill"
-          src={imageData.urls.regular}
+          src={imageData.urls[isMobile ? 'small' : 'regular']}
           placeholder="blur"
+          draggable={false}
           blurDataURL={decodeBH(imageData.blur_hash)}
         />
       </div>
@@ -147,10 +145,10 @@ const PlaceCard = ({item, index, active, setActive, store}) => {
   ) : null;
 };
 
-const SearchBar = ({searchState, showLocationSettings}) => {
+const SearchBar = ({searchState, showLocationSettings, initialValue}) => {
   const inputRef = useRef();
   const [searchTimeout, setSearchTimeout] = useState();
-  const [search, setSearch] = searchState;
+  const [search, setSearch] = useState(initialValue);
   const dispatch = useDispatch();
   const [suggestions, tSuggestions] = useToggle();
   const {autoSuggestions, suggestionHistory, auto_load} = useSelector(
@@ -189,9 +187,10 @@ const SearchBar = ({searchState, showLocationSettings}) => {
           onChange={e => setSearch(e.currentTarget.value)}
         />
         <IconButton
-          onClick={() => {
+          style={{opacity: search ? 1 : 0}}
+          onMouseDown={() => {
             setSearch('');
-            inputRef.current.focus();
+            setTimeout(() => inputRef.current.focus(), 10);
           }}>
           <MdClose size={15} color="grey" />
         </IconButton>
@@ -199,20 +198,20 @@ const SearchBar = ({searchState, showLocationSettings}) => {
           <MdOutlinePinDrop size={15} color="grey" />
         </IconButton>
       </motion.div>
-      <AnimatePresence>
+      <AnimatePresence exitBeforeEnter>
         {suggestions && (autoSuggestions.length || suggestionHistory.length) ? (
           <motion.div
             transition={{duration: 0.3}}
-            initial={{height: '0', width: '0%', borderRadius: 500}}
-            animate={{height: 'fit-content', width: '100%', borderRadius: 5}}
-            exit={{height: '0', width: '0%', borderRadius: 500}}
+            initial={{height: 0, width: '0%'}}
+            animate={{height: 'fit-content', width: '100%'}}
+            exit={{height: 0, width: '0%'}}
             className={styles.search_suggestion}>
             {auto_load ? <LinearProgress /> : null}
             <ul style={{padding: 0, margin: 0}}>
               {autoSuggestions.map((item, idx) => (
                 <motion.li
                   key={idx}
-                  onClick={() => {
+                  onMouseDown={() => {
                     dispatch(addSuggestionToHistory(item));
                     console.log(item.geometry.coordinates);
                   }}
@@ -227,7 +226,7 @@ const SearchBar = ({searchState, showLocationSettings}) => {
                     translateY: '0%',
                     transition: {delay: 0.3, duration: 0.5},
                   }}
-                  exit={{opacity: 0}}>
+                  exit={{opacity: 0, height: 0}}>
                   {item.properties.formatted}
                 </motion.li>
               ))}

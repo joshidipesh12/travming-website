@@ -1,8 +1,7 @@
 .container {
   max-height: 100vh;
   width: 100%;
-  /* overflow-y: hidden; */
-  overflow-x: hidden;
+  overflow: hidden;
   scroll-snap-type: y mandatory;
 }
 
@@ -16,10 +15,11 @@
   scroll-snap-align: end;
   display: flex;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: space-between;
+  padding-inline: 0;
+  padding-block: 3vh;
   flex-direction: column;
   position: relative;
-  padding: 0;
 }
 
 .see_all {
@@ -85,11 +85,11 @@
   padding: 0;
   transition: all 0.4s ease-in-out;
   overflow: hidden;
+  pointer-events: all;
 }
 
 .search_input:focus {
   width: 60vw;
-  pointer-events: none;
 }
 
 .search_suggestion {
@@ -101,8 +101,10 @@
   box-shadow: 0 5px 20px rgba(36, 36, 36, 0.718);
   left: 50%;
   transform: translateX(-50%);
-  pointer-events: all;
   overflow: hidden;
+  border-radius: 5px;
+  max-height: 60vh;
+  overflow: auto;
 }
 
 .suggestion {
@@ -141,10 +143,6 @@
   display: none;
 }
 
-.card:focus {
-  box-shadow: 0 10px 20px -10px rgba(157, 55, 210, 1);
-}
-
 @keyframes loading {
   0%,
   100% {
@@ -162,6 +160,8 @@
 }
 
 .cardImage > * {
+  user-select: none;
+  transform: scale(1.05);
   transition: all 0.5s ease;
 }
 
@@ -189,20 +189,31 @@
 .main_bottom_container {
 }
 
-@media (max-aspect-ratio: 2/3) {
+@media (max-aspect-ratio: 2/3) and (max-width: 768px) {
   .search_input {
-    width: 40vw;
+    width: 90vw;
   }
-  .search_input:focus {
-    width: 45vw;
+  .search_suggestion {
+    max-height: 50vh;
+  }
+  .suggestion {
+    font-size: 0.8rem;
   }
   .card {
+    height: 32vh;
     width: 53vw;
   }
   .card_loading {
+    height: 32vh;
     width: 53vw;
   }
   .top_card_container {
     gap: 8vw;
+  }
+  .card:hover > .cardImage > * {
+    transform: scale(1.05);
+  }
+  .card:focus > .cardImage > * {
+    transform: scale(1.2);
   }
 }

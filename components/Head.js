@@ -10,8 +10,8 @@ function HeadTag({title}) {
   const nearbyImages = useSelector(state => state.explore.images);
 
   useEffect(() => {
-    if (!hotelImages.length) dispatch(getHotelImages());
-    if (!nearbyImages.length) dispatch(getNearbyImages());
+    if (!hotelImages?.length) dispatch(getHotelImages());
+    if (!nearbyImages?.length) dispatch(getNearbyImages());
   }, []);
 
   return (

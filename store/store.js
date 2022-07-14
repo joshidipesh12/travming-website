@@ -20,10 +20,12 @@ const createNoopStorage = () => {
   };
 };
 
-const storage =
-  typeof window !== 'undefined'
-    ? createWebStorage('local')
-    : createNoopStorage();
+let storage;
+if (typeof window !== 'undefined') {
+  storage = createWebStorage('local');
+} else {
+  storage = createNoopStorage();
+}
 
 const persistConfig = {
   key: 'root',

@@ -1,9 +1,9 @@
 import React, {useEffect, useRef, useState} from 'react';
-import Image from 'next/image';
 import Fade from 'react-reveal/Fade';
 import Pulse from 'react-reveal/Pulse';
 import {useDispatch, useSelector} from 'react-redux';
 import {setCity} from '../store/hotels';
+import {SiGooglemaps} from 'react-icons/si';
 
 import {getCities, getStates} from '../store/locations';
 import {
@@ -14,7 +14,6 @@ import {
   Background,
 } from '../components';
 import styles from '../styles/Home.module.css';
-import {useIsMobile} from '../hooks';
 import {useSnackbar} from 'react-simple-snackbar';
 
 export default function Home() {
@@ -58,9 +57,13 @@ export default function Home() {
             <div className={styles.mainText}>
               Beautiful Places of{' '}
               <span
-                onClick={() => setLocModal(true)}
+                style={{display: 'flex', alignItems: 'center'}}
+                onMouseDown={() => setLocModal(true)}
                 className={styles.placeName}>
-                <Pulse delay={2000}>{country}</Pulse>
+                <SiGooglemaps size={25} />
+                <Pulse style={{display: 'flex'}} delay={2000}>
+                  {country}
+                </Pulse>
               </span>
             </div>
             <div className={styles.subTitle}>
