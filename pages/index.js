@@ -2,7 +2,7 @@ import React, {useEffect, useRef, useState} from 'react';
 import Fade from 'react-reveal/Fade';
 import Pulse from 'react-reveal/Pulse';
 import {useDispatch, useSelector} from 'react-redux';
-import {setCity} from '../store/hotels';
+import {setCity, setCoords} from '../store/hotels';
 import {SiGooglemaps} from 'react-icons/si';
 
 import {getCities, getStates} from '../store/locations';
@@ -35,6 +35,7 @@ export default function Home() {
     if (state) {
       dispatch(getCities(country, state));
       dispatch(setCity(null));
+      dispatch(setCoords(null));
       openSnackbar(`State/Region Set to ${state}.`, [1500]);
     }
   }, [state]);

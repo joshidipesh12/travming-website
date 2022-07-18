@@ -33,29 +33,12 @@
   color: white;
   margin-inline: 2vw;
   text-transform: uppercase;
+  align-self: center;
   position: relative;
 }
 
 .hide {
   position: relative;
-}
-
-.link::before {
-  width: 0%;
-  content: ' ';
-  display: block;
-  height: 5%;
-  left: -5%;
-  bottom: 0%;
-  position: absolute;
-  background: #ffffff;
-  transition: all 0.2s ease-out;
-  z-index: -1;
-  border-radius: 5px;
-}
-
-.hide:hover::before {
-  width: 110%;
 }
 
 .searchIcon {

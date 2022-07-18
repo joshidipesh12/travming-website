@@ -9,14 +9,19 @@ import configureStore from '../store/store';
 import DayjsUtils from '@date-io/dayjs';
 import {MuiPickersUtilsProvider} from '@material-ui/pickers';
 import {Head} from '../components';
+import {useWindowDimensions} from '../hooks';
 
 const store = configureStore();
 const persistedStore = persistStore(store);
 
 function MyApp({Component, pageProps}) {
+  const dims = useWindowDimensions();
+  useEffect(() => setViewPort(dims), [dims.height, dims.width]);
+
   useEffect(() => {
     resize();
     serviceWorker();
+    setViewPort(dims);
     return () => {};
   }, []);
 
@@ -58,6 +63,21 @@ const resize = () => {
     vh = window.innerHeight * 0.01;
     document.documentElement.style.setProperty('--vh', `${vh}px`);
   });
+};
+
+const setViewPort = dims => {
+  const [height, width] = dims;
+  let viewport = document.querySelector('meta[name=viewport]');
+  if (height && width)
+    viewport.setAttribute(
+      'content',
+      'height=' +
+        height.toFixed(0) +
+        'px, width=' +
+        width.toFixed(0) +
+        'px, initial-scale=1.0',
+    );
+  return () => {};
 };
 
 export default MyApp;

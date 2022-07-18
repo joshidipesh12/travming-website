@@ -12,6 +12,7 @@ const slice = createSlice({
     country: 'India',
     state: 'Uttrakhand',
     city: null,
+    coords: null,
     images: [],
   },
   reducers: {
@@ -24,6 +25,9 @@ const slice = createSlice({
     setCity: (state, action) => {
       state.city = action.payload;
     },
+    setCoords: (state, action) => {
+      state.coords = action.payload;
+    },
     requestStarted: (state, action) => {
       state.loading = true;
     },
@@ -33,7 +37,6 @@ const slice = createSlice({
     requestFailed: (state, action) => {
       state.loading = false;
     },
-
     locStarted: (state, action) => {
       state.locLoading = true;
     },
@@ -49,6 +52,12 @@ const slice = createSlice({
     },
     locFailed: (state, action) => {
       state.locLoading = null;
+    },
+    geoCoordsRecieved: (state, action) => {
+      if (action.payload.response.results.length) {
+        const {lat, lon} = action.payload.response.results[0];
+        state.coords = [lat, lon];
+      }
     },
     reorderImages: (state, action) => {
       let images = state.images;
@@ -67,6 +76,7 @@ export const {
   setCountry,
   setState,
   setCity,
+  setCoords,
   requestStarted,
   requestSuccess,
   requestFailed,
@@ -74,6 +84,7 @@ export const {
   locStarted,
   locSuccess,
   locFailed,
+  geoCoordsRecieved,
 
   imagesRequestSuccess,
   reorderImages,
@@ -118,3 +129,19 @@ export const getHotelImages = () => async dispatch => {
     }),
   );
 };
+
+export const getCoordsByLoc =
+  (type, country, state = '', city = '') =>
+  async dispatch => {
+    const text = `${city.length ? `city=${city}&` : ''}${
+      state.length ? `state=${state}&` : ''
+    }country=${country}`;
+
+    return dispatch(
+      apiCallRequested({
+        url: `https://api.geoapify.com/v1/geocode/search?format=json&apiKey=${process.env.NEXT_PUBLIC_GEOAPIFY_KEY}&type=${type}&limit=1&${text}`,
+        method: 'get',
+        onSuccess: geoCoordsRecieved.type,
+      }),
+    );
+  };

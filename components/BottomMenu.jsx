@@ -7,7 +7,7 @@ import {AnimatePresence, motion} from 'framer-motion';
 import {DatePicker} from '@material-ui/pickers';
 import {useIsMobile} from '../hooks';
 import {Menu, MenuItem, Popover, Slider} from '@material-ui/core';
-import {setCity} from '../store/hotels';
+import {setCity, setCoords} from '../store/hotels';
 import dayjs from 'dayjs';
 import Modal from './Modal';
 import {useRouter} from 'next/router';
@@ -101,6 +101,7 @@ const BottomMenu = ({}) => {
                       selected={!city}
                       onClick={() => {
                         dispatch(setCity(null));
+                        dispatch(setCoords(null));
                         setCityMenu();
                       }}>
                       All Cities
@@ -111,6 +112,7 @@ const BottomMenu = ({}) => {
                         selected={c === city}
                         onClick={() => {
                           dispatch(setCity(c));
+                          dispatch(setCoords(null));
                           setCityMenu();
                         }}>
                         {c}
@@ -207,6 +209,7 @@ const BottomMenu = ({}) => {
                 selected={!city}
                 onClick={() => {
                   dispatch(setCity(null));
+                  dispatch(setCoords(null));
                   setCityMenu();
                 }}>
                 All Cities
@@ -217,6 +220,7 @@ const BottomMenu = ({}) => {
                   selected={c === city}
                   onClick={() => {
                     dispatch(setCity(c));
+                    dispatch(setCoords(null));
                     setCityMenu();
                   }}>
                   {c}

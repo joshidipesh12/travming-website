@@ -3,11 +3,13 @@ import Head from 'next/head';
 import {useDispatch, useSelector} from 'react-redux';
 import {getHotelImages} from '../store/hotels';
 import {getNearbyImages} from '../store/explore';
+import config from '../config.json';
 
 function HeadTag({title}) {
   const dispatch = useDispatch();
   const hotelImages = useSelector(state => state.hotel.images);
   const nearbyImages = useSelector(state => state.explore.images);
+  const country = useSelector(state => state.hotel.country);
 
   useEffect(() => {
     if (!hotelImages?.length) dispatch(getHotelImages());
@@ -42,6 +44,7 @@ function HeadTag({title}) {
         href="https://fonts.googleapis.com/css2?family=Carter+One&display=swap"
         rel="stylesheet"
       />
+      <link rel="prefetch" as="image" href={config.countries[country]} />
     </Head>
   );
 }

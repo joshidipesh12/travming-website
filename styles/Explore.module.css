@@ -1,7 +1,7 @@
 .container {
   max-height: 100vh;
   width: 100%;
-  overflow: hidden;
+  overflow: auto;
   scroll-snap-type: y mandatory;
 }
 
@@ -15,9 +15,8 @@
   scroll-snap-align: end;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding-inline: 0;
-  padding-block: 3vh;
+  justify-content: space-evenly;
+  padding: 0;
   flex-direction: column;
   position: relative;
 }
@@ -111,6 +110,17 @@
   width: 100%;
   list-style: none;
   padding: 3% 5%;
+  align-items: center;
+}
+
+.result_type {
+  text-transform: uppercase;
+  border-width: 2px;
+  border-style: solid;
+  border-radius: 4px;
+  padding-inline: 5px;
+  font-size: 0.8em;
+  margin-right: 2ch;
 }
 
 .buttons_container {
@@ -123,6 +133,7 @@
 .top_card_container {
   display: flex;
   column-gap: 5vw;
+  height: auto;
 }
 
 .card {
@@ -197,9 +208,9 @@
 .main_bottom_container {
 }
 
-@media (max-aspect-ratio: 2/3) and (max-width: 768px) {
+@media screen and (max-width: 768px) {
   .search_input {
-    width: 90vw;
+    width: 60vw;
   }
   .search_suggestion {
     max-height: 50vh;

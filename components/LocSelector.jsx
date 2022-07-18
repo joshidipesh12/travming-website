@@ -6,7 +6,14 @@ import {useToggle} from '../hooks';
 import styles from '../styles/Components.module.css';
 import config from '../config.json';
 import {FiChevronDown} from 'react-icons/fi';
-import {getLocByCoords, setCity, setCountry, setState} from '../store/hotels';
+import {
+  getCoordsByLoc,
+  getLocByCoords,
+  setCity,
+  setCoords,
+  setCountry,
+  setState,
+} from '../store/hotels';
 import {CircularProgress, Menu, MenuItem} from '@material-ui/core';
 
 const LocSelector = ({visible, closeModal}) => {
@@ -17,12 +24,22 @@ const LocSelector = ({visible, closeModal}) => {
   const [stateMenu, setStateMenu] = useState(null);
   const [cityMenu, setCityMenu] = useState(null);
 
-  const {state, country, city} = useSelector(state => state.hotel);
+  const {state, country, city, coords} = useSelector(state => state.hotel);
   const {states, cities} = useSelector(state => state.location);
 
   useEffect(() => {
-    if (states.length) dispatch(setState(states[0].name));
+    if (states.length) {
+      dispatch(setState(states[0].name));
+      dispatch(setCoords(null));
+    }
   }, [states]);
+
+  useEffect(() => {
+    if (!coords?.length) {
+      if (!city?.length) dispatch(getCoordsByLoc('state', country, state));
+      else dispatch(getCoordsByLoc('city', country, state, city));
+    }
+  }, [coords]);
 
   useEffect(() => {
     window.addEventListener('keydown', e => {
@@ -68,6 +85,7 @@ const LocSelector = ({visible, closeModal}) => {
                       selected={c === country}
                       onClick={() => {
                         dispatch(setCountry(c));
+                        dispatch(setCoords(null));
                         setCountryMenu(null);
                       }}>
                       {c}
@@ -108,6 +126,8 @@ const LocSelector = ({visible, closeModal}) => {
                         selected={s.name === state}
                         onClick={() => {
                           dispatch(setState(s.name));
+                          dispatch(setCoords(null));
+
                           setStateMenu(null);
                         }}>
                         {s.name}
@@ -152,6 +172,7 @@ const LocSelector = ({visible, closeModal}) => {
                       selected={city === null}
                       onClick={() => {
                         dispatch(setCity(null));
+                        dispatch(setCoords(null));
                         setCityMenu(null);
                       }}>
                       All Cities of {state}
@@ -162,6 +183,7 @@ const LocSelector = ({visible, closeModal}) => {
                         selected={c === city}
                         onClick={() => {
                           dispatch(setCity(c));
+                          dispatch(setCoords(null));
                           setCityMenu(null);
                         }}>
                         {c}

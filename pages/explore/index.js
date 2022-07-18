@@ -12,7 +12,7 @@ import {
 } from 'react-icons/md';
 import {IconButton} from '@material-ui/core';
 import {useDispatch, useSelector} from 'react-redux';
-import Img from 'next/image';
+import Image from 'next/image';
 import {
   addSuggestionToHistory,
   getAutoCompleteSuggestions,
@@ -20,6 +20,7 @@ import {
 } from '../../store/explore';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import decodeBH from '../../public/utils/blurHashDecoder';
+import {setCity, setCoords, setCountry, setState} from '../../store/hotels';
 
 export default function Home() {
   const containerRef = useRef();
@@ -28,6 +29,8 @@ export default function Home() {
   const {nearbys, hotels, country, city, state} = useSelector(
     state => state.hotel,
   );
+
+  const [testCardData, setTestData] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
 
   return (
     <div ref={containerRef} className={styles.container}>
@@ -59,7 +62,7 @@ export default function Home() {
               whileDrag={{cursor: 'grabbing'}}
               dragConstraints={{left: -width, right: width}}
               className={styles.top_card_container}>
-              {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((i, _) => (
+              {testCardData.map((i, _) => (
                 <PlaceCard store="hotel" item={i} key={_} index={_} />
               ))}
             </motion.div>
@@ -71,7 +74,7 @@ export default function Home() {
               whileDrag={{cursor: 'grabbing'}}
               dragConstraints={{left: -width, right: width}}
               className={styles.top_card_container}>
-              {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((i, _) => (
+              {testCardData.map((i, _) => (
                 <PlaceCard store="explore" item={i} key={_} index={_} />
               ))}
             </motion.div>
@@ -117,35 +120,45 @@ const PlaceCard = ({item, index, active, setActive, store}) => {
   }, [isShown]);
 
   return imageData ? (
-    <motion.div
-      ref={thisRef}
-      tabIndex={index}
-      onTouchStart={e => (!isShown ? setShow(true) : tap2(e))}
-      initial={{scale: 0, translateY: 100, borderRadius: 500}}
-      animate={{
-        scale: 1,
-        translateY: 0,
-        borderRadius: 3,
-        transition: {delay: 1},
-      }}
-      whileHover={{scale: 1.07}}
-      whileFocus={{scale: 1.07}}
-      whileTap={{scale: !isMobile ? 0.97 : 1}}
-      className={styles.card}>
-      <div className={styles.cardImage}>
-        <Img
-          objectFit="cover"
-          layout="fill"
-          src={imageData.urls[isMobile ? 'small' : 'regular']}
-          placeholder="blur"
-          draggable={false}
-          onContextMenu={e => e.preventDefault()}
-          blurDataURL={decodeBH(imageData.blur_hash)}
-        />
-      </div>
-      <div className={styles.card_content}></div>
-    </motion.div>
+    <AnimatePresence>
+      <motion.div
+        ref={thisRef}
+        tabIndex={index}
+        onTouchStart={e => (!isShown ? setShow(true) : tap2(e))}
+        initial={{scale: 0, translateY: 100, borderRadius: 500}}
+        animate={{
+          scale: 1,
+          translateY: 0,
+          borderRadius: 3,
+          transition: {delay: 1},
+        }}
+        exit={{scale: 0, translateY: 100, borderRadius: 500}}
+        whileHover={{scale: !isMobile ? 1.07 : 1}}
+        whileFocus={{scale: !isMobile ? 1.07 : 1}}
+        whileTap={{scale: !isMobile ? 0.97 : 1}}
+        className={styles.card}>
+        <div className={styles.cardImage}>
+          <Image
+            alt={`${item}`}
+            objectFit="cover"
+            layout="fill"
+            src={imageData.urls[isMobile ? 'small' : 'regular']}
+            placeholder="blur"
+            draggable={false}
+            onContextMenu={e => e.preventDefault()}
+            blurDataURL={decodeBH(imageData.blur_hash)}
+          />
+        </div>
+        <div className={styles.card_content}></div>
+      </motion.div>
+    </AnimatePresence>
   ) : null;
+};
+
+const result_type = {
+  country: '#5fbb97',
+  state: '#63326e',
+  city: '#d64045',
 };
 
 const SearchBar = ({searchState, showLocationSettings, initialValue}) => {
@@ -170,6 +183,18 @@ const SearchBar = ({searchState, showLocationSettings, initialValue}) => {
     }
     return () => {};
   }, [search]);
+
+  const updateLocation = item => {
+    setSearch(item.properties.formatted);
+    dispatch(addSuggestionToHistory(item));
+    dispatch(setCoords(item.geometry.coordinates));
+    const type = item.properties.result_type;
+    dispatch(setCountry(item.properties.country));
+    if (type === 'country') return;
+    item.properties?.state ? dispatch(setState(item.properties.state)) : null;
+    if (type === 'state') return;
+    item.properties?.city ? dispatch(setCity(item.properties.city)) : null;
+  };
 
   return (
     <div style={{position: 'relative'}}>
@@ -211,28 +236,39 @@ const SearchBar = ({searchState, showLocationSettings, initialValue}) => {
             className={styles.search_suggestion}>
             {auto_load ? <LinearProgress /> : null}
             <ul style={{padding: 0, margin: 0}}>
-              {autoSuggestions.map((item, idx) => (
-                <motion.li
-                  key={idx}
-                  onMouseDown={() => {
-                    dispatch(addSuggestionToHistory(item));
-                    console.log(item.geometry.coordinates);
-                  }}
-                  className={styles.suggestion}
-                  whileHover={{
-                    backgroundColor: 'rgba(200,200,200,1)',
-                    cursor: 'pointer',
-                  }}
-                  initial={{opacity: 0, translateY: '50%'}}
-                  animate={{
-                    opacity: 1,
-                    translateY: '0%',
-                    transition: {delay: 0.3, duration: 0.5},
-                  }}
-                  exit={{opacity: 0, height: 0}}>
-                  {item.properties.formatted}
-                </motion.li>
-              ))}
+              {autoSuggestions.map((item, idx) =>
+                Object.keys(result_type).includes(
+                  item?.properties?.result_type,
+                ) ? (
+                  <motion.li
+                    key={idx}
+                    onMouseDown={() => {
+                      updateLocation(item);
+                    }}
+                    className={styles.suggestion}
+                    whileHover={{
+                      backgroundColor: 'rgba(200,200,200,1)',
+                      cursor: 'pointer',
+                    }}
+                    initial={{opacity: 0, translateY: '50%'}}
+                    animate={{
+                      opacity: 1,
+                      translateY: '0%',
+                      transition: {delay: 0.3, duration: 0.5},
+                    }}
+                    exit={{opacity: 0, height: 0}}>
+                    <span
+                      style={{
+                        color: result_type[item?.properties?.result_type],
+                        borderColor: result_type[item?.properties?.result_type],
+                      }}
+                      className={styles.result_type}>
+                      {item?.properties?.result_type}
+                    </span>
+                    {item.properties.formatted}
+                  </motion.li>
+                ) : null,
+              )}
             </ul>
           </motion.div>
         ) : null}

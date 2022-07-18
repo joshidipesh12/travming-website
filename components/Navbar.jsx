@@ -74,23 +74,11 @@ const DrawerContent = ({anchor, toggle}) => {
   const {loggedIn, username} = useSelector(state => state.login);
 
   return (
-    <div role="presentation" onClick={toggle} style={{width: 250}}>
+    <div
+      role="presentation"
+      onClick={toggle}
+      style={{width: 250, fontSize: '1.5em'}}>
       <List>
-        <ListItem>
-          <Link passHref href="/">
-            <ListItemText
-              primaryTypographyProps={{
-                style: {
-                  color: 'rgb(3, 166, 167)',
-                  fontFamily: 'Carter One',
-                  textAlign: 'center',
-                  fontSize: 'large',
-                },
-              }}
-              primary="TRAVMING"
-            />
-          </Link>
-        </ListItem>
         <ListItem button>
           <MdHome />
           <Link href="/" passHref>

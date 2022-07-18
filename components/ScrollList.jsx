@@ -12,7 +12,7 @@ import {motion} from 'framer-motion';
 import {useDispatch, useSelector} from 'react-redux';
 import {Bounce, Sentry} from 'react-activity';
 import 'react-activity/dist/Bounce.css';
-import {setState} from '../store/hotels';
+import {setCoords, setState} from '../store/hotels';
 import Link from 'next/link';
 
 function ScrollList({onScroll}) {
@@ -163,7 +163,10 @@ const PlaceCard = ({item}) => {
             <div style={{display: 'flex'}}>
               <motion.button
                 className={styles.option}
-                onClick={() => dispatch(setState(item.name))}
+                onClick={() => {
+                  dispatch(setState(item.name));
+                  dispatch(setCoords(null));
+                }}
                 style={{backgroundColor: isSelected ? '#40be83' : '#0a66c2'}}>
                 {isSelected ? (
                   isMobile ? (
@@ -179,7 +182,10 @@ const PlaceCard = ({item}) => {
               </motion.button>
               <motion.button
                 whileTap={{scale: 1.3}}
-                onClick={() => dispatch(setState(item.name))}
+                onClick={() => {
+                  dispatch(setState(item.name));
+                  dispatch(setCoords(null));
+                }}
                 className={styles.option}
                 style={{backgroundColor: isMobile ? 'white' : 'black'}}>
                 <Link passHref href="/explore">

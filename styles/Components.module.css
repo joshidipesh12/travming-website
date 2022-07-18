@@ -91,6 +91,7 @@
 @media (max-aspect-ratio: 2/3) {
   .LS_container {
     height: 55vh;
+    width: clamp(10rem, 80vw, 20rem);
   }
 
   .container {
