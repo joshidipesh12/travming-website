@@ -11,7 +11,10 @@ function Background({children}) {
   const [background, setBackground] = useState(config.countries['Australia']);
 
   useEffect(() => {
-    setBackground(config.countries[country]);
+    const url = Object.keys(config.countries).includes(country)
+      ? config.countries[country]
+      : `https://source.unsplash.com/512x512/?${country}`;
+    setBackground(url);
     return () => {};
   }, [country]);
 
