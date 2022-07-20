@@ -8,8 +8,10 @@ import {
   MdOutlinePinDrop,
   MdOutlineMobiledataOff,
   MdClose,
+  MdMap,
+  MdChevronRight,
 } from 'react-icons/md';
-import {IconButton} from '@material-ui/core';
+import {CircularProgress, IconButton} from '@material-ui/core';
 import {useDispatch, useSelector} from 'react-redux';
 import Image from 'next/image';
 import {
@@ -98,12 +100,11 @@ export default function Home() {
                     className={styles.top_card_container}>
                     {nearbys?.map((i, _) => (
                       <PlaceCard
-                        active={activeItem}
-                        setActive={setActiveItem}
-                        store="explore"
                         item={i}
                         key={_}
                         index={_}
+                        setActive={setActiveItem}
+                        store="explore"
                         onClick={scrollToStart}
                       />
                     ))}
@@ -133,12 +134,11 @@ export default function Home() {
               <div className={styles.list_container}>
                 {hotels?.map((i, _) => (
                   <PlaceCard
-                    active={activeItem}
-                    setActive={setActiveItem}
-                    store="hotel"
                     item={i}
                     key={_}
                     index={_}
+                    setActive={setActiveItem}
+                    store="hotel"
                   />
                 ))}
               </div>
@@ -149,18 +149,75 @@ export default function Home() {
               {activeItem ? (
                 <motion.div
                   transition={{delay: 0.4}}
-                  initial={{translateX: '150%', flex: 0}}
+                  initial={{translateX: '-110%', flex: 0}}
                   animate={{translateX: '0%', flex: 1}}
-                  exit={{translateX: '150%', flex: 0}}
+                  exit={{translateX: '-110%', flex: 0}}
                   className={styles.details_container}>
-                  <IconButton
-                    style={{position: 'absolute', top: 20, right: 20}}
-                    onClick={() => {
-                      setActiveItem(null);
-                      scrollToStart(0);
-                    }}>
-                    <MdClose size={15} color="grey" />
-                  </IconButton>
+                  <div className={styles.place_image}>
+                    <Image
+                      objectFit="cover"
+                      layout="fill"
+                      placeholder="blur"
+                      draggable={false}
+                      onContextMenu={e => e.preventDefault()}
+                      src={activeItem.image_src}
+                      blurDataURL={activeItem.image_blur_src}
+                    />
+                    <div className={styles.details_image_overlay}>
+                      <IconButton
+                        style={{
+                          position: 'absolute',
+                          top: '0.5em',
+                          right: '0.5em',
+                          zIndex: 1,
+                          backgroundColor: 'white',
+                        }}
+                        onClick={() => {
+                          setActiveItem(null);
+                          scrollToStart(0);
+                        }}>
+                        <MdClose size={15} color="black" />
+                      </IconButton>
+                      <IconButton
+                        style={{
+                          position: 'absolute',
+                          top: '0.5em',
+                          right: '3em',
+                          zIndex: 1,
+                          backgroundColor: 'white',
+                        }}
+                        onClick={() => {
+                          window.open(
+                            `https://maps.google.com/?q=${activeItem.properties.lat},${activeItem.properties.lon}`,
+                            '_blank',
+                          );
+                        }}>
+                        <MdMap size={15} color="black" />
+                      </IconButton>
+                      <div className={styles.place_name}>
+                        {activeItem.properties.name}
+                      </div>
+                    </div>
+                  </div>
+                  <div className={styles.details_categories}>
+                    {activeItem.properties.categories.map(cat => (
+                      <motion.div
+                        key={cat}
+                        whileHover={{backgroundColor: 'black'}}
+                        style={{
+                          backgroundColor: 'grey',
+                          color: 'white',
+                          paddingInline: 15,
+                          paddingBlock: 2,
+                          borderRadius: 5,
+                        }}>
+                        {cat.split('.').slice(-1)[0].replace('_', ' ')}
+                      </motion.div>
+                    ))}
+                  </div>
+                  <div className={styles.place_details}>
+                    <CircularProgress color="inherit" />
+                  </div>
                 </motion.div>
               ) : null}
             </AnimatePresence>
@@ -171,22 +228,35 @@ export default function Home() {
   );
 }
 
-const PlaceCard = ({item, index, active, setActive, store, onClick}) => {
+const PlaceCard = ({
+  item,
+  index,
+  setActive,
+  store,
+  onClick,
+  containerStyle,
+}) => {
   const thisRef = useRef();
   const isMobile = useIsMobile();
   const [height, width] = useWindowDimensions();
   const [isLoaded, setLoaded] = useState(false);
   const [isShown, setShow] = useState(false);
 
-  const {properties, geometry} = item;
+  const {properties} = item;
   const totalImages = useSelector(state => state[store].images?.length ?? 0);
   const imageData = useSelector(
     state => state[store].images?.[index % totalImages] ?? null,
   );
 
   const tap2 = e => {
-    onClick?.();
-    setActive(item);
+    setTimeout(() => {
+      onClick?.();
+      setActive({
+        ...item,
+        image_src: imageData.urls[isMobile ? 'small' : 'regular'],
+        image_blur_src: decodeBH(imageData.blur_hash),
+      });
+    }, 500);
   };
 
   useEffect(() => {
@@ -199,7 +269,7 @@ const PlaceCard = ({item, index, active, setActive, store, onClick}) => {
   }, [isShown]);
 
   return imageData ? (
-    <AnimatePresence>
+    <AnimatePresence exitBeforeEnter>
       <motion.div
         ref={thisRef}
         tabIndex={index}
@@ -217,6 +287,7 @@ const PlaceCard = ({item, index, active, setActive, store, onClick}) => {
         whileHover={{scale: !isMobile ? 1.07 : 1}}
         whileFocus={{scale: !isMobile ? 1.07 : 1}}
         whileTap={{scale: !isMobile ? 0.97 : 1}}
+        style={containerStyle}
         className={styles.card}>
         <div className={styles.cardImage}>
           <Image
@@ -230,7 +301,32 @@ const PlaceCard = ({item, index, active, setActive, store, onClick}) => {
             blurDataURL={decodeBH(imageData.blur_hash)}
           />
         </div>
-        <div className={styles.card_content}></div>
+        <div className={styles.card_content}>
+          <div className={styles.card_title}>
+            {item.properties.name}
+            <div style={{display: 'flex'}}>
+              <motion.button
+                onClick={() => {
+                  setShow(true);
+                  tap2();
+                }}
+                className={styles.card_explore}>
+                Explore
+                <MdChevronRight />
+              </motion.button>
+              <motion.button
+                onClick={() => {
+                  window.open(
+                    `https://maps.google.com/?q=${properties.lat},${properties.lon}`,
+                    '_blank',
+                  );
+                }}
+                className={styles.card_explore}>
+                <MdMap />
+              </motion.button>
+            </div>
+          </div>
+        </div>
       </motion.div>
     </AnimatePresence>
   ) : null;

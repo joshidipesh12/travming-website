@@ -4,6 +4,12 @@
   --vh: 1vh;
 }
 
+@property --vh {
+  syntax: '<number>';
+  inherits: false;
+  initial-value: 1vh;
+}
+
 html,
 body {
   padding: 0;

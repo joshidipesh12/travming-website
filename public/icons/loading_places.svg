@@ -1,14 +1,14 @@
 <svg width="256" height="256" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g filter="url(#filter0_ddi_903_46)">
-<path d="M189 128C189 161.689 161.689 189 128 189C94.3106 189 67 161.689 67 128C67 94.3106 94.3106 67 128 67C161.689 67 189 94.3106 189 128ZM91.5241 128C91.5241 148.145 107.855 164.476 128 164.476C148.145 164.476 164.476 148.145 164.476 128C164.476 107.855 148.145 91.5241 128 91.5241C107.855 91.5241 91.5241 107.855 91.5241 128Z" fill="#474747"/>
-<rect x="117" y="53" width="21" height="27" rx="3" fill="#474747"/>
-<rect x="117" y="175" width="21" height="27" rx="3" fill="#474747"/>
-<rect x="175" y="138" width="21" height="27" rx="3" transform="rotate(-90 175 138)" fill="#474747"/>
-<rect x="53" y="138" width="21" height="27" rx="3" transform="rotate(-90 53 138)" fill="#474747"/>
-<rect x="172.753" y="67.3948" width="21" height="27" rx="3" transform="rotate(44.9985 172.753 67.3948)" fill="#474747"/>
-<rect x="86.4885" y="153.664" width="21" height="27" rx="3" transform="rotate(44.9985 86.4885 153.664)" fill="#474747"/>
-<rect x="153.664" y="168.511" width="21" height="27" rx="3" transform="rotate(-45.0015 153.664 168.511)" fill="#474747"/>
-<rect x="67.3948" y="82.2467" width="21" height="27" rx="3" transform="rotate(-45.0015 67.3948 82.2467)" fill="#474747"/>
+<path d="M189 128C189 161.689 161.689 189 128 189C94.3106 189 67 161.689 67 128C67 94.3106 94.3106 67 128 67C161.689 67 189 94.3106 189 128ZM91.5241 128C91.5241 148.145 107.855 164.476 128 164.476C148.145 164.476 164.476 148.145 164.476 128C164.476 107.855 148.145 91.5241 128 91.5241C107.855 91.5241 91.5241 107.855 91.5241 128Z" fill="white"/>
+<rect x="117" y="53" width="21" height="27" rx="3" fill="white"/>
+<rect x="117" y="175" width="21" height="27" rx="3" fill="white"/>
+<rect x="175" y="138" width="21" height="27" rx="3" transform="rotate(-90 175 138)" fill="white"/>
+<rect x="53" y="138" width="21" height="27" rx="3" transform="rotate(-90 53 138)" fill="white"/>
+<rect x="172.753" y="67.3948" width="21" height="27" rx="3" transform="rotate(44.9985 172.753 67.3948)" fill="white"/>
+<rect x="86.4885" y="153.664" width="21" height="27" rx="3" transform="rotate(44.9985 86.4885 153.664)" fill="white"/>
+<rect x="153.664" y="168.511" width="21" height="27" rx="3" transform="rotate(-45.0015 153.664 168.511)" fill="white"/>
+<rect x="67.3948" y="82.2467" width="21" height="27" rx="3" transform="rotate(-45.0015 67.3948 82.2467)" fill="white"/>
 </g>
 <defs>
 <filter id="filter0_ddi_903_46" x="8" y="8" width="239" height="239" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
@@ -28,9 +28,9 @@
 <feBlend mode="normal" in="SourceGraphic" in2="effect2_dropShadow_903_46" result="shape"/>
 <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
 <feOffset/>
-<feGaussianBlur stdDeviation="13.5"/>
+<feGaussianBlur stdDeviation="1"/>
 <feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1"/>
-<feColorMatrix type="matrix" values="0 0 0 0 0.0541667 0 0 0 0 0.0541667 0 0 0 0 0.0541667 0 0 0 1 0"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0.0541667 0 0 0 0 0.0541667 0 0 0 0 0.0541667 0 0 0 0.69 0"/>
 <feBlend mode="normal" in2="shape" result="effect3_innerShadow_903_46"/>
 </filter>
 </defs>
