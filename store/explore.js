@@ -1,6 +1,7 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {apiCallRequested} from './api';
 import {rotateArray, shuffleArray} from '../public/utils';
+import config from '../config.json';
 
 const slice = createSlice({
   name: 'explore',
@@ -10,6 +11,8 @@ const slice = createSlice({
     suggestionHistory: [],
     auto_load: false,
     images: [],
+    nearbys: [],
+    nearbysLoading: false,
   },
   reducers: {
     addSuggestionToHistory: (state, action) => {
@@ -32,14 +35,23 @@ const slice = createSlice({
       state.autoSuggestions = [];
     },
     reorderImages: (state, action) => {
-      let images = state.images;
-      rotateArray(images, 10);
-      state.images = images;
+      rotateArray(state.images, 10);
     },
     imagesRequestSuccess: (state, action) => {
       let images = action.payload.response?.results ?? [];
       shuffleArray(images);
       state.images = images;
+    },
+    nearbysRequested: (state, action) => {
+      state.nearbysLoading = true;
+    },
+    nearbysRecieved: (state, action) => {
+      state.nearbys = action.payload.response.features ?? [];
+      rotateArray(state.images, 10);
+      state.nearbysLoading = false;
+    },
+    nearbysNotRecieved: (state, action) => {
+      state.nearbysLoading = false;
     },
   },
 });
@@ -53,6 +65,10 @@ export const {
   resetSuggestions,
   imagesRequestSuccess,
   reorderImages,
+
+  nearbysRequested,
+  nearbysRecieved,
+  nearbysNotRecieved,
 } = slice.actions;
 export default slice.reducer;
 
@@ -95,6 +111,25 @@ export const getNearbyImages = () => async dispatch => {
       url: `https://api.unsplash.com/search/photos?page=1&query=restaurant&per_page=30&client_id=${process.env.NEXT_PUBLIC_UNSPLASH_KEY}`,
       method: 'get',
       onSuccess: imagesRequestSuccess.type,
+    }),
+  );
+};
+
+export const getNearbys = (coords, types) => async dispatch => {
+  if (!types) {
+    types = config.nearby_types;
+  }
+  return dispatch(
+    apiCallRequested({
+      url: `https://api.geoapify.com/v2/places?categories=${types.join(
+        ',',
+      )}&limit=50&bias=proximity%3A${coords[1]},${coords[0]}&apiKey=${
+        process.env.NEXT_PUBLIC_GEOAPIFY_KEY
+      }`,
+      method: 'get',
+      onStart: nearbysRequested.type,
+      onSuccess: nearbysRecieved.type,
+      onError: nearbysNotRecieved.type,
     }),
   );
 };

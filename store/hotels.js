@@ -5,15 +5,14 @@ import {apiCallRequested} from './api';
 const slice = createSlice({
   name: 'hotels',
   initialState: {
-    loading: false,
     locLoading: false,
-    hotels: [],
-    nearbys: [],
-    country: 'India',
-    state: 'Uttrakhand',
     city: null,
+    state: 'Uttrakhand',
+    country: 'India',
     coords: null,
     images: [],
+    hotels: [],
+    hotelsLoading: false,
   },
   reducers: {
     setCountry: (state, action) => {
@@ -28,19 +27,10 @@ const slice = createSlice({
     setCoords: (state, action) => {
       state.coords = action.payload;
     },
-    requestStarted: (state, action) => {
-      state.loading = true;
-    },
-    requestSuccess: (state, action) => {
-      state.loading = false;
-    },
-    requestFailed: (state, action) => {
-      state.loading = false;
-    },
-    locStarted: (state, action) => {
+    locRequested: (state, action) => {
       state.locLoading = true;
     },
-    locSuccess: (state, action) => {
+    locRequestSuccess: (state, action) => {
       let resp = action.payload.response.results[0];
 
       if (resp.city?.length) state.city = resp.city;
@@ -50,7 +40,7 @@ const slice = createSlice({
       state.state = resp.state;
       state.locLoading = false;
     },
-    locFailed: (state, action) => {
+    locRequestFailed: (state, action) => {
       state.locLoading = null;
     },
     geoCoordsRecieved: (state, action) => {
@@ -69,6 +59,17 @@ const slice = createSlice({
       shuffleArray(images);
       state.images = images;
     },
+    hotelsRequested: (state, action) => {
+      state.hotelsLoading = true;
+    },
+    hotelsRecieved: (state, action) => {
+      state.hotels = action.payload.response.features;
+      rotateArray(state.images, 10);
+      state.hotelsLoading = false;
+    },
+    hotelsNotRecieved: (state, action) => {
+      state.hotelsLoading = false;
+    },
   },
 });
 
@@ -77,17 +78,18 @@ export const {
   setState,
   setCity,
   setCoords,
-  requestStarted,
-  requestSuccess,
-  requestFailed,
 
-  locStarted,
-  locSuccess,
-  locFailed,
+  locRequested,
+  locRequestSuccess,
+  locRequestFailed,
   geoCoordsRecieved,
 
   imagesRequestSuccess,
   reorderImages,
+
+  hotelsRequested,
+  hotelsRecieved,
+  hotelsNotRecieved,
 } = slice.actions;
 export default slice.reducer;
 
@@ -113,9 +115,21 @@ export const getLocByCoords = (lat, long) => async dispatch => {
     apiCallRequested({
       url: `https://apis.mapmyindia.com/advancedmaps/v1/${process.env.NEXT_PUBLIC_MAPMYIND_KEY}/rev_geocode?lat=${lat}&lng=${long}`,
       method: 'get',
-      onStart: locStarted.type,
-      onSuccess: locSuccess.type,
-      onError: locFailed.type,
+      onStart: locRequested.type,
+      onSuccess: locRequestSuccess.type,
+      onError: locRequestFailed.type,
+    }),
+  );
+};
+
+export const getHotels = coords => async dispatch => {
+  return dispatch(
+    apiCallRequested({
+      url: `https://api.geoapify.com/v2/places?categories=accommodation&limit=50&bias=proximity%3A${coords[1]},${coords[0]}&apiKey=${process.env.NEXT_PUBLIC_GEOAPIFY_KEY}`,
+      method: 'get',
+      onStart: hotelsRequested.type,
+      onSuccess: hotelsRecieved.type,
+      onError: hotelsNotRecieved.type,
     }),
   );
 };

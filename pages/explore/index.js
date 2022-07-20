@@ -7,7 +7,6 @@ import {
   MdSearch,
   MdOutlinePinDrop,
   MdOutlineMobiledataOff,
-  MdOutlineVerticalAlignBottom,
   MdClose,
 } from 'react-icons/md';
 import {IconButton} from '@material-ui/core';
@@ -16,21 +15,44 @@ import Image from 'next/image';
 import {
   addSuggestionToHistory,
   getAutoCompleteSuggestions,
+  getNearbys,
   resetSuggestions,
 } from '../../store/explore';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import decodeBH from '../../public/utils/blurHashDecoder';
-import {setCity, setCoords, setCountry, setState} from '../../store/hotels';
+import {
+  getHotels,
+  setCity,
+  setCoords,
+  setCountry,
+  setState,
+} from '../../store/hotels';
 
 export default function Home() {
   const containerRef = useRef();
+  const dispatch = useDispatch();
   const [locModal, setLocModal] = useState(false);
+  const [activeItem, setActiveItem] = useState(null);
   const [height, width] = useWindowDimensions();
-  const {nearbys, hotels, country, city, state} = useSelector(
+  const {hotels, hotelsLoading, country, city, state, coords} = useSelector(
     state => state.hotel,
   );
+  const {nearbys, nearbysLoading} = useSelector(state => state.explore);
 
-  const [testCardData, setTestData] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+  useEffect(() => {
+    if (coords?.length) {
+      dispatch(getHotels(coords));
+      dispatch(getNearbys(coords, null));
+    }
+  }, [coords?.[0], coords?.[1]]);
+
+  const scrollToBottom = () => {
+    containerRef.current.scrollBy({
+      top: height,
+      left: 0,
+      behavior: 'smooth',
+    });
+  };
 
   return (
     <div ref={containerRef} className={styles.container}>
@@ -38,58 +60,106 @@ export default function Home() {
       <Background>
         <Layout>
           <div className={styles.main}>
-            {/* <motion.button
-              onClick={() => {
-                containerRef?.current?.scrollBy({
-                  top: height,
-                  left: 0,
-                  behavior: 'smooth',
-                });
-              }}
-              className={styles.see_all}>
-              <div className={styles.see_more}>See More</div>
-              <MdOutlineVerticalAlignBottom color="white" size={20} />
-            </motion.button> */}
             <SearchBar
               initialValue={`${city ? `${city}, ` : ''}${state}, ${country}`}
               showLocationSettings={() => setLocModal(true)}
             />
-            <motion.div
-              drag="x"
-              style={{paddingLeft: '10%'}}
-              whileHover={{cursor: 'grab'}}
-              whileTap={{cursor: 'grabbing'}}
-              whileDrag={{cursor: 'grabbing'}}
-              dragConstraints={{left: -width, right: width}}
-              className={styles.top_card_container}>
-              {testCardData.map((i, _) => (
-                <PlaceCard store="hotel" item={i} key={_} index={_} />
-              ))}
-            </motion.div>
-            <motion.div
-              drag="x"
-              style={{paddingRight: '10%'}}
-              whileHover={{cursor: 'grab'}}
-              whileTap={{cursor: 'grabbing'}}
-              whileDrag={{cursor: 'grabbing'}}
-              dragConstraints={{left: -width, right: width}}
-              className={styles.top_card_container}>
-              {testCardData.map((i, _) => (
-                <PlaceCard store="explore" item={i} key={_} index={_} />
-              ))}
-            </motion.div>
+            {!hotelsLoading && !nearbysLoading ? (
+              nearbys.length > 4 && hotels.length > 4 ? (
+                <>
+                  <motion.div
+                    drag="x"
+                    style={{paddingLeft: '10%'}}
+                    whileHover={{cursor: 'grab'}}
+                    whileTap={{cursor: 'grabbing'}}
+                    whileDrag={{cursor: 'grabbing'}}
+                    dragConstraints={{left: -width, right: width}}
+                    className={styles.top_card_container}>
+                    {hotels?.map((i, _) => (
+                      <PlaceCard
+                        active={activeItem}
+                        setActive={setActiveItem}
+                        store="hotel"
+                        item={i}
+                        key={_}
+                        index={_}
+                        onClick={scrollToBottom}
+                      />
+                    ))}
+                  </motion.div>
+                  <motion.div
+                    drag="x"
+                    style={{paddingRight: '10%'}}
+                    whileHover={{cursor: 'grab'}}
+                    whileTap={{cursor: 'grabbing'}}
+                    whileDrag={{cursor: 'grabbing'}}
+                    dragConstraints={{left: -width, right: width}}
+                    className={styles.top_card_container}>
+                    {nearbys?.map((i, _) => (
+                      <PlaceCard
+                        active={activeItem}
+                        setActive={setActiveItem}
+                        store="explore"
+                        item={i}
+                        key={_}
+                        index={_}
+                        onClick={scrollToBottom}
+                      />
+                    ))}
+                  </motion.div>
+                </>
+              ) : (
+                <NoData />
+              )
+            ) : (
+              <div className={styles.loading_places}>
+                <Image
+                  layout="fill"
+                  src="/icons/loading_places.svg"
+                  alt="loading"
+                />
+              </div>
+            )}
           </div>
         </Layout>
         <div className={styles.bottom_container}>
-          {/* <SearchBar
-            searchState={search}
-            showLocationSettings={() => setLocModal(true)}
-          /> */}
           <div className={styles.main_bottom_container}>
-            <div className={styles.list_container}>
-              {nearbys.length ? <></> : <NoData />}
-            </div>
-            <div className={styles.details_container}></div>
+            {hotels.length || nearbys.length ? (
+              <div className={styles.list_container}>
+                {hotels?.map((i, _) => (
+                  <PlaceCard
+                    active={activeItem}
+                    setActive={setActiveItem}
+                    store="hotel"
+                    item={i}
+                    key={_}
+                    index={_}
+                  />
+                ))}
+              </div>
+            ) : (
+              <NoData />
+            )}
+            <AnimatePresence>
+              {activeItem ? (
+                <motion.div
+                  transition={{delay: 0.4}}
+                  initial={{translateX: '150%', flex: 0}}
+                  animate={{translateX: '0%', flex: 1}}
+                  exit={{translateX: '150%', flex: 0}}
+                  className={styles.details_container}>
+                  jello
+                  <IconButton
+                    style={{position: 'absolute', top: 20, right: 20}}
+                    onMouseDown={() => {
+                      setActiveItem(null);
+                      setTimeout(() => scrollToBottom(), 500);
+                    }}>
+                    <MdClose size={15} color="grey" />
+                  </IconButton>
+                </motion.div>
+              ) : null}
+            </AnimatePresence>
           </div>
         </div>
       </Background>
@@ -97,17 +167,22 @@ export default function Home() {
   );
 }
 
-const PlaceCard = ({item, index, active, setActive, store}) => {
+const PlaceCard = ({item, index, active, setActive, store, onClick}) => {
   const thisRef = useRef();
   const isMobile = useIsMobile();
   const [height, width] = useWindowDimensions();
   const [isLoaded, setLoaded] = useState(false);
   const [isShown, setShow] = useState(false);
 
-  const imageData = useSelector(state => state[store].images?.[index] ?? null);
+  const {properties, geometry} = item;
+  const totalImages = useSelector(state => state[store].images?.length ?? 0);
+  const imageData = useSelector(
+    state => state[store].images?.[index % totalImages] ?? null,
+  );
 
   const tap2 = e => {
-    // setActive(item);
+    onClick?.();
+    setActive(item);
   };
 
   useEffect(() => {
@@ -124,7 +199,9 @@ const PlaceCard = ({item, index, active, setActive, store}) => {
       <motion.div
         ref={thisRef}
         tabIndex={index}
-        onTouchStart={e => (!isShown ? setShow(true) : tap2(e))}
+        onMouseDown={e => {
+          isShown ? tap2(e) : setShow(true);
+        }}
         initial={{scale: 0, translateY: 100, borderRadius: 500}}
         animate={{
           scale: 1,
@@ -139,7 +216,7 @@ const PlaceCard = ({item, index, active, setActive, store}) => {
         className={styles.card}>
         <div className={styles.cardImage}>
           <Image
-            alt={`${item}`}
+            alt={properties.name}
             objectFit="cover"
             layout="fill"
             src={imageData.urls[isMobile ? 'small' : 'regular']}
@@ -187,13 +264,10 @@ const SearchBar = ({searchState, showLocationSettings, initialValue}) => {
   const updateLocation = item => {
     setSearch(item.properties.formatted);
     dispatch(addSuggestionToHistory(item));
-    dispatch(setCoords(item.geometry.coordinates));
-    const type = item.properties.result_type;
-    dispatch(setCountry(item.properties.country));
-    if (type === 'country') return;
-    item.properties?.state ? dispatch(setState(item.properties.state)) : null;
-    if (type === 'state') return;
-    item.properties?.city ? dispatch(setCity(item.properties.city)) : null;
+    dispatch(setCoords(item?.geometry?.coordinates));
+    dispatch(setCountry(item.properties?.country));
+    dispatch(setState(item.properties?.state));
+    dispatch(setCity(item.properties?.city));
   };
 
   return (
@@ -237,12 +311,14 @@ const SearchBar = ({searchState, showLocationSettings, initialValue}) => {
             {auto_load ? <LinearProgress /> : null}
             <ul style={{padding: 0, margin: 0}}>
               {autoSuggestions.map((item, idx) =>
+                true ||
                 Object.keys(result_type).includes(
                   item?.properties?.result_type,
                 ) ? (
                   <motion.li
                     key={idx}
                     onMouseDown={() => {
+                      console.log(item);
                       updateLocation(item);
                     }}
                     className={styles.suggestion}
@@ -257,6 +333,7 @@ const SearchBar = ({searchState, showLocationSettings, initialValue}) => {
                       transition: {delay: 0.3, duration: 0.5},
                     }}
                     exit={{opacity: 0, height: 0}}>
+                    {item.properties.formatted}
                     <span
                       style={{
                         color: result_type[item?.properties?.result_type],
@@ -265,7 +342,6 @@ const SearchBar = ({searchState, showLocationSettings, initialValue}) => {
                       className={styles.result_type}>
                       {item?.properties?.result_type}
                     </span>
-                    {item.properties.formatted}
                   </motion.li>
                 ) : null,
               )}
@@ -278,9 +354,12 @@ const SearchBar = ({searchState, showLocationSettings, initialValue}) => {
 };
 
 const NoData = () => (
-  <div
+  <motion.div
+    initial={{opacity: 0, translateY: 100}}
+    animate={{opacity: 1, translateY: 0}}
     style={{
-      height: '100vh',
+      height: '100%',
+      minHeight: '40vh',
       widht: '100vw',
       display: 'flex',
       flexDirection: 'column',
@@ -289,11 +368,11 @@ const NoData = () => (
     }}>
     <MdOutlineMobiledataOff color="grey" size={30} />
     <div style={{color: 'grey', textAlign: 'center'}}>
-      No data recieved
+      No Data Recieved
       <br />
-      Make sure your connection is working.
+      Try Again with a different keyword.
     </div>
-  </div>
+  </motion.div>
 );
 
 /*

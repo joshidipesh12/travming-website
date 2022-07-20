@@ -29,8 +29,10 @@ const LocSelector = ({visible, closeModal}) => {
 
   useEffect(() => {
     if (states.length) {
-      dispatch(setState(states[0].name));
-      dispatch(setCoords(null));
+      if (!state) {
+        dispatch(setState(states[0].name));
+        dispatch(setCoords(null));
+      }
     }
   }, [states]);
 

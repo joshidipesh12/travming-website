@@ -13,5 +13,14 @@
     "Philippines": "https://images.pexels.com/photos/2516406/pexels-photo-2516406.jpeg",
     "Greece": "https://images.pexels.com/photos/951539/pexels-photo-951539.jpeg",
     "Spain": "https://images.pexels.com/photos/9510830/pexels-photo-9510830.jpeg"
-  }
+  },
+  "nearby_types": [
+    "catering",
+    "entertainment",
+    "activity",
+    "leisure",
+    "natural",
+    "parking",
+    "tourism"
+  ]
 }

@@ -9,8 +9,10 @@ export const shuffleArray = array => {
 };
 
 export const rotateArray = (array = [], count, reverse = false) => {
+  let arr = array;
   for (let i = 0; i < count; i++) {
-    if (reverse) array.unshift(array.pop());
-    else array.push(array.shift());
+    if (reverse) arr.unshift(arr.pop());
+    else arr.push(arr.shift());
   }
+  array = arr;
 };
