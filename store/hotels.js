@@ -7,7 +7,7 @@ const slice = createSlice({
   initialState: {
     locLoading: false,
     city: null,
-    state: 'Uttrakhand',
+    state: 'Delhi',
     country: 'India',
     coords: null,
     images: [],
@@ -17,12 +17,15 @@ const slice = createSlice({
   reducers: {
     setCountry: (state, action) => {
       state.country = action.payload;
+      state.coords = null;
     },
     setState: (state, action) => {
       state.state = action.payload;
+      state.coords = null;
     },
     setCity: (state, action) => {
       state.city = action.payload;
+      state.coords = null;
     },
     setCoords: (state, action) => {
       state.coords = action.payload;

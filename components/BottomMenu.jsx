@@ -101,7 +101,7 @@ const BottomMenu = ({}) => {
                       selected={!city}
                       onClick={() => {
                         dispatch(setCity(null));
-                        dispatch(setCoords(null));
+                        // dispatch(setCoords(null));
                         setCityMenu();
                       }}>
                       All Cities
@@ -112,7 +112,7 @@ const BottomMenu = ({}) => {
                         selected={c === city}
                         onClick={() => {
                           dispatch(setCity(c));
-                          dispatch(setCoords(null));
+                          // dispatch(setCoords(null));
                           setCityMenu();
                         }}>
                         {c}
@@ -209,7 +209,7 @@ const BottomMenu = ({}) => {
                 selected={!city}
                 onClick={() => {
                   dispatch(setCity(null));
-                  dispatch(setCoords(null));
+                  // dispatch(setCoords(null));
                   setCityMenu();
                 }}>
                 All Cities
@@ -220,7 +220,7 @@ const BottomMenu = ({}) => {
                   selected={c === city}
                   onClick={() => {
                     dispatch(setCity(c));
-                    dispatch(setCoords(null));
+                    // dispatch(setCoords(null));
                     setCityMenu();
                   }}>
                   {c}

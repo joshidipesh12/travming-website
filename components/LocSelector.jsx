@@ -31,7 +31,7 @@ const LocSelector = ({visible, closeModal}) => {
     if (states.length) {
       if (!state) {
         dispatch(setState(states[0].name));
-        dispatch(setCoords(null));
+        // dispatch(setCoords(null));
       }
     }
   }, [states]);
@@ -87,7 +87,7 @@ const LocSelector = ({visible, closeModal}) => {
                       selected={c === country}
                       onClick={() => {
                         dispatch(setCountry(c));
-                        dispatch(setCoords(null));
+                        // dispatch(setCoords(null));
                         setCountryMenu(null);
                       }}>
                       {c}
@@ -128,7 +128,7 @@ const LocSelector = ({visible, closeModal}) => {
                         selected={s.name === state}
                         onClick={() => {
                           dispatch(setState(s.name));
-                          dispatch(setCoords(null));
+                          // dispatch(setCoords(null));
 
                           setStateMenu(null);
                         }}>
@@ -174,7 +174,7 @@ const LocSelector = ({visible, closeModal}) => {
                       selected={city === null}
                       onClick={() => {
                         dispatch(setCity(null));
-                        dispatch(setCoords(null));
+                        // dispatch(setCoords(null));
                         setCityMenu(null);
                       }}>
                       All Cities of {state}
@@ -185,7 +185,7 @@ const LocSelector = ({visible, closeModal}) => {
                         selected={c === city}
                         onClick={() => {
                           dispatch(setCity(c));
-                          dispatch(setCoords(null));
+                          // dispatch(setCoords(null));
                           setCityMenu(null);
                         }}>
                         {c}

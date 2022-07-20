@@ -35,7 +35,7 @@ export default function Home() {
     if (state) {
       dispatch(getCities(country, state));
       dispatch(setCity(null));
-      dispatch(setCoords(null));
+      // dispatch(setCoords(null));
       openSnackbar(`State/Region Set to ${state}.`, [1500]);
     }
   }, [state]);

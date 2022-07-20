@@ -44,11 +44,12 @@ export default function Home() {
       dispatch(getHotels(coords));
       dispatch(getNearbys(coords, null));
     }
+    return () => {};
   }, [coords?.[0], coords?.[1]]);
 
-  const scrollToBottom = () => {
+  const scrollToStart = (top = height) => {
     containerRef.current.scrollBy({
-      top: height,
+      top,
       left: 0,
       behavior: 'smooth',
     });
@@ -83,7 +84,7 @@ export default function Home() {
                         item={i}
                         key={_}
                         index={_}
-                        onClick={scrollToBottom}
+                        onClick={scrollToStart}
                       />
                     ))}
                   </motion.div>
@@ -103,7 +104,7 @@ export default function Home() {
                         item={i}
                         key={_}
                         index={_}
-                        onClick={scrollToBottom}
+                        onClick={scrollToStart}
                       />
                     ))}
                   </motion.div>
@@ -112,13 +113,17 @@ export default function Home() {
                 <NoData />
               )
             ) : (
-              <div className={styles.loading_places}>
+              <motion.div
+                initial={{scale: 0}}
+                animate={{scale: 1}}
+                className={styles.loading_places}>
                 <Image
                   layout="fill"
                   src="/icons/loading_places.svg"
                   alt="loading"
+                  priority={true}
                 />
-              </div>
+              </motion.div>
             )}
           </div>
         </Layout>
@@ -148,12 +153,11 @@ export default function Home() {
                   animate={{translateX: '0%', flex: 1}}
                   exit={{translateX: '150%', flex: 0}}
                   className={styles.details_container}>
-                  jello
                   <IconButton
                     style={{position: 'absolute', top: 20, right: 20}}
-                    onMouseDown={() => {
+                    onClick={() => {
                       setActiveItem(null);
-                      setTimeout(() => scrollToBottom(), 500);
+                      scrollToStart(0);
                     }}>
                     <MdClose size={15} color="grey" />
                   </IconButton>
@@ -191,7 +195,7 @@ const PlaceCard = ({item, index, active, setActive, store, onClick}) => {
       setShow(false);
       thisRef?.current?.blur();
     }, 5000);
-    return () => {};
+    return () => null;
   }, [isShown]);
 
   return imageData ? (
@@ -264,7 +268,7 @@ const SearchBar = ({searchState, showLocationSettings, initialValue}) => {
   const updateLocation = item => {
     setSearch(item.properties.formatted);
     dispatch(addSuggestionToHistory(item));
-    dispatch(setCoords(item?.geometry?.coordinates));
+    // dispatch(setCoords(item?.geometry?.coordinates));
     dispatch(setCountry(item.properties?.country));
     dispatch(setState(item.properties?.state));
     dispatch(setCity(item.properties?.city));
@@ -318,7 +322,6 @@ const SearchBar = ({searchState, showLocationSettings, initialValue}) => {
                   <motion.li
                     key={idx}
                     onMouseDown={() => {
-                      console.log(item);
                       updateLocation(item);
                     }}
                     className={styles.suggestion}
@@ -356,7 +359,7 @@ const SearchBar = ({searchState, showLocationSettings, initialValue}) => {
 const NoData = () => (
   <motion.div
     initial={{opacity: 0, translateY: 100}}
-    animate={{opacity: 1, translateY: 0}}
+    animate={{opacity: 1, translateY: 0, transition: {delay: 1}}}
     style={{
       height: '100%',
       minHeight: '40vh',

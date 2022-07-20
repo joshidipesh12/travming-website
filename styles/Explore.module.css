@@ -106,6 +106,16 @@
   position: relative;
   height: 200px;
   width: 200px;
+  animation: loading-gear 1s linear infinite forwards;
+}
+
+@keyframes loading-gear {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 .card {
@@ -181,8 +191,9 @@
   flex: 1;
   display: flex;
   flex-wrap: wrap;
-  align-items: baseline;
-  padding: 1vw;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 2vw;
   gap: 2vw;
   overflow-y: scroll;
   overflow-x: hidden;
@@ -235,10 +246,13 @@
     flex-direction: column-reverse;
   }
   .list_container {
-    justify-content: center;
     margin: 1.5vw;
     padding: 1.5vw;
     gap: 3vw;
     column-gap: 3vw;
+  }
+
+  .list_container::-webkit-scrollbar {
+    display: block;
   }
 }
