@@ -67,65 +67,68 @@ export default function Home() {
               initialValue={`${city ? `${city}, ` : ''}${state}, ${country}`}
               showLocationSettings={() => setLocModal(true)}
             />
-            {!hotelsLoading && !nearbysLoading ? (
-              nearbys.length > 4 && hotels.length > 4 ? (
-                <>
-                  <motion.div
-                    drag="x"
-                    style={{paddingLeft: '10%'}}
-                    whileHover={{cursor: 'grab'}}
-                    whileTap={{cursor: 'grabbing'}}
-                    whileDrag={{cursor: 'grabbing'}}
-                    dragConstraints={{left: -width, right: width}}
-                    className={styles.top_card_container}>
-                    {hotels?.map((i, _) => (
-                      <PlaceCard
-                        active={activeItem}
-                        setActive={setActiveItem}
-                        store="hotel"
-                        item={i}
-                        key={_}
-                        index={_}
-                        onClick={scrollToStart}
-                      />
-                    ))}
-                  </motion.div>
-                  <motion.div
-                    drag="x"
-                    style={{paddingRight: '10%'}}
-                    whileHover={{cursor: 'grab'}}
-                    whileTap={{cursor: 'grabbing'}}
-                    whileDrag={{cursor: 'grabbing'}}
-                    dragConstraints={{left: -width, right: width}}
-                    className={styles.top_card_container}>
-                    {nearbys?.map((i, _) => (
-                      <PlaceCard
-                        item={i}
-                        key={_}
-                        index={_}
-                        setActive={setActiveItem}
-                        store="explore"
-                        onClick={scrollToStart}
-                      />
-                    ))}
-                  </motion.div>
-                </>
+            <AnimatePresence exitBeforeEnter>
+              {!hotelsLoading && !nearbysLoading ? (
+                nearbys.length > 4 && hotels.length > 4 ? (
+                  <>
+                    <motion.div
+                      drag="x"
+                      style={{paddingLeft: '10%'}}
+                      whileHover={{cursor: 'grab'}}
+                      whileTap={{cursor: 'grabbing'}}
+                      whileDrag={{cursor: 'grabbing'}}
+                      dragConstraints={{left: -width, right: width}}
+                      className={styles.top_card_container}>
+                      {hotels?.map((i, _) => (
+                        <PlaceCard
+                          active={activeItem}
+                          setActive={setActiveItem}
+                          store="hotel"
+                          item={i}
+                          key={_}
+                          index={_}
+                          onClick={scrollToStart}
+                        />
+                      ))}
+                    </motion.div>
+                    <motion.div
+                      drag="x"
+                      style={{paddingRight: '10%'}}
+                      whileHover={{cursor: 'grab'}}
+                      whileTap={{cursor: 'grabbing'}}
+                      whileDrag={{cursor: 'grabbing'}}
+                      dragConstraints={{left: -width, right: width}}
+                      className={styles.top_card_container}>
+                      {nearbys?.map((i, _) => (
+                        <PlaceCard
+                          item={i}
+                          key={_}
+                          index={_}
+                          setActive={setActiveItem}
+                          store="explore"
+                          onClick={scrollToStart}
+                        />
+                      ))}
+                    </motion.div>
+                  </>
+                ) : (
+                  <NoData />
+                )
               ) : (
-                <NoData />
-              )
-            ) : (
-              <motion.div
-                initial={{scale: 0}}
-                animate={{scale: 1}}
-                className={styles.loading_places}>
-                <Image
-                  layout="fill"
-                  src="/icons/loading_places.svg"
-                  alt="loading"
-                  priority={true}
-                />
-              </motion.div>
-            )}
+                <motion.div
+                  initial={{opacity: 0}}
+                  animate={{opacity: 1}}
+                  exit={{opacity: 0}}
+                  className={styles.loading_places}>
+                  <Image
+                    layout="fill"
+                    src="/icons/loading_places.svg"
+                    alt="loading"
+                    priority={true}
+                  />
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
         </Layout>
         <div className={styles.bottom_container}>
@@ -249,8 +252,8 @@ const PlaceCard = ({
   );
 
   const tap2 = e => {
+    onClick?.();
     setTimeout(() => {
-      onClick?.();
       setActive({
         ...item,
         image_src: imageData.urls[isMobile ? 'small' : 'regular'],

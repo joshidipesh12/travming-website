@@ -104,9 +104,9 @@
 
 .loading_places {
   position: relative;
-  height: 100px;
-  width: 100px;
-  animation: loading-gear 1s linear infinite forwards;
+  height: 60vh;
+  width: 100%;
+  animation: loading-gear 1s ease-out infinite forwards;
 }
 
 @keyframes loading-gear {

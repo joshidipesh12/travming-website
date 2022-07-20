@@ -146,6 +146,7 @@ const DrawerContent = ({anchor, toggle}) => {
           height="70vh"
           width="100%"
           alt="yoda"
+          priority={true}
         />
       </List>
     </div>
