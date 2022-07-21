@@ -182,7 +182,7 @@
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande',
     'Lucida Sans', Arial, sans-serif;
   transition: all 0.5s ease;
-  transform: translateY(2.5em);
+  transform: translateY(2.6em);
 }
 
 .card:hover > .card_content > .card_title,
@@ -292,7 +292,7 @@
 }
 
 .place_details {
-  height: 100px;
+  height: 200px;
   width: 100%;
   margin-top: 1%;
   display: flex;

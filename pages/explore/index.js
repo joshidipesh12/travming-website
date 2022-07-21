@@ -115,11 +115,7 @@ export default function Home() {
                   <NoData />
                 )
               ) : (
-                <motion.div
-                  initial={{opacity: 0}}
-                  animate={{opacity: 1}}
-                  exit={{opacity: 0}}
-                  className={styles.loading_places}>
+                <motion.div className={styles.loading_places}>
                   <Image
                     layout="fill"
                     src="/icons/loading_places.svg"
@@ -219,7 +215,8 @@ export default function Home() {
                     ))}
                   </div>
                   <div className={styles.place_details}>
-                    <CircularProgress color="inherit" />
+                    <NoData subText="ERR: Details API is under maintenance." />
+                    {/* <CircularProgress color="inherit" /> */}
                   </div>
                 </motion.div>
               ) : null}
@@ -455,24 +452,24 @@ const SearchBar = ({searchState, showLocationSettings, initialValue}) => {
   );
 };
 
-const NoData = () => (
+const NoData = ({mainText, subText}) => (
   <motion.div
     initial={{opacity: 0, translateY: 100}}
     animate={{opacity: 1, translateY: 0, transition: {delay: 1}}}
     style={{
       height: '100%',
-      minHeight: '40vh',
       widht: '100vw',
       display: 'flex',
+      flex: 1,
       flexDirection: 'column',
       alignItems: 'center',
       justifyContent: 'center',
     }}>
     <MdOutlineMobiledataOff color="grey" size={30} />
     <div style={{color: 'grey', textAlign: 'center'}}>
-      No Data Recieved
+      {mainText ?? 'No Data Recieved'}
       <br />
-      Try Again with a different keyword.
+      {subText ?? 'Try Again with a different keyword.'}
     </div>
   </motion.div>
 );
