@@ -1,5 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit';
-import {rotateArray, shuffleArray} from '../public/utils';
+import {rotateArray, shuffleArray} from '../../utils';
 import {apiCallRequested} from './api';
 
 const slice = createSlice({
@@ -58,16 +58,13 @@ const slice = createSlice({
       state.images = images;
     },
     imagesRequestSuccess: (state, action) => {
-      let images = action.payload.response?.results ?? [];
-      shuffleArray(images);
-      state.images = images;
+      state.images = action.payload.response.results;
     },
     hotelsRequested: (state, action) => {
       state.hotelsLoading = true;
     },
     hotelsRecieved: (state, action) => {
       state.hotels = action.payload.response.features;
-      rotateArray(state.images, 10);
       state.hotelsLoading = false;
     },
     hotelsNotRecieved: (state, action) => {
@@ -125,28 +122,6 @@ export const getLocByCoords = (lat, long) => async dispatch => {
   );
 };
 
-export const getHotels = coords => async dispatch => {
-  return dispatch(
-    apiCallRequested({
-      url: `https://api.geoapify.com/v2/places?categories=accommodation&limit=50&bias=proximity%3A${coords[1]},${coords[0]}&apiKey=${process.env.NEXT_PUBLIC_GEOAPIFY_KEY}`,
-      method: 'get',
-      onStart: hotelsRequested.type,
-      onSuccess: hotelsRecieved.type,
-      onError: hotelsNotRecieved.type,
-    }),
-  );
-};
-
-export const getHotelImages = () => async dispatch => {
-  return dispatch(
-    apiCallRequested({
-      url: `https://api.unsplash.com/search/photos?page=1&query=hotel%20resort&per_page=30&client_id=${process.env.NEXT_PUBLIC_UNSPLASH_KEY}`,
-      method: 'get',
-      onSuccess: imagesRequestSuccess.type,
-    }),
-  );
-};
-
 export const getCoordsByLoc =
   (type, country, state = '', city = '') =>
   async dispatch => {
@@ -162,3 +137,25 @@ export const getCoordsByLoc =
       }),
     );
   };
+
+export const getHotels = coords => async dispatch => {
+  return dispatch(
+    apiCallRequested({
+      url: `/api/hotels?lng=${coords[1]}&lat=${coords[0]}`,
+      method: 'get',
+      onStart: hotelsRequested.type,
+      onSuccess: hotelsRecieved.type,
+      onError: hotelsNotRecieved.type,
+    }),
+  );
+};
+
+export const getHotelImages = () => async dispatch => {
+  return dispatch(
+    apiCallRequested({
+      url: `/api/hotels/images`,
+      method: 'get',
+      onSuccess: imagesRequestSuccess.type,
+    }),
+  );
+};

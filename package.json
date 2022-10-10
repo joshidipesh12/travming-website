@@ -19,8 +19,11 @@
     "dayjs": "^1.11.3",
     "fast-blurhash": "^1.0.1",
     "framer-motion": "^6.2.1",
+    "jsonwebtoken": "^8.5.1",
     "localforage": "^1.10.0",
     "localforage-memoryStorageDriver": "^0.9.2",
+    "mongoose": "^6.5.0",
+    "mongoose-paginate-v2": "^1.7.1",
     "next": "^12.2.2",
     "react": "17.0.2",
     "react-activity": "^2.1.1",
@@ -30,7 +33,9 @@
     "react-reveal": "^1.2.2",
     "react-simple-snackbar": "^1.1.11",
     "redux": "^4.1.2",
-    "redux-persist": "^6.0.0"
+    "redux-persist": "^6.0.0",
+    "uuid": "^8.3.2",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "eslint": "8.6.0",

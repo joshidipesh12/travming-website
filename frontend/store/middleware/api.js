@@ -8,7 +8,6 @@ const api =
   async action => {
     // const connected = navigator ? navigator.onLine : true;
 
-    // if (connected || action.type === REHYDRATE || action.type === PERSIST) {
     if (action.type !== actions.apiCallRequested.type) return next(action);
 
     const {
@@ -69,7 +68,7 @@ const api =
           payload: {
             error: error.message,
             status: error.response?.status,
-            data: error.response?.data,
+            response: error.response?.data,
           },
         });
       }

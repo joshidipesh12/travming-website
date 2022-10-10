@@ -1,6 +1,6 @@
 import React, {useState, useEffect, useRef} from 'react';
 import {motion} from 'framer-motion';
-import {useToggle} from '../hooks';
+import {useToggle} from '@f/hooks';
 import styles from '../styles/Signinup.module.css';
 import Link from 'next/link';
 import {useRouter} from 'next/router';
@@ -8,8 +8,9 @@ import {BsLinkedin, BsGoogle, BsFacebook} from 'react-icons/bs';
 import {MdOutlineVisibilityOff, MdOutlineVisibility} from 'react-icons/md';
 import {TextField, InputAdornment, withStyles} from '@material-ui/core';
 import {useDispatch, useSelector} from 'react-redux';
-import {login} from '../store/login';
+import {loginUser, noError} from '@f/store/login';
 import {Spinner} from 'react-activity';
+import {useSnackbar} from 'react-simple-snackbar';
 import 'react-activity/dist/library.css';
 
 const CssTextField = withStyles({
@@ -35,15 +36,14 @@ function Signup({}) {
   const bgRef = useRef();
   const router = useRouter();
   const dispatch = useDispatch();
+  const [showSnackBar] = useSnackbar();
   const [passwordVisible, togglePassword] = useToggle(false);
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [display, setDisplay] = useState('none');
-  const loggedIn = useSelector(state => state.login.loggedIn);
+  const {token, error, loginLoading} = useSelector(state => state.login);
 
   useEffect(() => {
-    if (loggedIn) router.replace('/');
-
     const image = new Image();
     const url = `https://source.unsplash.com/${window.innerWidth}x${window.innerHeight}/?hotels`;
     image.addEventListener('load', e => {
@@ -53,6 +53,24 @@ function Signup({}) {
     });
     image.src = url;
   }, []);
+
+  const handleLogin = () => {
+    if (loginLoading) return;
+    if (!email.length || !password.length)
+      return showSnackBar('Please Fill Details Properly!');
+    dispatch(loginUser({username: email, password}));
+  };
+
+  useEffect(() => {
+    if (error?.length) {
+      showSnackBar(error);
+      dispatch(noError());
+    }
+  }, [error]);
+
+  useEffect(() => {
+    if (token?.length) router.replace('/');
+  }, [token]);
 
   return (
     <main className={styles.main}>
@@ -105,7 +123,7 @@ function Signup({}) {
                 fullWidth={true}
                 InputProps={{
                   endAdornment: (
-                    <InputAdornment position="end">
+                    <InputAdornment position="end" style={{cursor: 'pointer'}}>
                       {!passwordVisible ? (
                         <MdOutlineVisibility
                           aria-label="toggle password visibility"
@@ -125,21 +143,23 @@ function Signup({}) {
                   ),
                 }}
               />
-              <Link href={email ? '/' : '#'} passHref>
+              <Link href="#" passHref>
                 <motion.button
-                  whileHover={{backgroundColor: '#037e7e'}}
+                  whileHover={{backgroundColor: '#037e7e', cursor: 'pointer'}}
                   whileTap={{scale: 0.95}}
                   className={styles.button}
-                  onClick={() => {
-                    if (email) dispatch(login({username: email}));
-                  }}>
-                  SIGN IN
+                  onClick={handleLogin}>
+                  {loginLoading ? (
+                    <Spinner color="##fff" size={10} />
+                  ) : (
+                    'SIGN IN'
+                  )}
                 </motion.button>
               </Link>
               <div className={styles.text}>
                 Dont have an account?{' '}
                 <span style={{color: '#03a6a7'}}>
-                  <Link href="/signup" replace passHref>
+                  <Link href="/signup" passHref>
                     Sign Up
                   </Link>
                 </span>

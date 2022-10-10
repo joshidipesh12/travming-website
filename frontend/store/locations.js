@@ -1,6 +1,6 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {apiCallRequested} from './api';
-import {shuffleArray} from '../public/utils';
+import {shuffleArray} from '../../utils';
 
 const slice = createSlice({
   name: 'loc',

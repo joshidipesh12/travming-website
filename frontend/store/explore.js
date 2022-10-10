@@ -1,6 +1,6 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {apiCallRequested} from './api';
-import {rotateArray, shuffleArray} from '../public/utils';
+import {rotateArray, shuffleArray} from '../../utils';
 import config from '../config.json';
 
 const slice = createSlice({
@@ -46,8 +46,7 @@ const slice = createSlice({
       state.nearbysLoading = true;
     },
     nearbysRecieved: (state, action) => {
-      state.nearbys = action.payload.response.features ?? [];
-      rotateArray(state.images, 10);
+      state.nearbys = action.payload.response?.features ?? [];
       state.nearbysLoading = false;
     },
     nearbysNotRecieved: (state, action) => {
@@ -121,11 +120,7 @@ export const getNearbys = (coords, types) => async dispatch => {
   }
   return dispatch(
     apiCallRequested({
-      url: `https://api.geoapify.com/v2/places?categories=${types.join(
-        ',',
-      )}&limit=50&bias=proximity%3A${coords[1]},${coords[0]}&apiKey=${
-        process.env.NEXT_PUBLIC_GEOAPIFY_KEY
-      }`,
+      url: `/api/nearbys?types=${types}lng=${coords[1]}&lat=${coords[0]}`,
       method: 'get',
       onStart: nearbysRequested.type,
       onSuccess: nearbysRecieved.type,

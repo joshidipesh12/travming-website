@@ -3,7 +3,7 @@ import {AnimatePresence, motion} from 'framer-motion';
 import {useDispatch, useSelector} from 'react-redux';
 import Modal from './Modal';
 import {useToggle} from '../hooks';
-import styles from '../styles/Components.module.css';
+import styles from '../../styles/Components.module.css';
 import config from '../config.json';
 import {FiChevronDown} from 'react-icons/fi';
 import {

@@ -1,6 +1,10 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {Layout, Background, LocSelector} from '../../components';
-import {useIsMobile, useToggle, useWindowDimensions} from '../../hooks';
+import {Layout, Background, LocSelector} from '@f/components';
+import {
+  useIsMobile,
+  useToggle,
+  useWindowDimensions,
+} from '@f/hooks';
 import styles from '../../styles/Explore.module.css';
 import {motion, AnimatePresence} from 'framer-motion';
 import {
@@ -19,16 +23,16 @@ import {
   getAutoCompleteSuggestions,
   getNearbys,
   resetSuggestions,
-} from '../../store/explore';
+} from '@f/store/explore';
 import LinearProgress from '@material-ui/core/LinearProgress';
-import decodeBH from '../../public/utils/blurHashDecoder';
+import decodeBH from '@utils/blurHashDecoder';
 import {
   getHotels,
   setCity,
   setCoords,
   setCountry,
   setState,
-} from '../../store/hotels';
+} from '@f/store/hotels';
 
 export default function Home() {
   const containerRef = useRef();
@@ -274,7 +278,7 @@ const PlaceCard = ({
         ref={thisRef}
         tabIndex={index}
         onMouseDown={e => {
-          isShown ? tap2(e) : setShow(true);
+          // isShown ? tap2(e) : setShow(true);
         }}
         initial={{scale: 0, translateY: 100, borderRadius: 500}}
         animate={{

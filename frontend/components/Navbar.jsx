@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import styles from '../styles/Navbar.module.css';
+import styles from '../../styles/Navbar.module.css';
 import {
   MdMenu,
   MdHome,
@@ -19,14 +19,14 @@ import Image from 'next/image';
 
 function Navbar() {
   const [drawer, toggleDrawer] = useToggle();
-  const {username, loggedIn} = useSelector(state => state.login);
+  const {user, token} = useSelector(state => state.login);
 
   return (
     <header className={styles.container}>
       <section className={`${styles.links} ${styles.hide}`}>
-        {loggedIn && username ? (
+        {token?.length ? (
           <div style={{textTransform: 'uppercase'}} className={styles.link}>
-            {username}
+            {user.name ? user.name : user.username}
           </div>
         ) : (
           <>
@@ -71,7 +71,7 @@ function Navbar() {
 
 const DrawerContent = ({anchor, toggle}) => {
   const dispatch = useDispatch();
-  const {loggedIn, username} = useSelector(state => state.login);
+  const {token, user} = useSelector(state => state.login);
 
   return (
     <div
@@ -92,18 +92,26 @@ const DrawerContent = ({anchor, toggle}) => {
           </Link>
         </ListItem>
         <Divider />
-        {loggedIn ? (
+        {token?.length ? (
           <>
             <ListItem button>
               <MdOutlineAccountCircle />
               <ListItemText
                 inset
-                primary={username.split('@')[0].toUpperCase()}
+                primary={(user?.name
+                  ? user.name
+                  : user.username.split('@')[0]
+                ).toUpperCase()}
               />
             </ListItem>
-            <ListItem button onClick={() => dispatch(logout())}>
+            <ListItem
+              button
+              onClick={() => {
+                window.location.reload();
+                dispatch(logout());
+              }}>
               <MdLogout />
-              <Link href="/" replace passHref shallow>
+              <Link href="#" replace passHref shallow>
                 <ListItemText inset primary="Logout" />
               </Link>
             </ListItem>

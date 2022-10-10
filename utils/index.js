@@ -16,3 +16,11 @@ export const rotateArray = (array = [], count, reverse = false) => {
   }
   array = arr;
 };
+
+export const ResponseError = (res, code, message) => {
+  return res.status(code ?? 400).json({status: 'error', message});
+};
+
+export const ResponseSuccess = (res, code, payload) => {
+  return res.status(code ?? 200).json({status: 'success', ...payload});
+};

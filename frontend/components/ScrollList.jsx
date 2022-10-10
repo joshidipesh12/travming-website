@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react';
 import Image from 'next/image';
-import styles from '../styles/ScrollList.module.css';
+import styles from '../../styles/ScrollList.module.css';
 import {useWindowDimensions, useIsMobile} from '../hooks';
 import {
   HiOutlineArrowNarrowRight,
@@ -140,7 +140,7 @@ const PlaceCard = ({item}) => {
             color="white"
           />
         ) : null}
-        {imageSrc?.length ? (
+        {imageSrc?.length ? null : (
           <Image
             layout="fill"
             objectFit="cover"
@@ -149,7 +149,7 @@ const PlaceCard = ({item}) => {
             onError={() => setError(true)}
             src={imageSrc}
           />
-        ) : null}
+        )}
         <div className={styles.place}>
           <div className={styles.placeName}>
             {item.name}
@@ -165,7 +165,7 @@ const PlaceCard = ({item}) => {
                 className={styles.option}
                 onClick={() => {
                   dispatch(setState(item.name));
-                  dispatch(setCoords(null));
+                  // dispatch(setCoords(null));
                 }}
                 style={{backgroundColor: isSelected ? '#40be83' : '#0a66c2'}}>
                 {isSelected ? (
@@ -184,7 +184,7 @@ const PlaceCard = ({item}) => {
                 whileTap={{scale: 1.3}}
                 onClick={() => {
                   dispatch(setState(item.name));
-                  dispatch(setCoords(null));
+                  // dispatch(setCoords(null));
                 }}
                 className={styles.option}
                 style={{backgroundColor: isMobile ? 'white' : 'black'}}>

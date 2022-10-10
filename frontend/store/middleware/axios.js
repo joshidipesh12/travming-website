@@ -15,7 +15,7 @@ async function configureAxios() {
 
   return setup({
     cache: {
-      maxAge: 5 * 24 * 60 * 60 * 1000,
+      maxAge: 1 * 24 * 60 * 60 * 1000,
       exclude: {methods: ['put', 'patch', 'delete']},
       store: forageStore,
     },

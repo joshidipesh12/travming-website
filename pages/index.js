@@ -2,17 +2,17 @@ import React, {useEffect, useRef, useState} from 'react';
 import Fade from 'react-reveal/Fade';
 import Pulse from 'react-reveal/Pulse';
 import {useDispatch, useSelector} from 'react-redux';
-import {setCity, setCoords} from '../store/hotels';
+import {setCity, setCoords} from '@f/store/hotels';
 import {SiGooglemaps} from 'react-icons/si';
 
-import {getCities, getStates} from '../store/locations';
+import {getCities, getStates} from '@f/store/locations';
 import {
   ScrollList,
   BottomMenu,
   LocSelector,
   Layout,
   Background,
-} from '../components';
+} from '@f/components';
 import styles from '../styles/Home.module.css';
 import {useSnackbar} from 'react-simple-snackbar';
 

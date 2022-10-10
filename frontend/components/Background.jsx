@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import styles from '../styles/Home.module.css';
+import styles from '../../styles/Home.module.css';
 import {motion, useAnimation} from 'framer-motion';
 import Image from 'next/image';
 import {useSelector} from 'react-redux';

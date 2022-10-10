@@ -5,11 +5,11 @@ import SnackbarProvider from 'react-simple-snackbar';
 import {persistStore} from 'redux-persist';
 import {PersistGate} from 'redux-persist/lib/integration/react';
 import {Provider} from 'react-redux';
-import configureStore from '../store/store';
+import configureStore from '@f/store/store';
 import DayjsUtils from '@date-io/dayjs';
 import {MuiPickersUtilsProvider} from '@material-ui/pickers';
-import {Head} from '../components';
-import {useWindowDimensions} from '../hooks';
+import {Head} from '@f/components';
+import {useWindowDimensions} from '@f/hooks';
 
 const store = configureStore();
 const persistedStore = persistStore(store);
