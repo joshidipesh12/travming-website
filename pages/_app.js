@@ -9,21 +9,12 @@ import configureStore from '@f/store/store';
 import DayjsUtils from '@date-io/dayjs';
 import {MuiPickersUtilsProvider} from '@material-ui/pickers';
 import {Head} from '@f/components';
-import {useWindowDimensions} from '@f/hooks';
 
 const store = configureStore();
 const persistedStore = persistStore(store);
 
 function MyApp({Component, pageProps}) {
-  const dims = useWindowDimensions();
-  useEffect(() => setViewPort(dims), [dims.height, dims.width]);
-
-  useEffect(() => {
-    resize();
-    serviceWorker();
-    setViewPort(dims);
-    return () => {};
-  }, []);
+  useEffect(() => resize(), []);
 
   return (
     <Provider store={store}>
@@ -39,22 +30,22 @@ function MyApp({Component, pageProps}) {
   );
 }
 
-const serviceWorker = () => {
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', function () {
-      navigator.serviceWorker.register('../sw.js', {scope: '.'}).then(
-        registration =>
-          console.log(
-            'Service Worker registration successful with scope: ',
-            registration.scope,
-          ),
-        function (err) {
-          console.log('Service Worker registration failed: ', err);
-        },
-      );
-    });
-  }
-};
+// const serviceWorker = () => {
+//   if ('serviceWorker' in navigator) {
+//     window.addEventListener('load', function () {
+//       navigator.serviceWorker.register('../sw.js', {scope: '.'}).then(
+//         registration =>
+//           console.log(
+//             'Service Worker registration successful with scope: ',
+//             registration.scope,
+//           ),
+//         function (err) {
+//           console.log('Service Worker registration failed: ', err);
+//         },
+//       );
+//     });
+//   }
+// };
 
 const resize = () => {
   let vh = window.innerHeight * 0.01;
@@ -65,19 +56,19 @@ const resize = () => {
   });
 };
 
-const setViewPort = dims => {
-  const [height, width] = dims;
-  let viewport = document.querySelector('meta[name=viewport]');
-  if (height && width)
-    viewport.setAttribute(
-      'content',
-      'height=' +
-        height.toFixed(0) +
-        'px, width=' +
-        width.toFixed(0) +
-        'px, initial-scale=1.0',
-    );
-  return () => {};
-};
+// const setViewPort = dims => {
+//   const [height, width] = dims;
+//   let viewport = document.querySelector('meta[name=viewport]');
+//   if (height && width)
+//     viewport.setAttribute(
+//       'content',
+//       'height=' +
+//         height.toFixed(0) +
+//         'px, width=' +
+//         width.toFixed(0) +
+//         'px, initial-scale=1.0',
+//     );
+//   return () => {};
+// };
 
 export default MyApp;
