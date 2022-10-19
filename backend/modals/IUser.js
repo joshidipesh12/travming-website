@@ -1,11 +1,8 @@
 import * as yup from 'yup';
-import {v4 as uuidv4} from 'uuid';
+import uuid from 'uuid';
 
 export default yup.object().shape({
-  userId: yup
-    .string()
-    .uuid()
-    .default(() => uuidv4()),
+  userId: yup.string().default(() => uuid.v4()),
   name: yup.string().nullable(),
   username: yup.string().email().required(),
   password: yup.string().nullable(),

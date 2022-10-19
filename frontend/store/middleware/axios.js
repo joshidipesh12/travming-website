@@ -21,11 +21,13 @@ async function configureAxios() {
     },
   });
 }
-let axios;
-try {
-  axios = await configureAxios();
-} catch (e) {
-  console.log(e);
+
+if (!global.axios) {
+  try {
+    global.axios = await configureAxios();
+  } catch (e) {
+    console.log(e);
+  }
 }
 
-export default axios;
+export default global.axios;
