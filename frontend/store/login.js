@@ -21,6 +21,7 @@ const slice = createSlice({
     loginSuccess: (state, action) => {
       state.token = action.payload.response.jwt;
       state.user = action.payload.response.user;
+      console.log("login success")
       state.loginLoading = false;
     },
     loginFailed: (state, action) => {
@@ -34,6 +35,7 @@ const slice = createSlice({
     signupSuccess: (state, action) => {
       state.token = action.payload.response.jwt;
       state.user = action.payload.response.user;
+      console.log("signup success")
       state.signupLoading = false;
     },
     signupFailed: (state, action) => {

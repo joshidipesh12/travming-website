@@ -48,12 +48,14 @@ function Signup({}) {
   useEffect(() => {
     const image = new Image();
     const url = `https://source.unsplash.com/${window.innerWidth}x${window.innerHeight}/?travelling`;
-    image.addEventListener('load', e => {
+    const onLoadImage = e => {
       bgRef.current.style.backgroundImage = `url(${url})`;
       setDisplay('flex');
       return () => image.removeEventListener('load');
-    });
+    };
+    image.addEventListener('load', onLoadImage);
     image.src = url;
+    return () => image.removeEventListener('load', onLoadImage);
   }, []);
 
   const handleSignup = () => {
@@ -184,19 +186,13 @@ function Signup({}) {
                   ),
                 }}
               />
-              <Link href="#" passHref>
-                <motion.button
-                  whileHover={{backgroundColor: '#037e7e', cursor: 'pointer'}}
-                  whileTap={{scale: 0.95}}
-                  className={styles.button}
-                  onClick={handleSignup}>
-                  {signupLoading ? (
-                    <Spinner color="#fff" size={10} />
-                  ) : (
-                    'SIGN UP'
-                  )}
-                </motion.button>
-              </Link>
+              <motion.button
+                whileHover={{backgroundColor: '#037e7e', cursor: 'pointer'}}
+                whileTap={{scale: 0.95}}
+                className={styles.button}
+                onClick={handleSignup}>
+                {signupLoading ? <Spinner color="#fff" size={10} /> : 'SIGN UP'}
+              </motion.button>
               <div className={styles.text}>
                 Already have an account?{' '}
                 <span style={{color: '#03a6a7'}}>
