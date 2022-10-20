@@ -1,6 +1,5 @@
 import React, {useEffect, useRef, useState} from 'react';
 import Image from 'next/image';
-import styles from '../../styles/ScrollList.module.css';
 import {useWindowDimensions, useIsMobile} from '../hooks';
 import {
   HiOutlineArrowNarrowRight,
@@ -39,7 +38,7 @@ function ScrollList({onScroll}) {
   };
 
   return (
-    <div className={styles.container}>
+    <div className="container">
       <div
         onScroll={() => {
           onScroll(
@@ -51,7 +50,7 @@ function ScrollList({onScroll}) {
           hideRightButton();
         }}
         ref={scrollViewRef}
-        className={styles.list}>
+        className="list">
         {isMobile ? (
           <div style={{height: '30vh', display: 'flex'}}></div>
         ) : (
@@ -75,7 +74,7 @@ function ScrollList({onScroll}) {
             }}
             color="black"
             size={40}
-            className={styles.rightIcon}
+            className="rightIcon"
           />
         </div>
       ) : null}
@@ -90,11 +89,93 @@ function ScrollList({onScroll}) {
           }}
           color="black"
           size={40}
-          className={styles.leftIcon}
+          className="leftIcon"
         />
       </div>
       <style jsx>{`
+        .container {
+          width: 80vw;
+          height: calc(45 * var(--vh));
+          position: absolute;
+          right: 10vw;
+          top: calc(22 * var(--vh));
+        }
+
+        .rightIcon {
+          position: absolute;
+          top: 50%;
+          right: 5%;
+          cursor: pointer;
+          background-color: bisque;
+          padding: 10px;
+          border-radius: 20px;
+          transition: all 0.2s ease;
+        }
+
+        .leftIcon {
+          position: absolute;
+          top: 50%;
+          left: 5%;
+          cursor: pointer;
+          background-color: bisque;
+          padding: 10px;
+          border-radius: 20px;
+          transition: all 0.1s ease;
+        }
+
+        .rightIcon:hover,
+        .leftIcon:hover {
+          transform: scale(1.2);
+          background-color: white;
+        }
+
+        .list {
+          height: 100%;
+          width: 100%;
+          /* list-style: none; */
+          overflow-x: auto;
+          overflow-y: hidden;
+          white-space: nowrap;
+          mask-image: linear-gradient(
+            90deg,
+            transparent 1%,
+            black 10%,
+            black 90%,
+            transparent 99%
+          );
+          border-top-right-radius: 30px;
+          border-bottom-right-radius: 30px;
+        }
+
+        .list::-webkit-scrollbar {
+          display: none;
+        }
         @media (max-aspect-ratio: 2/3) {
+          /* For Mobile Devices */
+          .container {
+            width: 100vw;
+            height: calc(78 * var(--vh));
+            left: 0vw;
+            top: calc(12 * var(--vh));
+          }
+
+          .rightIcon {
+            display: none;
+          }
+
+          .list {
+            overflow: auto;
+            mask-image: linear-gradient(
+              0deg,
+              transparent 1%,
+              black 10%,
+              black 90%,
+              transparent 99%
+            );
+            border-bottom-left-radius: 30px;
+            border-bottom-right-radius: 30px;
+            align-items: center;
+          }
         }
       `}</style>
     </div>
@@ -126,8 +207,8 @@ const PlaceCard = ({item}) => {
       whileInView={{scale: 0.9}}
       animate={{opacity: 1, translateY: 0}}
       style={{display: error ? 'none' : '', scale: 0.6}}
-      className={styles.listItem}>
-      <div className={styles.cardImg}>
+      className="listItem">
+      <div className="cardImg">
         {loading ? (
           <Bounce
             style={{
@@ -150,8 +231,8 @@ const PlaceCard = ({item}) => {
             src={imageSrc}
           />
         )}
-        <div className={styles.place}>
-          <div className={styles.placeName}>
+        <div className="place">
+          <div className="placeName">
             {item.name}
             {isMobile ? null : '\n'}
           </div>
@@ -162,7 +243,7 @@ const PlaceCard = ({item}) => {
             cascade>
             <div style={{display: 'flex'}}>
               <motion.button
-                className={styles.option}
+                className="option"
                 onClick={() => {
                   dispatch(setState(item.name));
                   // dispatch(setCoords(null));
@@ -186,7 +267,7 @@ const PlaceCard = ({item}) => {
                   dispatch(setState(item.name));
                   // dispatch(setCoords(null));
                 }}
-                className={styles.option}
+                className="option"
                 style={{backgroundColor: isMobile ? 'white' : 'black'}}>
                 <Link passHref href="/explore">
                   {isMobile ? (
@@ -200,16 +281,188 @@ const PlaceCard = ({item}) => {
           </Fade>
         </div>
       </div>
+      <style jsx>{`
+        .listItem:last-child {
+          margin-right: 3rem;
+        }
+
+        .listItem {
+          display: inline-flex;
+          background-color: rgba(25, 25, 25, 0.35);
+          backdrop-filter: blur(20px);
+          overflow: hidden;
+          border-radius: 16px;
+          width: 25vw;
+          height: 85%;
+          gap: 3%;
+          margin-block: 3%;
+          transition: all 0.2s ease-out;
+          box-shadow: 0px 0px 5px grey;
+          flex-direction: row;
+          justify-content: center;
+          align-items: center;
+          opacity: 0;
+          transform: translateY(40%);
+          cursor: pointer;
+        }
+
+        .cardImg {
+          position: relative;
+          height: 100%;
+          width: 100%;
+          border-radius: 16px;
+          overflow: hidden;
+        }
+
+        .place {
+          position: absolute;
+          bottom: 0;
+          width: 100%;
+          background: linear-gradient(transparent, rgba(0, 0, 0, 1));
+          padding-inline: 10%;
+          padding-top: 15%;
+          padding-bottom: 5%;
+          display: flex;
+          flex-direction: column;
+        }
+
+        .placeName {
+          font-weight: bold;
+          color: aliceblue;
+          font-size: 1.2em;
+          font-family: 'Courier New', Courier, monospace;
+          flex: 1;
+          text-overflow: ellipsis;
+          overflow: hidden;
+        }
+
+        .option {
+          padding-inline: 15px;
+          padding-block: 5px;
+          margin-right: 5%;
+          margin-block: 2%;
+          border-radius: 5px;
+          font-size: smaller;
+          color: azure;
+          text-transform: uppercase;
+          font-family: 'Lucida Sans', 'Lucida Sans Regular', Verdana, sans-serif;
+        }
+
+        @media (max-aspect-ratio: 2/3) {
+          .listItem:last-child {
+            margin-bottom: 3rem;
+          }
+
+          .listItem {
+            display: flex;
+            width: 80vw;
+            height: 25vh;
+            margin-inline: 10vw;
+            margin-block: 0;
+            box-shadow: 0 0 0 grey;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transform: translateY(30px);
+          }
+
+          .place {
+            flex-direction: row;
+            align-items: flex-end;
+            font-size: large;
+          }
+
+          .option {
+            display: inline-flex;
+            padding: 5px;
+            border-radius: 15px;
+            margin-left: 10px;
+            margin-block: 0px;
+          }
+
+          .listItem:last-child {
+            margin-right: 0rem;
+          }
+        }
+      `}</style>
     </motion.div>
   );
 };
 
 const PlaceCardLoading = () => {
   return [1, 2, 3, 4, 5].map(i => (
-    <div
-      key={i}
-      style={{opacity: 1}}
-      className={`${styles.listItem} ${styles.loadCard}`}></div>
+    <div key={i} style={{opacity: 1}} className={`$"listItem" $"loadCard"`}>
+      <style jsx>{`
+        .listItem:last-child {
+          margin-right: 3rem;
+        }
+
+        .listItem {
+          display: inline-flex;
+          background-color: rgba(25, 25, 25, 0.35);
+          backdrop-filter: blur(20px);
+          overflow: hidden;
+          border-radius: 16px;
+          width: 25vw;
+          height: 85%;
+          gap: 3%;
+          margin-block: 3%;
+          transition: all 0.2s ease-out;
+          box-shadow: 0px 0px 5px grey;
+          flex-direction: row;
+          justify-content: center;
+          align-items: center;
+          opacity: 0;
+          transform: translateY(40%);
+          cursor: pointer;
+        }
+
+        .loadCard {
+          transform: translateY(0px);
+          transform: scale(0.9);
+          animation: shimmer 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+
+        @keyframes shimmer {
+          0%,
+          100% {
+            background-color: rgb(204, 204, 204);
+          }
+          50% {
+            background-color: rgb(104, 104, 104);
+          }
+        }
+        @media (max-aspect-ratio: 2/3) {
+          .listItem:last-child {
+            margin-bottom: 3rem;
+          }
+
+          .listItem {
+            display: flex;
+            width: 80vw;
+            height: 25vh;
+            margin-inline: 10vw;
+            margin-block: 0;
+            box-shadow: 0 0 0 grey;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transform: translateY(30px);
+          }
+
+          .loadCard {
+            margin-block: 2%;
+            scale: 0.8;
+          }
+
+          .listItem:last-child {
+            margin-right: 0rem;
+          }
+        }
+      `}</style>
+    </div>
   ));
 };
 

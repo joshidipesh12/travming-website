@@ -1,7 +1,7 @@
 import React, {useState, useRef, useEffect} from 'react';
 import {RiMapPinLine, RiUserLine, RiCalendarLine} from 'react-icons/ri';
 import {BiChevronDown, BiX, BiSearch} from 'react-icons/bi';
-import styles from '../../styles/Home.module.css';
+import styles from '../../styles/BottomMenu.module.css';
 import {useSelector, useDispatch} from 'react-redux';
 import {AnimatePresence, motion} from 'framer-motion';
 import {DatePicker} from '@material-ui/pickers';
