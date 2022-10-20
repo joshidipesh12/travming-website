@@ -40,39 +40,39 @@ function Configure() {
   //   }
   // }, [state]);
 
-  return (
-    <Background>
-      <Layout>
-        {/* <LocSelector visible={locModal} closeModal={() => setLocModal(false)} />
-        <ScrollList
-          titleCurr={
-            (titleRef.current?.clientHeight ?? 0) +
-            (titleRef.current?.offsetTop ?? 0)
-          }
-          onScroll={setTitleVisible}
-        />
-        <div ref={titleRef} className={styles.titleText}>
-          <Fade collapse duration={400} appear when={titleVis}>
-            <div className={styles.mainText}>
-              Beautiful Places of{' '}
-              <span
-                style={{display: 'flex', alignItems: 'center'}}
-                onMouseDown={() => setLocModal(true)}
-                className={styles.placeName}>
-                <SiGooglemaps size={25} />
-                <Pulse style={{display: 'flex'}} delay={2000}>
-                  {country}
-                </Pulse>
-              </span>
-            </div>
-            <div className={styles.subTitle}>
-              Plan your vacation at the most beatiful places.
-            </div>
-          </Fade>
-        </div>
-        <BottomMenu /> */}
-      </Layout>
-    </Background>
+  return ( null
+    // <Background>
+    //   <Layout>
+    //     <LocSelector visible={locModal} closeModal={() => setLocModal(false)} />
+    //     <ScrollList
+    //       titleCurr={
+    //         (titleRef.current?.clientHeight ?? 0) +
+    //         (titleRef.current?.offsetTop ?? 0)
+    //       }
+    //       onScroll={setTitleVisible}
+    //     />
+    //     <div ref={titleRef} className={styles.titleText}>
+    //       <Fade collapse duration={400} appear when={titleVis}>
+    //         <div className={styles.mainText}>
+    //           Beautiful Places of{' '}
+    //           <span
+    //             style={{display: 'flex', alignItems: 'center'}}
+    //             onMouseDown={() => setLocModal(true)}
+    //             className={styles.placeName}>
+    //             <SiGooglemaps size={25} />
+    //             <Pulse style={{display: 'flex'}} delay={2000}>
+    //               {country}
+    //             </Pulse>
+    //           </span>
+    //         </div>
+    //         <div className={styles.subTitle}>
+    //           Plan your vacation at the most beatiful places.
+    //         </div>
+    //       </Fade>
+    //     </div>
+    //     <BottomMenu />
+    //   </Layout>
+    // </Background>
   );
 }
 
