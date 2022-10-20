@@ -1,6 +1,6 @@
 import {REHYDRATE, PERSIST} from 'redux-persist';
 import * as actions from '../api';
-import axios from './axios';
+import configureAxios from './axios';
 
 const api =
   ({dispatch}) =>
@@ -28,6 +28,7 @@ const api =
     next(action);
 
     try {
+      let axios = await configureAxios();
       let response = await axios.request({
         // baseURL: customUrl ?? '', //AVD_LocalHost: 10.0.2.2:8082
         url,

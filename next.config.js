@@ -1,6 +1,7 @@
 module.exports = {
+  swcMinify: true,
+  crossOrigin: 'anonymous',
   reactStrictMode: true,
-  defaultLocale: 'en-US',
   images: {
     domains: [
       'source.unsplash.com',
@@ -15,15 +16,5 @@ module.exports = {
         headers: [{key: 'Access-Control-Allow-Origin', value: '*'}],
       },
     ];
-  },
-  async rewrites() {
-    return {
-      afterFiles: [{source: '/:path*', destination: '/_404/:path*'}],
-    };
-  },
-  webpack: config => {
-    config.experiments = config.experiments || {};
-    config.experiments.topLevelAwait = true;
-    return config;
   },
 };
