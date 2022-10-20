@@ -2,6 +2,7 @@ import DB from '../../../backend/middleware/mongodb';
 import {jwtGenerator} from '../../../backend/lib/JWT';
 import {ResponseError, ResponseSuccess} from '../../../utils';
 import {IUser} from '../../../backend/modals';
+import {v4 as uuidv4} from 'uuid';
 import UserTable from '../../../backend/schema/UserTable';
 
 async function handler(req, res) {
@@ -10,6 +11,7 @@ async function handler(req, res) {
 
   const payload = IUser.cast({...IUser.getDefault(), ...req.body});
   payload.createdOn = Date.now();
+  payload.userId = uuidv4();
 
   let exists = await UserTable.exists({
     $or: [{username: payload.username}, {userId: payload.userId}],
