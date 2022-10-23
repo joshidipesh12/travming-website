@@ -22,20 +22,26 @@ function ScrollList({onScroll}) {
   const [width, height] = useWindowDimensions();
   const states = useSelector(state => state.location.states);
 
-  const showLeftButton = () => {
-    leftButtonRef.current && scrollViewRef.current
-      ? (leftButtonRef.current.style.opacity =
-          width / 10 < scrollViewRef.current.scrollLeft ? 1 : 0)
-      : null;
-  };
+  let showLeftButton, hideRightButton;
 
-  const hideRightButton = () => {
-    const node = scrollViewRef.current;
-    node && rightButtonRef.current
-      ? (rightButtonRef.current.style.display =
-          node.offsetWidth + node.scrollLeft >= node.scrollWidth ? 'none' : '')
-      : null;
-  };
+  useEffect(() => {
+    showLeftButton = () => {
+      leftButtonRef.current && scrollViewRef.current
+        ? (leftButtonRef.current.style.opacity =
+            width / 10 < scrollViewRef.current.scrollLeft ? 1 : 0)
+        : null;
+    };
+
+    hideRightButton = () => {
+      const node = scrollViewRef.current;
+      node && rightButtonRef.current
+        ? (rightButtonRef.current.style.display =
+            node.offsetWidth + node.scrollLeft >= node.scrollWidth
+              ? 'none'
+              : '')
+        : null;
+    };
+  }, []);
 
   return (
     <div className="container">
@@ -46,8 +52,8 @@ function ScrollList({onScroll}) {
               ? height / 10 > scrollViewRef.current.scrollTop
               : width / 10 > scrollViewRef.current.scrollLeft,
           );
-          showLeftButton();
-          hideRightButton();
+          showLeftButton?.();
+          hideRightButton?.();
         }}
         ref={scrollViewRef}
         className="list">
@@ -132,7 +138,6 @@ function ScrollList({onScroll}) {
         .list {
           height: 100%;
           width: 100%;
-          /* list-style: none; */
           overflow-x: auto;
           overflow-y: hidden;
           white-space: nowrap;
@@ -151,7 +156,6 @@ function ScrollList({onScroll}) {
           display: none;
         }
         @media (max-aspect-ratio: 2/3) {
-          /* For Mobile Devices */
           .container {
             width: 100vw;
             height: calc(78 * var(--vh));

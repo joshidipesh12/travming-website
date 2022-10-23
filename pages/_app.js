@@ -8,7 +8,7 @@ import {Provider} from 'react-redux';
 import configureStore from '@f/store/store';
 import DayjsUtils from '@date-io/dayjs';
 import {MuiPickersUtilsProvider} from '@material-ui/pickers';
-import {Head} from '@f/components';
+import Head from 'next/head';
 
 const store = configureStore();
 const persistedStore = persistStore(store);
@@ -21,7 +21,7 @@ function MyApp({Component, pageProps}) {
       <PersistGate persistor={persistedStore} loading={null}>
         <MuiPickersUtilsProvider utils={DayjsUtils}>
           <SnackbarProvider>
-            <Head />
+            <HeadModule />
             <Component {...pageProps} />
           </SnackbarProvider>
         </MuiPickersUtilsProvider>
@@ -29,6 +29,14 @@ function MyApp({Component, pageProps}) {
     </Provider>
   );
 }
+
+const HeadModule = () => {
+  return (
+    <Head>
+      <title>TravMing - Round the World, Just A Few Clicks to Go ✈️</title>
+    </Head>
+  );
+};
 
 // const serviceWorker = () => {
 //   if ('serviceWorker' in navigator) {
