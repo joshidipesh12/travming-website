@@ -1,0 +1,104 @@
+.main {
+    min-height: 100vh;
+    width: 100vw;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .carousel_container {
+    height: 100vh;
+    width: 100%;
+  }
+  
+  .header {
+    padding: 1% 2%;
+    width: 100%;
+    top: 0;
+    position: fixed;
+    display: flex;
+    align-items: center;
+    z-index: 2;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .logo {
+    font-family: 'Chillax', sans-serif;
+    color: white;
+    font-size: large;
+    position: relative;
+  }
+  
+  .logo:hover {
+    cursor: pointer;
+  }
+  
+  /* Carousel Component Style */
+  .inner_carousel_container {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .inner_carousel_container > * {
+    transform: translateY(-20vh);
+  }
+  
+  .image_item {
+    flex: 1;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+  
+  .image_cover {
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.575);
+    backdrop-filter: blur(0px);
+    transition: all ease-in-out 0.4s;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .explore_button {
+    position: absolute;
+    bottom: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 0.5rem;
+    transition: all ease-out 0.2s;
+  }
+  
+  .explore_button:hover {
+    background-color: transparent;
+    border: 2px solid white;
+    color: white;
+  }
+  
+  .image_cover:has(> .explore_button:hover) {
+    backdrop-filter: blur(10px);
+  }
+  
+  .place_name {
+    font-family: 'Chillax', 'Courier New', Courier, monospace;
+    font-weight: 500;
+    color: rgb(57, 211, 19);
+    text-align: right;
+    width: calc(65vw);
+    font-size: large;
+    margin: 0;
+  }
+  
+  .place_quote {
+    font-family: 'Anton', 'Franklin Gothic Medium', 'Arial Narrow', Arial,
+      sans-serif;
+    font-size: calc(1rem + 5vw);
+    margin: 0 15vw;
+    text-align: right;
+    color: white;
+  }
+  

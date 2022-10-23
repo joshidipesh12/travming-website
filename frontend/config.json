@@ -23,5 +23,62 @@
     "parking",
     "tourism"
   ],
-  "jwtWhiteList": ["/*"]
+  "jwtWhiteList": ["/*"],
+  "places": [
+    {
+      "name": "France",
+      "img": "https://images.pexels.com/photos/2901215/pexels-photo-2901215.jpeg",
+      "desc": "My garden is my most beautiful masterpiece."
+    },
+    {
+      "name": "Italy",
+      "img": "https://images.pexels.com/photos/531602/pexels-photo-531602.jpeg",
+      "desc": "Trusting is good, but not trusting is better."
+    },
+    {
+      "name": "Australia",
+      "img": "https://images.pexels.com/photos/2265880/pexels-photo-2265880.jpeg",
+      "desc": "The potential for adventure makes life worth living."
+    },
+    {
+      "name": "India",
+      "img": "https://images.pexels.com/photos/1542620/pexels-photo-1542620.jpeg",
+      "desc": "Where the needle goes, the thread follows."
+    },
+    {
+      "name": "Turkey",
+      "img": "https://images.pexels.com/photos/2507031/pexels-photo-2507031.jpeg",
+      "desc": "If one is far away, one also gets far from the heart."
+    },
+    {
+      "name": "Japan",
+      "img": "https://images.pexels.com/photos/1134166/pexels-photo-1134166.jpeg",
+      "desc": "When three people meet, wisdom is exchanged."
+    },
+    {
+      "name": "Germany",
+      "img": "https://images.pexels.com/photos/591383/pexels-photo-591383.jpeg",
+      "desc": "Starting is easy, persistence is an art."
+    },
+    {
+      "name": "Mexico",
+      "img": "https://images.pexels.com/photos/1802255/pexels-photo-1802255.jpeg",
+      "desc": "He who runs with wolves will learn to howl."
+    },
+    {
+      "name": "Philippines",
+      "img": "https://images.pexels.com/photos/2516406/pexels-photo-2516406.jpeg",
+      "desc": "To be merciful is God's, while to act is man's."
+    },
+    {
+      "name": "Greece",
+      "img": "https://images.pexels.com/photos/951539/pexels-photo-951539.jpeg",
+      "desc": "Wait for the wisest of all counselors, time."
+    },
+    {
+      "name": "Spain",
+      "img": "https://images.pexels.com/photos/9510830/pexels-photo-9510830.jpeg",
+      "desc": "Eyes that don't see, heart that doesn't feel."
+    }
+  ]
 }
