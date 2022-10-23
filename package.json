@@ -18,7 +18,7 @@
     "axios-cache-adapter": "^2.7.3",
     "dayjs": "^1.11.3",
     "fast-blurhash": "^1.0.1",
-    "framer-motion": "^6.2.1",
+    "framer-motion": "^7.6.1",
     "jsonwebtoken": "^8.5.1",
     "localforage": "^1.10.0",
     "localforage-memoryStorageDriver": "^0.9.2",

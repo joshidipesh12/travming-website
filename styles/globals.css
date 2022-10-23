@@ -18,7 +18,7 @@ body {
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   min-height: calc(100 * var(--vh));
   min-height: -webkit-fill-available;
-  overflow: hidden;
+  overflow-x: hidden;
 }
 
 html {
@@ -44,15 +44,15 @@ button {
 }
 
 *::-webkit-scrollbar {
-  width: 10px;
+  width: 5px;
 }
 *::-webkit-scrollbar-track {
-  background: #f1f1f100;
+  background: #414141;
 }
 *::-webkit-scrollbar-thumb {
-  background: #888;
+  background: rgb(28, 28, 28);
   max-height: 10px;
 }
-*::-webkit-scrollbar-thumb:hover {
+/* *::-webkit-scrollbar-thumb:hover {
   background: #555;
-}
+} */
