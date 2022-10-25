@@ -80,5 +80,51 @@
       "img": "https://images.pexels.com/photos/9510830/pexels-photo-9510830.jpeg",
       "desc": "Eyes that don't see, heart that doesn't feel."
     }
+  ],
+  "services": [
+    {
+      "title": "Ticket Booking",
+      "icon": "react-icons/md/MdOutlineAirplaneTicket",
+      "color": "#32DF8F",
+      "desc": "Book all kind of national or international ticket for your next destinaion."
+    },
+    {
+      "title": "Ticket Booking",
+      "icon": "react-icons/md/MdOutlineAirplaneTicket",
+      "color": "#32DF8F",
+      "desc": "Book all kind of national or international ticket for your next destinaion."
+    },
+    {
+      "title": "Ticket Booking",
+      "icon": "react-icons/md/MdOutlineAirplaneTicket",
+      "color": "#32DF8F",
+      "desc": "Book all kind of national or international ticket for your next destinaion."
+    }
+  ],
+  "activities": [
+    {
+      "name": "Nature Bridge",
+      "img": "https://images.pexels.com/photos/3217936/pexels-photo-3217936.jpeg"
+    },
+    {
+      "name": "Mountain Climbing",
+      "img": "https://images.pexels.com/photos/2404444/pexels-photo-2404444.jpeg"
+    },
+    {
+      "name": "Paragliding",
+      "img": "https://images.pexels.com/photos/12218657/pexels-photo-12218657.jpeg"
+    },
+    {
+      "name": "Hot Air Baloons",
+      "img": "https://images.pexels.com/photos/2671723/pexels-photo-2671723.jpeg"
+    },
+    {
+      "name": "Hill Hiking",
+      "img": "https://images.pexels.com/photos/1194233/pexels-photo-1194233.jpeg"
+    },
+    {
+      "name": "Whitewater Rafting",
+      "img": "https://images.pexels.com/photos/7542627/pexels-photo-7542627.jpeg"
+    }
   ]
 }

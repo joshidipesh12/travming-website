@@ -1,11 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import config from '@f/config.json';
-import {motion, AnimatePresence} from 'framer-motion';
+import {motion, AnimatePresence, useTransform} from 'framer-motion';
 import styles from '../../styles/Home.module.css';
 
-function Carousel() {
+function Carousel({Y}) {
   const {places} = config;
   const [currIndex, setCurrIndex] = useState(0);
+  const opacity = useTransform(Y, [0, 50], [0, 1]);
 
   const nextImage = () => setCurrIndex(p => (p + 1) % places.length);
 
@@ -26,12 +27,18 @@ function Carousel() {
         <motion.div
           initial={{y: '100vh'}}
           animate={{y: '0vh'}}
-          exit={{y: '-100vh'}}
+          exit={{y: '-120vh'}}
+          transition={{easings: 10}}
           className={styles.image_item}
           key={`${currIndex}_container`}
           style={{
             backgroundImage: `url("${places[currIndex].img}")`,
           }}>
+          <motion.div
+            key="blur_cover"
+            style={{opacity}}
+            className={styles.blur_cover}
+          />
           <div className={styles.image_cover}>
             <motion.h1
               className={styles.place_quote}
@@ -47,7 +54,6 @@ function Carousel() {
               {...textAnim}>
               {places[currIndex].name}
             </motion.h4>
-            <button className={styles.explore_button}>EXPLORE</button>
           </div>
         </motion.div>
       </AnimatePresence>
