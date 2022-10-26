@@ -8,6 +8,7 @@ import {motion, useMotionValue, useTransform} from 'framer-motion';
 import {FiSend, FiMapPin, FiStar} from 'react-icons/fi';
 import {useWindowScroll} from '@f/hooks';
 import {BiMapPin} from 'react-icons/bi';
+import config from '@f/config.json';
 
 export default function Home() {
   const {windowScrollY} = useWindowScroll();
@@ -116,10 +117,26 @@ export default function Home() {
           </motion.div>
         </div>
       </section>
+      <section className={`${styles.section} ${styles.section_3}`}>
+        <h2>Things To Do When Your Are Out There</h2>
+        <div className={styles.div_3}>
+          {config.activities.map(item => (
+            <motion.article className={styles.card}>
+              <img src={`${item.img}`} />
+              <div className={styles.card_img_cover}>{item.name}</div>
+            </motion.article>
+          ))}
+        </div>
+      </section>
     </main>
   );
 }
 
 const whileInView = i => ({
-  whileInView: {x: 0, y: 0, opacity: 1, transition: {delay: 0.2 * i}},
+  whileInView: {
+    x: 0,
+    y: 0,
+    opacity: 1,
+    transition: {delay: 0.2 * i},
+  },
 });

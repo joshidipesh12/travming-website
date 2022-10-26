@@ -111,6 +111,19 @@
   max-width: 25rem;
 }
 
+.card {
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  border-radius: 10px;
+  transition: all 0.3s linear;
+}
+
+.card:hover {
+  box-shadow: 0 3px 10px rgb(137, 137, 137, 0.4);
+}
+
 .section_1 {
   justify-content: center;
   align-items: center;
@@ -124,17 +137,13 @@
 }
 
 .div_1 > .card {
-  flex: 1;
   background-color: #f9f9f9;
-  border-radius: 10px;
-  padding: 1.5rem 3rem;
   margin-top: 2rem;
-  transition: all 0.2s linear;
+  align-items: center;
 }
 
 .div_1 > .card:hover {
   background-color: #fff;
-  box-shadow: 0 3px 10px rgb(137, 137, 137, 0.4);
 }
 
 .section_2 {
@@ -156,21 +165,52 @@
 }
 
 .section_2 .card {
-  background-color: white;
-  display: flex;
-  flex-direction: column;
   align-items: center;
-  padding: 2rem;
-  border-radius: 10px;
-  transition: all 0.3s linear;
-}
-
-.section_2 .card:hover {
-  box-shadow: 0 3px 10px rgb(137, 137, 137, 0.4);
 }
 
 .section_2 .card p {
   margin-block: 0rem;
+}
+
+.section_3 {
+  padding: 3rem 5rem;
+}
+
+.section_3 > .div_3 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.div_3 .card {
+  background-color: #f9f9f9;
+  position: relative;
+  padding: 0;
+  overflow: hidden;
+}
+
+.div_3 .card > img {
+  object-fit: cover;
+  height: 100%;
+}
+
+.div_3 .card .card_img_cover {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  background-color: rgba(0, 0, 0, 0.215);
+  display: flex;
+  align-items: flex-end;
+  justify-content: baseline;
+  padding: 2rem;
+  font-size: large;
+  font-family: 'Chillax', 'Courier New', Courier, monospace;
+  font-weight: 400;
 }
 
 @media (max-aspect-ratio: 1/1) {
