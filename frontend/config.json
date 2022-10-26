@@ -81,30 +81,14 @@
       "desc": "Eyes that don't see, heart that doesn't feel."
     }
   ],
-  "services": [
-    {
-      "title": "Ticket Booking",
-      "icon": "react-icons/md/MdOutlineAirplaneTicket",
-      "color": "#32DF8F",
-      "desc": "Book all kind of national or international ticket for your next destinaion."
-    },
-    {
-      "title": "Ticket Booking",
-      "icon": "react-icons/md/MdOutlineAirplaneTicket",
-      "color": "#32DF8F",
-      "desc": "Book all kind of national or international ticket for your next destinaion."
-    },
-    {
-      "title": "Ticket Booking",
-      "icon": "react-icons/md/MdOutlineAirplaneTicket",
-      "color": "#32DF8F",
-      "desc": "Book all kind of national or international ticket for your next destinaion."
-    }
-  ],
   "activities": [
     {
       "name": "Nature Bridge",
       "img": "https://images.pexels.com/photos/3217936/pexels-photo-3217936.jpeg"
+    },
+    {
+      "name": "Ice Skating",
+      "img": "https://images.pexels.com/photos/9821394/pexels-photo-9821394.jpeg"
     },
     {
       "name": "Mountain Climbing",
@@ -119,12 +103,16 @@
       "img": "https://images.pexels.com/photos/2671723/pexels-photo-2671723.jpeg"
     },
     {
-      "name": "Hill Hiking",
+      "name": "Bungee Jumping",
+      "img": "https://images.pexels.com/photos/11440267/pexels-photo-11440267.jpeg"
+    },
+    {
+      "name": "Hiking",
       "img": "https://images.pexels.com/photos/1194233/pexels-photo-1194233.jpeg"
     },
     {
-      "name": "Whitewater Rafting",
-      "img": "https://images.pexels.com/photos/7542627/pexels-photo-7542627.jpeg"
+      "name": "Horseback Riding",
+      "img": "https://images.pexels.com/photos/12967836/pexels-photo-12967836.jpeg"
     }
   ]
 }
