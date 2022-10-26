@@ -138,7 +138,7 @@ export default function Home() {
               <div className={styles.div_3}>
                 {config.activities.map(item => (
                   <motion.article key={item.name} className={styles.card}>
-                    <img src={`${item.img}?width=200`} />
+                    <img src={`${item.img}`} />
                     <div className={styles.card_img_cover}>{item.name}</div>
                   </motion.article>
                 ))}
