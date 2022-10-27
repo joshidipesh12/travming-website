@@ -50,7 +50,7 @@ const BottomMenu = ({}) => {
           className={styles.mobLocOptions}>
           Setup Your Holiday
         </motion.button>
-        <AnimatePresence initial={false} exitBeforeEnter>
+        <AnimatePresence initial={false} mode="wait">
           {tripModal ? (
             <Modal
               backdropStyle={{backdropFilter: null}}

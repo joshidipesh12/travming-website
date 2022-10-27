@@ -1,11 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import config from '@f/config.json';
-import {motion, AnimatePresence, useTransform} from 'framer-motion';
+import {motion, AnimatePresence, useTransform, useScroll} from 'framer-motion';
 import styles from '../../styles/Home.module.css';
 
-function Carousel({Y}) {
+function Carousel() {
   const {places} = config;
   const [currIndex, setCurrIndex] = useState(0);
+  const {scrollY: Y} = useScroll();
   const opacity = useTransform(Y, [0, 50], [0, 1]);
 
   const nextImage = () => setCurrIndex(p => (p + 1) % places.length);

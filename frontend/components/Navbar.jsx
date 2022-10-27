@@ -1,6 +1,4 @@
 import React from 'react';
-import Link from 'next/link';
-import styles from '../../styles/Navbar.module.css';
 import {
   MdMenu,
   MdHome,
@@ -10,91 +8,101 @@ import {
   MdOutlineAccountCircle,
 } from 'react-icons/md';
 import {AiFillGithub, AiFillLinkedin} from 'react-icons/ai';
-import {motion} from 'framer-motion';
-import {Divider, Drawer, List, ListItem, ListItemText} from '@material-ui/core';
+import {motion, useScroll, useTransform} from 'framer-motion';
+import {
+  Drawer,
+  IconButton,
+  List,
+  ListItem,
+  ListItemText,
+} from '@material-ui/core';
 import {useToggle} from '../hooks';
 import {useSelector, useDispatch} from 'react-redux';
 import {logout} from '../store/login';
 import Image from 'next/image';
+import Link from 'next/link';
+import {useRouter} from 'next/router';
 
 function Navbar() {
   const [drawer, toggleDrawer] = useToggle();
   const {user, token} = useSelector(state => state.login);
 
+  const {scrollY: Y} = useScroll();
+  const backgroundColor = useTransform(Y, [0, 100], ['#2f2f2f00', '#2f2f2fff']);
+  const boxShadow = useTransform(
+    Y,
+    [80, 150],
+    ['0 0 0px #000', '0 0 5px #000'],
+  );
+
   return (
-    <header className={styles.container}>
-      <section className={`${styles.links} ${styles.hide}`}>
-        {token?.length ? (
-          <div style={{textTransform: 'uppercase'}} className={styles.link}>
-            {user.name ? user.name : user.username}
-          </div>
-        ) : (
-          <>
-            <div className={styles.link}>
-              <Link passHref href="/signup">
-                Sign Up
-              </Link>
-            </div>
-            <div className={styles.link}>
-              <Link passHref href="/signin">
-                Sign In
-              </Link>
-            </div>
-          </>
-        )}
-      </section>
-      <Link passHref href="/">
-        <motion.div className={styles.name}>
-          TRAV<span style={{color: '#03a6a7'}}>MING</span>
+    <motion.header
+      style={{
+        backgroundColor,
+        boxShadow,
+        padding: '1% 2%',
+        width: '100%',
+        top: 0,
+        position: 'fixed',
+        display: 'flex',
+        zIndex: 2,
+        justifyContent: 'space-between',
+        alignItems: 'center',
+      }}>
+      <Link href="/">
+        <motion.div
+          whileHover={{cursor: 'pointer'}}
+          style={{
+            fontFamily: "'Chillax', sans-serif",
+            color: 'white',
+            fontSize: 'large',
+            position: 'relative',
+          }}>
+          <span style={{color: '#12CE31'}}>Trav</span>Ming
         </motion.div>
       </Link>
-      <section className={styles.links}>
-        <div className={`${styles.link} ${styles.hide}`}>
-          <Link passHref href="/explore">
-            Explore
-          </Link>
-        </div>
-        <div className={styles.link}>
-          <MdMenu
-            className={styles.searchIcon}
-            onClick={toggleDrawer}
-            size={20}
-          />
-        </div>
-      </section>
-      <Drawer anchor="right" open={drawer} onClose={toggleDrawer}>
-        <DrawerContent anchor={drawer} toggle={toggleDrawer} />
+      <IconButton onClick={toggleDrawer} aria-label="menu">
+        <MdMenu color="white" size={20} />
+      </IconButton>
+      <Drawer
+        SlideProps={{
+          style: {
+            backdropFilter: 'blur(10px)',
+            backgroundColor: 'rgba(0, 0, 0, 0.4)',
+          },
+        }}
+        anchor="right"
+        open={drawer}
+        onClose={toggleDrawer}>
+        <DrawerContent toggle={toggleDrawer} />
       </Drawer>
-    </header>
+    </motion.header>
   );
 }
 
-const DrawerContent = ({anchor, toggle}) => {
+const DrawerContent = ({toggle}) => {
   const dispatch = useDispatch();
+  const router = useRouter();
   const {token, user} = useSelector(state => state.login);
 
+  const route = url => {
+    router.push(url);
+  };
+
   return (
-    <div
-      role="presentation"
-      onClick={toggle}
-      style={{width: 250, fontSize: '1.5em'}}>
+    <div className="container" role="presentation" onClick={toggle}>
       <List>
-        <ListItem button>
+        <ListItem onMouseDown={() => route('/')} button>
           <MdHome />
-          <Link href="/" passHref>
-            <ListItemText inset primary="Home" />
-          </Link>
+          <ListItemText inset primary="Home" />
         </ListItem>
-        <ListItem button>
+        <ListItem onMouseDown={() => route('/explore')} button>
           <MdOutlineExplore />
-          <Link href="/explore" passHref>
-            <ListItemText inset primary="Explore" />
-          </Link>
+          <ListItemText inset primary="Explore" />
         </ListItem>
-        <Divider />
         {token?.length ? (
           <>
-            <ListItem button>
+            <ListItem onMouseDown={() => route('/profile')} button>
               <MdOutlineAccountCircle />
               <ListItemText
                 inset
@@ -106,48 +114,43 @@ const DrawerContent = ({anchor, toggle}) => {
             </ListItem>
             <ListItem
               button
-              onClick={() => {
+              onMouseDown={() => {
                 window.location.reload();
                 dispatch(logout());
               }}>
               <MdLogout />
-              <Link href="#" replace passHref shallow>
-                <ListItemText inset primary="Logout" />
-              </Link>
+              <ListItemText inset primary="Logout" />
             </ListItem>
           </>
         ) : (
           <>
-            <ListItem button>
+            <ListItem onMouseDown={() => route('/signin')} button>
               <MdLogin />
-              <Link href="/signin" passHref>
-                <ListItemText inset primary="Sign In" />
-              </Link>
+              <ListItemText inset primary="Sign In" />
             </ListItem>
-            <ListItem button>
+            <ListItem onMouseDown={() => route('/signup')} button>
               <MdOutlineAccountCircle />
-              <Link href="/signup" passHref>
-                <ListItemText inset primary="Sign Up" />
-              </Link>
+              <ListItemText inset primary="Sign Up" />
             </ListItem>
           </>
         )}
-        <Divider />
-        <ListItem button>
+        <ListItem
+          onMouseDown={() => {
+            route('https://linkedin.com/in/joshidipesh12');
+          }}
+          button>
           <AiFillLinkedin />
-          <Link href="https://linkedin.com/in/joshidipesh12" passHref>
-            <ListItemText inset primary="Contact" />
-          </Link>
+          <ListItemText inset primary="Contact Developer" />
         </ListItem>
-        <ListItem button>
+        <ListItem
+          onMouseDown={() => {
+            route('https://github.com/joshidipesh12/travming-website');
+          }}
+          button>
           <AiFillGithub />
-          <Link
-            href="https://github.com/joshidipesh12/travming-website"
-            passHref>
-            <ListItemText inset primary="About" />
-          </Link>
+          <ListItemText inset primary="View Source" />
         </ListItem>
-        <Image
+        {/* <Image
           src="/giphy.gif"
           objectFit="contain"
           layout="responsive"
@@ -155,8 +158,21 @@ const DrawerContent = ({anchor, toggle}) => {
           width="100%"
           alt="yoda"
           priority={true}
-        />
+        /> */}
       </List>
+      <style jsx>{`
+        .container {
+          width: 250px;
+          font-size: 1.5em;
+          color: white;
+          margin-top: 3rem;
+        }
+        @media (max-aspect-ratio: 1/1) {
+          .container {
+            width: 80vw;
+          }
+        }
+      `}</style>
     </div>
   );
 };

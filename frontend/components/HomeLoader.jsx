@@ -5,15 +5,7 @@ import config from '../config.json';
 
 function HomeLoader({onLoadComplete}) {
   useEffect(() => {
-    const onLoadFirst = () => {
-      console.log('Loaded Images');
-      onLoadComplete?.();
-    };
-    // config.places.map((place, i) => {
-    //   if (i == 0) return;
-    //   let img = new Image();
-    //   img.src = place.img;
-    // });
+    const onLoadFirst = () => onLoadComplete?.();
     let img1 = new Image();
     img1.addEventListener('load', onLoadFirst);
     img1.src = config.places[0].img;
@@ -22,9 +14,6 @@ function HomeLoader({onLoadComplete}) {
 
   return (
     <motion.header
-      initial={{x: 0}}
-      animate={{x: 0, opacity: 1}}
-      exit={{x: -200, opacity: 0, transition: {duration: 2}}}
       key="loader"
       className="loader-container"
       style={{

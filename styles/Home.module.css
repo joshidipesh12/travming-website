@@ -12,29 +12,6 @@
   overflow: hidden;
 }
 
-.header {
-  padding: 1% 2%;
-  width: 100%;
-  top: 0;
-  position: fixed;
-  display: flex;
-  align-items: center;
-  z-index: 2;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.logo {
-  font-family: 'Chillax', sans-serif;
-  color: white;
-  font-size: large;
-  position: relative;
-}
-
-.logo:hover {
-  cursor: pointer;
-}
-
 /* Carousel Component Style */
 .inner_carousel_container {
   height: 100%;
@@ -179,7 +156,7 @@
 
 .section_3 > .div_3 {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
   gap: 2rem;
   margin-top: 2rem;
 }
@@ -238,7 +215,8 @@
     max-width: 25rem;
   }
 
-  .section_2 {
+  .section_2,
+  .section_3 {
     padding: 3rem;
   }
 
