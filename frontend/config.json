@@ -114,5 +114,28 @@
       "name": "Horseback Riding",
       "img": "https://images.pexels.com/photos/12967836/pexels-photo-12967836.jpeg"
     }
+  ],
+  "hotels": [
+    {
+      "img": "https://images.pexels.com/photos/2484848/pexels-photo-2484848.jpeg"
+    },
+    {
+      "img": "https://images.pexels.com/photos/3324441/pexels-photo-3324441.jpeg"
+    },
+    {
+      "img": "https://images.pexels.com/photos/2319426/pexels-photo-2319426.jpeg"
+    },
+    {
+      "img": "https://images.pexels.com/photos/941861/pexels-photo-941861.jpeg"
+    },
+    {
+      "img": "https://images.pexels.com/photos/2867761/pexels-photo-2867761.jpeg"
+    },
+    {
+      "img": "https://images.pexels.com/photos/1579739/pexels-photo-1579739.jpeg"
+    },
+    {
+      "img": "https://images.pexels.com/photos/11634988/pexels-photo-11634988.png"
+    }
   ]
 }

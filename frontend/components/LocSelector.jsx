@@ -54,7 +54,7 @@ const LocSelector = ({visible, closeModal}) => {
 
   return (
     <>
-      <AnimatePresence initial={false} exitBeforeEnter>
+      <AnimatePresence initial={false} mode="wait">
         {visible ? (
           <Modal animVariants={animVariant} close={closeModal}>
             <div className="LS_container">

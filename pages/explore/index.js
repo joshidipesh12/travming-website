@@ -1,10 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {Layout, Background, LocSelector} from '@f/components';
-import {
-  useIsMobile,
-  useToggle,
-  useWindowDimensions,
-} from '@f/hooks';
+import {useIsMobile, useToggle, useWindowDimensions} from '@f/hooks';
 import styles from '../../styles/Explore.module.css';
 import {motion, AnimatePresence} from 'framer-motion';
 import {
@@ -33,12 +29,14 @@ import {
   setCountry,
   setState,
 } from '@f/store/hotels';
+import config from '@f/config.json';
 
 export default function Home() {
   const containerRef = useRef();
   const dispatch = useDispatch();
   const [locModal, setLocModal] = useState(false);
   const [activeItem, setActiveItem] = useState(null);
+  const [currHeroIndex, setCurrentHeroIdx] = useState(0);
   const [height, width] = useWindowDimensions();
   const {hotels, hotelsLoading, country, city, state, coords} = useSelector(
     state => state.hotel,
@@ -64,170 +62,170 @@ export default function Home() {
   return (
     <div ref={containerRef} className={styles.container}>
       <LocSelector visible={locModal} closeModal={() => setLocModal(false)} />
-      <Background>
-        <Layout>
-          <div className={styles.main}>
-            <SearchBar
-              initialValue={`${city ? `${city}, ` : ''}${state}, ${country}`}
-              showLocationSettings={() => setLocModal(true)}
+      <Layout>
+        <div className={styles.main}>
+          <section className={styles.hero_section}>
+            <img
+              className={styles.hero_img}
+              src={`${config.hotels[currHeroIndex].img}?width=auto`}
             />
-            <AnimatePresence exitBeforeEnter>
-              {!hotelsLoading && !nearbysLoading ? (
-                nearbys.length > 4 && hotels.length > 4 ? (
-                  <>
-                    <motion.div
-                      drag="x"
-                      style={{paddingLeft: '10%'}}
-                      whileHover={{cursor: 'grab'}}
-                      whileTap={{cursor: 'grabbing'}}
-                      whileDrag={{cursor: 'grabbing'}}
-                      dragConstraints={{left: -width, right: width}}
-                      className={styles.top_card_container}>
-                      {hotels?.map((i, _) => (
-                        <PlaceCard
-                          active={activeItem}
-                          setActive={setActiveItem}
-                          store="hotel"
-                          item={i}
-                          key={_}
-                          index={_}
-                          onClick={scrollToStart}
-                        />
-                      ))}
-                    </motion.div>
-                    <motion.div
-                      drag="x"
-                      style={{paddingRight: '10%'}}
-                      whileHover={{cursor: 'grab'}}
-                      whileTap={{cursor: 'grabbing'}}
-                      whileDrag={{cursor: 'grabbing'}}
-                      dragConstraints={{left: -width, right: width}}
-                      className={styles.top_card_container}>
-                      {nearbys?.map((i, _) => (
-                        <PlaceCard
-                          item={i}
-                          key={_}
-                          index={_}
-                          setActive={setActiveItem}
-                          store="explore"
-                          onClick={scrollToStart}
-                        />
-                      ))}
-                    </motion.div>
-                  </>
-                ) : (
-                  <NoData />
-                )
+            <div></div>
+          </section>
+          <SearchBar
+            initialValue={`${city ? `${city}, ` : ''}${state}, ${country}`}
+            showLocationSettings={() => setLocModal(true)}
+          />
+          <AnimatePresence mode="wait">
+            {!hotelsLoading && !nearbysLoading ? (
+              nearbys.length > 4 && hotels.length > 4 ? (
+                <>
+                  <motion.div
+                    drag="x"
+                    style={{paddingLeft: '10%'}}
+                    whileHover={{cursor: 'grab'}}
+                    whileTap={{cursor: 'grabbing'}}
+                    whileDrag={{cursor: 'grabbing'}}
+                    dragConstraints={{left: -width, right: width}}
+                    className={styles.top_card_container}>
+                    {hotels?.map((i, _) => (
+                      <PlaceCard
+                        active={activeItem}
+                        setActive={setActiveItem}
+                        store="hotel"
+                        item={i}
+                        key={_}
+                        index={_}
+                        onClick={scrollToStart}
+                      />
+                    ))}
+                  </motion.div>
+                  <motion.div
+                    drag="x"
+                    style={{paddingRight: '10%'}}
+                    whileHover={{cursor: 'grab'}}
+                    whileTap={{cursor: 'grabbing'}}
+                    whileDrag={{cursor: 'grabbing'}}
+                    dragConstraints={{left: -width, right: width}}
+                    className={styles.top_card_container}>
+                    {nearbys?.map((i, _) => (
+                      <PlaceCard
+                        item={i}
+                        key={_}
+                        index={_}
+                        setActive={setActiveItem}
+                        store="explore"
+                        onClick={scrollToStart}
+                      />
+                    ))}
+                  </motion.div>
+                </>
               ) : (
-                <motion.div className={styles.loading_places}>
-                  <Image
-                    layout="fill"
-                    src="/icons/loading_places.svg"
-                    alt="loading"
-                    priority={true}
-                  />
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
-        </Layout>
-        <div className={styles.bottom_container}>
-          <div className={styles.main_bottom_container}>
-            {hotels.length || nearbys.length ? (
-              <div className={styles.list_container}>
-                {hotels?.map((i, _) => (
-                  <PlaceCard
-                    item={i}
-                    key={_}
-                    index={_}
-                    setActive={setActiveItem}
-                    store="hotel"
-                  />
-                ))}
-              </div>
+                <NoData />
+              )
             ) : (
-              <NoData />
+              <div className={styles.loading_places}>
+                <img src="/icons/loading_places.svg" alt="loading" />
+              </div>
             )}
-            <AnimatePresence>
-              {activeItem ? (
-                <motion.div
-                  transition={{delay: 0.4}}
-                  initial={{translateX: '-110%', flex: 0}}
-                  animate={{translateX: '0%', flex: 1}}
-                  exit={{translateX: '-110%', flex: 0}}
-                  className={styles.details_container}>
-                  <div className={styles.place_image}>
-                    <Image
-                      objectFit="cover"
-                      layout="fill"
-                      placeholder="blur"
-                      draggable={false}
-                      onContextMenu={e => e.preventDefault()}
-                      src={activeItem.image_src}
-                      blurDataURL={activeItem.image_blur_src}
-                    />
-                    <div className={styles.details_image_overlay}>
-                      <IconButton
-                        style={{
-                          position: 'absolute',
-                          top: '0.5em',
-                          right: '0.5em',
-                          zIndex: 1,
-                          backgroundColor: 'white',
-                        }}
-                        onClick={() => {
-                          setActiveItem(null);
-                          scrollToStart(0);
-                        }}>
-                        <MdClose size={15} color="black" />
-                      </IconButton>
-                      <IconButton
-                        style={{
-                          position: 'absolute',
-                          top: '0.5em',
-                          right: '3em',
-                          zIndex: 1,
-                          backgroundColor: 'white',
-                        }}
-                        onClick={() => {
-                          window.open(
-                            `https://maps.google.com/?q=${activeItem.properties.lat},${activeItem.properties.lon}`,
-                            '_blank',
-                          );
-                        }}>
-                        <MdMap size={15} color="black" />
-                      </IconButton>
-                      <div className={styles.place_name}>
-                        {activeItem.properties.name}
-                      </div>
+          </AnimatePresence>
+        </div>
+      </Layout>
+      <div className={styles.bottom_container}>
+        <div className={styles.main_bottom_container}>
+          {hotels.length || nearbys.length ? (
+            <div className={styles.list_container}>
+              {hotels?.map((i, _) => (
+                <PlaceCard
+                  item={i}
+                  key={_}
+                  index={_}
+                  setActive={setActiveItem}
+                  store="hotel"
+                />
+              ))}
+            </div>
+          ) : (
+            <NoData />
+          )}
+          <AnimatePresence>
+            {activeItem ? (
+              <motion.div
+                transition={{delay: 0.4}}
+                initial={{translateX: '-110%', flex: 0}}
+                animate={{translateX: '0%', flex: 1}}
+                exit={{translateX: '-110%', flex: 0}}
+                className={styles.details_container}>
+                <div className={styles.place_image}>
+                  <Image
+                    objectFit="cover"
+                    layout="fill"
+                    placeholder="blur"
+                    draggable={false}
+                    onContextMenu={e => e.preventDefault()}
+                    src={activeItem.image_src}
+                    blurDataURL={activeItem.image_blur_src}
+                  />
+                  <div className={styles.details_image_overlay}>
+                    <IconButton
+                      style={{
+                        position: 'absolute',
+                        top: '0.5em',
+                        right: '0.5em',
+                        zIndex: 1,
+                        backgroundColor: 'white',
+                      }}
+                      onClick={() => {
+                        setActiveItem(null);
+                        scrollToStart(0);
+                      }}>
+                      <MdClose size={15} color="black" />
+                    </IconButton>
+                    <IconButton
+                      style={{
+                        position: 'absolute',
+                        top: '0.5em',
+                        right: '3em',
+                        zIndex: 1,
+                        backgroundColor: 'white',
+                      }}
+                      onClick={() => {
+                        window.open(
+                          `https://maps.google.com/?q=${activeItem.properties.lat},${activeItem.properties.lon}`,
+                          '_blank',
+                        );
+                      }}>
+                      <MdMap size={15} color="black" />
+                    </IconButton>
+                    <div className={styles.place_name}>
+                      {activeItem.properties.name}
                     </div>
                   </div>
-                  <div className={styles.details_categories}>
-                    {activeItem.properties.categories.map(cat => (
-                      <motion.div
-                        key={cat}
-                        whileHover={{backgroundColor: 'black'}}
-                        style={{
-                          backgroundColor: 'grey',
-                          color: 'white',
-                          paddingInline: 15,
-                          paddingBlock: 2,
-                          borderRadius: 5,
-                        }}>
-                        {cat.split('.').slice(-1)[0].replace('_', ' ')}
-                      </motion.div>
-                    ))}
-                  </div>
-                  <div className={styles.place_details}>
-                    <NoData subText="ERR: Details API is under maintenance." />
-                    {/* <CircularProgress color="inherit" /> */}
-                  </div>
-                </motion.div>
-              ) : null}
-            </AnimatePresence>
-          </div>
+                </div>
+                <div className={styles.details_categories}>
+                  {activeItem.properties.categories.map(cat => (
+                    <motion.div
+                      key={cat}
+                      whileHover={{backgroundColor: 'black'}}
+                      style={{
+                        backgroundColor: 'grey',
+                        color: 'white',
+                        paddingInline: 15,
+                        paddingBlock: 2,
+                        borderRadius: 5,
+                      }}>
+                      {cat.split('.').slice(-1)[0].replace('_', ' ')}
+                    </motion.div>
+                  ))}
+                </div>
+                <div className={styles.place_details}>
+                  <NoData subText="ERR: Details API is under maintenance." />
+                  {/* <CircularProgress color="inherit" /> */}
+                </div>
+              </motion.div>
+            ) : null}
+          </AnimatePresence>
         </div>
-      </Background>
+      </div>
     </div>
   );
 }
@@ -273,7 +271,7 @@ const PlaceCard = ({
   }, [isShown]);
 
   return imageData ? (
-    <AnimatePresence exitBeforeEnter>
+    <AnimatePresence mode="wait">
       <motion.div
         ref={thisRef}
         tabIndex={index}
@@ -404,7 +402,7 @@ const SearchBar = ({searchState, showLocationSettings, initialValue}) => {
           <MdOutlinePinDrop size={15} color="grey" />
         </IconButton>
       </motion.div>
-      <AnimatePresence exitBeforeEnter>
+      <AnimatePresence mode="wait">
         {suggestions && (autoSuggestions.length || suggestionHistory.length) ? (
           <motion.div
             transition={{duration: 0.3}}

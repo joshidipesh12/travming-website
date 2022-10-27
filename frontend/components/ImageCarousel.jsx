@@ -33,7 +33,7 @@ function Carousel() {
           className={styles.image_item}
           key={`${currIndex}_container`}
           style={{
-            backgroundImage: `url("${places[currIndex].img}")`,
+            backgroundImage: `url("${places[currIndex].img}?width=auto")`,
           }}>
           <motion.div
             key="blur_cover"
