@@ -18,7 +18,7 @@ function Carousel() {
 
   useEffect(() => {
     let img = new Image();
-    img.src = places[(currIndex + 1) % places.length].img;
+    img.src = `${places[(currIndex + 1) % places.length].img}?width=auto`;
     return () => {};
   }, [currIndex]);
 

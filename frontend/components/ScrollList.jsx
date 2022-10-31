@@ -225,16 +225,17 @@ const PlaceCard = ({item}) => {
             color="white"
           />
         ) : null}
-        {imageSrc?.length ? null : (
-          <Image
-            layout="fill"
-            objectFit="cover"
-            alt={`${item.name} Card`}
-            onLoadingComplete={() => setLoading(false)}
-            onError={() => setError(true)}
-            src={imageSrc}
-          />
-        )}
+        {
+          imageSrc?.length ? null : null
+          // <Image
+          //   layout="fill"
+          //   objectFit="cover"
+          //   alt={`${item.name} Card`}
+          //   onLoadingComplete={() => setLoading(false)}
+          //   onError={() => setError(true)}
+          //   src={imageSrc}
+          // />
+        }
         <div className="place">
           <div className="placeName">
             {item.name}

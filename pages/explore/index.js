@@ -10,6 +10,7 @@ import {
   MdClose,
   MdMap,
   MdChevronRight,
+  MdChevronLeft,
 } from 'react-icons/md';
 import {CircularProgress, IconButton} from '@material-ui/core';
 import {useDispatch, useSelector} from 'react-redux';
@@ -34,7 +35,9 @@ import config from '@f/config.json';
 export default function Home() {
   const containerRef = useRef();
   const dispatch = useDispatch();
+  const isMobile = useIsMobile();
   const [locModal, setLocModal] = useState(false);
+  const [heroCardActive, setHeroCardActive] = useState(false);
   const [activeItem, setActiveItem] = useState(null);
   const [currHeroIndex, setCurrentHeroIdx] = useState(0);
   const [height, width] = useWindowDimensions();
@@ -64,13 +67,51 @@ export default function Home() {
       <LocSelector visible={locModal} closeModal={() => setLocModal(false)} />
       <Layout>
         <div className={styles.main}>
-          <section className={styles.hero_section}>
-            <img
-              className={styles.hero_img}
-              src={`${config.hotels[currHeroIndex].img}?width=auto`}
-            />
-            <div></div>
-          </section>
+          <motion.section
+            onTap={e => {
+              isMobile ? setHeroCardActive(p => !p) : null;
+              e.stopPropagation();
+            }}
+            className={`${styles.hero_section} ${
+              heroCardActive ? styles.active_hero_card : ''
+            }`}>
+            <AnimatePresence mode="popLayout">
+              <motion.img
+                initial={{opacity: 0}}
+                animate={{opacity: 1}}
+                exit={{opacity: 0}}
+                key={`Image-${currHeroIndex}`}
+                className={styles.hero_img}
+                src={`${config.hotels[currHeroIndex].img}?width=auto`}
+              />
+            </AnimatePresence>
+            <div className={styles.hero_cover}>
+              <div
+                style={{
+                  width: '90%',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                }}>
+                <IconButton
+                  className={styles.hero_button}
+                  onClick={e => {
+                    let n = config.hotels.length;
+                    setCurrentHeroIdx(idx => (((idx - 1) % n) + n) % n);
+                    e.stopPropagation();
+                  }}>
+                  <MdChevronLeft color="#fff" />
+                </IconButton>
+                <IconButton
+                  className={styles.hero_button}
+                  onClick={e => {
+                    setCurrentHeroIdx(idx => (idx + 1) % config.hotels.length);
+                    e.stopPropagation();
+                  }}>
+                  <MdChevronRight color="#fff" />
+                </IconButton>
+              </div>
+            </div>
+          </motion.section>
           <SearchBar
             initialValue={`${city ? `${city}, ` : ''}${state}, ${country}`}
             showLocationSettings={() => setLocModal(true)}
@@ -226,6 +267,11 @@ export default function Home() {
           </AnimatePresence>
         </div>
       </div>
+      <style jsx>{`
+        .MuiButtonBase-root {
+          position: absolute;
+        }
+      `}</style>
     </div>
   );
 }

@@ -11,11 +11,10 @@
 .main {
   min-height: calc(100 * var(--vh));
   width: 100vw;
-  scroll-snap-align: end;
+  /* scroll-snap-align: end; */
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-  padding: 0;
   flex-direction: column;
   position: relative;
   padding-top: 12vh;
@@ -29,12 +28,14 @@
   overflow: hidden;
   position: relative;
   box-shadow: 0 0 1rem black;
-  transition: all 0.3s cubic-bezier(0.29, -0.03, 0.1, 1);
+  transition: all 0.8s cubic-bezier(0.29, -0.03, 0.1, 1);
+  display: flex;
 }
 
 .hero_section:hover {
   box-shadow: 0 0 2rem black;
   transform: scale(1.2, 1.35) translateY(1rem);
+  border-radius: 5px;
 }
 
 .hero_section > img {
@@ -46,16 +47,40 @@
   transform: translate(-50%, -50%);
   object-fit: cover;
   filter: grayscale(100%);
-  transition: all 0.3s cubic-bezier(0.29, -0.03, 0.1, 1);
+  transition: all 0.8s cubic-bezier(0.29, -0.03, 0.1, 1);
 }
 
 .hero_section:hover > img {
   filter: grayscale(0%);
-  /* box-shadow: inset 0 0 15px #000; */
   height: 101%;
   width: 101%;
 }
 
+.hero_cover {
+  position: relative;
+  background-color: #00000093;
+  transition: all 0.8s cubic-bezier(0.29, -0.03, 0.1, 1);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero_section:hover > .hero_cover {
+  background-color: #00000000;
+}
+
+.hero_button {
+  opacity: 0;
+  transition: all 0.8s cubic-bezier(0.29, -0.03, 0.1, 1);
+}
+
+.hero_section:hover .hero_button {
+  opacity: 1;
+}
+
+/* search bar and other containers */
 .search_container {
   max-width: 90vw;
   height: 45px;
@@ -341,6 +366,46 @@
 }
 
 @media screen and (max-width: 768px) {
+  .main {
+    padding-top: 10vh;
+  }
+  /* Disabling Hover effect for touch effect */
+  .hero_section {
+    margin-bottom: 5rem;
+  }
+  .hero_section:hover > img {
+    filter: grayscale(100%);
+    height: 120%;
+    width: 120%;
+  }
+  .hero_section:hover {
+    box-shadow: 0 0 1rem black;
+    border-radius: 20px;
+    transform: scale(1) translateY(0rem);
+  }
+  .active_hero_card > img {
+    filter: grayscale(0%);
+    height: 101%;
+    width: 101%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    object-fit: cover;
+    transition: all 0.8s cubic-bezier(0.29, -0.03, 0.1, 1);
+  }
+  .active_hero_card {
+    box-shadow: 0 0 2rem black;
+    transform: scale(1.15, 1.18) translateY(-1rem);
+    border-radius: 5px;
+    width: 80%;
+    height: 70vh;
+    margin-bottom: 5rem;
+    overflow: hidden;
+    position: relative;
+    transition: all 0.8s cubic-bezier(0.29, -0.03, 0.1, 1);
+  }
+
   .search_input,
   .search_input:focus {
     width: 60vw;

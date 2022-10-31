@@ -40,7 +40,7 @@ function Navbar() {
       style={{
         backgroundColor,
         boxShadow,
-        padding: '1% 2%',
+        padding: '1% 1rem 1% 1.5rem',
         width: '100%',
         top: 0,
         position: 'fixed',
