@@ -68,10 +68,7 @@ export default function Home() {
       <Layout>
         <div className={styles.main}>
           <motion.section
-            onTap={e => {
-              isMobile ? setHeroCardActive(p => !p) : null;
-              e.stopPropagation();
-            }}
+            onTap={e => (isMobile ? setHeroCardActive(p => !p) : null)}
             className={`${styles.hero_section} ${
               heroCardActive ? styles.active_hero_card : ''
             }`}>
@@ -95,17 +92,18 @@ export default function Home() {
                 <IconButton
                   className={styles.hero_button}
                   onClick={e => {
+                    e.stopPropagation();
                     let n = config.hotels.length;
                     setCurrentHeroIdx(idx => (((idx - 1) % n) + n) % n);
-                    e.stopPropagation();
                   }}>
                   <MdChevronLeft color="#fff" />
                 </IconButton>
                 <IconButton
                   className={styles.hero_button}
                   onClick={e => {
-                    setCurrentHeroIdx(idx => (idx + 1) % config.hotels.length);
+                    let n = config.hotels.length;
                     e.stopPropagation();
+                    setCurrentHeroIdx(idx => (idx + 1) % n);
                   }}>
                   <MdChevronRight color="#fff" />
                 </IconButton>
