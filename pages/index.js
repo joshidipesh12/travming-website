@@ -1,14 +1,12 @@
 import {useEffect, useState} from 'react';
 import styles from '../styles/Home.module.css';
-import ImageCarousel from '@f/components/ImageCarousel';
 import {MdOutlineHotel, MdOutlineAirplaneTicket} from 'react-icons/md';
 import {TbPlaneInflight} from 'react-icons/tb';
 import {motion} from 'framer-motion';
 import {FiSend, FiMapPin, FiStar} from 'react-icons/fi';
 import {BiMapPin} from 'react-icons/bi';
 import config from '@f/config.json';
-import HomeLoader from '@f/components/HomeLoader';
-import {Navbar} from '@f/components';
+import {Navbar, ImageCarousel, HomeLoader, AnimatedCube} from '@f/components';
 
 export default function Home() {
   const [loadingImages, setLoadingImages] = useState(true);
@@ -113,7 +111,7 @@ export default function Home() {
             <div className={styles.div_3}>
               {config.activities.map(item => (
                 <motion.article key={item.name} className={styles.card}>
-                  <img src={`${item.img}?width=auto`} />
+                  <img src={`${item.img}?width=400`} />
                   <div className={styles.card_img_cover}>{item.name}</div>
                 </motion.article>
               ))}

@@ -39,12 +39,14 @@ export default function Home() {
   const [locModal, setLocModal] = useState(false);
   const [heroCardActive, setHeroCardActive] = useState(false);
   const [activeItem, setActiveItem] = useState(null);
-  const [currHeroIndex, setCurrentHeroIdx] = useState(0);
   const [height, width] = useWindowDimensions();
+  const {nearbys, nearbysLoading} = useSelector(state => state.explore);
   const {hotels, hotelsLoading, country, city, state, coords} = useSelector(
     state => state.hotel,
   );
-  const {nearbys, nearbysLoading} = useSelector(state => state.explore);
+  const [currHeroIndex, setCurrentHeroIdx] = useState(
+    Math.floor(Math.random() * config.hotels.length),
+  );
 
   useEffect(() => {
     if (coords?.length) {
@@ -117,59 +119,61 @@ export default function Home() {
             initialValue={`${city ? `${city}, ` : ''}${state}, ${country}`}
             showLocationSettings={() => setLocModal(true)}
           />
-          <AnimatePresence mode="wait">
-            {!hotelsLoading && !nearbysLoading ? (
-              nearbys.length > 4 && hotels.length > 4 ? (
-                <>
-                  <motion.div
-                    drag="x"
-                    style={{paddingLeft: '10%'}}
-                    whileHover={{cursor: 'grab'}}
-                    whileTap={{cursor: 'grabbing'}}
-                    whileDrag={{cursor: 'grabbing'}}
-                    dragConstraints={{left: -width, right: width}}
-                    className={styles.top_card_container}>
-                    {hotels?.map((i, _) => (
-                      <PlaceCard
-                        active={activeItem}
-                        setActive={setActiveItem}
-                        store="hotel"
-                        item={i}
-                        key={_}
-                        index={_}
-                        onClick={scrollToStart}
-                      />
-                    ))}
-                  </motion.div>
-                  <motion.div
-                    drag="x"
-                    style={{paddingRight: '10%'}}
-                    whileHover={{cursor: 'grab'}}
-                    whileTap={{cursor: 'grabbing'}}
-                    whileDrag={{cursor: 'grabbing'}}
-                    dragConstraints={{left: -width, right: width}}
-                    className={styles.top_card_container}>
-                    {nearbys?.map((i, _) => (
-                      <PlaceCard
-                        item={i}
-                        key={_}
-                        index={_}
-                        setActive={setActiveItem}
-                        store="explore"
-                        onClick={scrollToStart}
-                      />
-                    ))}
-                  </motion.div>
-                </>
+          <section className={styles.main}>
+            <AnimatePresence mode="wait">
+              {!hotelsLoading && !nearbysLoading ? (
+                nearbys.length > 4 || hotels.length > 4 ? (
+                  <>
+                    <motion.div
+                      drag="x"
+                      style={{paddingLeft: '10%'}}
+                      whileHover={{cursor: 'grab'}}
+                      whileTap={{cursor: 'grabbing'}}
+                      whileDrag={{cursor: 'grabbing'}}
+                      dragConstraints={{left: -width, right: width}}
+                      className={styles.top_card_container}>
+                      {hotels?.map((i, _) => (
+                        <PlaceCard
+                          active={activeItem}
+                          setActive={setActiveItem}
+                          store="hotel"
+                          item={i}
+                          key={_}
+                          index={_}
+                          onClick={scrollToStart}
+                        />
+                      ))}
+                    </motion.div>
+                    <motion.div
+                      drag="x"
+                      style={{paddingRight: '10%'}}
+                      whileHover={{cursor: 'grab'}}
+                      whileTap={{cursor: 'grabbing'}}
+                      whileDrag={{cursor: 'grabbing'}}
+                      dragConstraints={{left: -width, right: width}}
+                      className={styles.top_card_container}>
+                      {nearbys?.map((i, _) => (
+                        <PlaceCard
+                          item={i}
+                          key={_}
+                          index={_}
+                          setActive={setActiveItem}
+                          store="explore"
+                          onClick={scrollToStart}
+                        />
+                      ))}
+                    </motion.div>
+                  </>
+                ) : (
+                  <NoData />
+                )
               ) : (
-                <NoData />
-              )
-            ) : (
-              <div className={styles.loading_places}>
-                <img src="/icons/loading_places.svg" alt="loading" />
-              </div>
-            )}
-          </AnimatePresence>
+                <div className={styles.loading_places}>
+                  <img src="/icons/loading_places.svg" alt="loading" />
+                </div>
+              )}
+            </AnimatePresence>
+          </section>
         </div>
       </Layout>
       <div className={styles.bottom_container}>

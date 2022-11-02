@@ -124,11 +124,11 @@ const DrawerContent = ({toggle}) => {
           </>
         ) : (
           <>
-            <ListItem onMouseDown={() => route('/signin')} button>
+            <ListItem onMouseDown={() => route('/auth/signin')} button>
               <MdLogin />
               <ListItemText inset primary="Sign In" />
             </ListItem>
-            <ListItem onMouseDown={() => route('/signup')} button>
+            <ListItem onMouseDown={() => route('/auth/signup')} button>
               <MdOutlineAccountCircle />
               <ListItemText inset primary="Sign Up" />
             </ListItem>

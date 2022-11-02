@@ -6,3 +6,5 @@ export {default as Modal} from './Modal';
 export {default as Navbar} from './Navbar';
 export {default as ScrollList} from './ScrollList';
 export {default as Background} from './Background';
+export {default as HomeLoader} from './HomeLoader';
+export {default as AnimatedCube} from './AnimatedCube';

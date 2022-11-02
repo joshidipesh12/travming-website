@@ -1,17 +1,17 @@
 import React, {useState, useEffect, useRef} from 'react';
 import {motion} from 'framer-motion';
 import {useToggle} from '@f/hooks';
-import styles from '../styles/Signinup.module.css';
+import styles from '../../styles/Signinup.module.css';
 import Link from 'next/link';
 import {useRouter} from 'next/router';
 import {BsLinkedin, BsGoogle, BsFacebook} from 'react-icons/bs';
 import {MdOutlineVisibilityOff, MdOutlineVisibility} from 'react-icons/md';
 import {TextField, InputAdornment, withStyles} from '@material-ui/core';
 import {useDispatch, useSelector} from 'react-redux';
-import {loginUser, noError} from '@f/store/login';
+import {noError, signupUser} from '@f/store/login';
 import {Spinner} from 'react-activity';
-import {useSnackbar} from 'react-simple-snackbar';
 import 'react-activity/dist/library.css';
+import {useSnackbar} from 'react-simple-snackbar';
 
 const CssTextField = withStyles({
   root: {
@@ -38,28 +38,37 @@ function Signup({}) {
   const dispatch = useDispatch();
   const [showSnackBar] = useSnackbar();
   const [passwordVisible, togglePassword] = useToggle(false);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [name, setName] = useState();
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
+  const [cpassword, setCpassword] = useState();
   const [display, setDisplay] = useState('none');
-  const {token, error, loginLoading} = useSelector(state => state.login);
+  const {token, signupLoading, error} = useSelector(state => state.login);
 
   useEffect(() => {
     const image = new Image();
-    const url = `https://source.unsplash.com/${window.innerWidth}x${window.innerHeight}/?hotels`;
-    image.addEventListener('load', e => {
+    const url = `https://source.unsplash.com/${window.innerWidth}x${window.innerHeight}/?travelling`;
+    const onLoadImage = e => {
       bgRef.current.style.backgroundImage = `url(${url})`;
       setDisplay('flex');
       return () => image.removeEventListener('load');
-    });
+    };
+    image.addEventListener('load', onLoadImage);
     image.src = url;
+    return () => image.removeEventListener('load', onLoadImage);
   }, []);
 
-  const handleLogin = () => {
-    if (loginLoading) return;
-    if (!email.length || !password.length)
-      return showSnackBar('Please Fill Details Properly!');
-    dispatch(loginUser({username: email, password}));
+  const handleSignup = () => {
+    if (!name || !email || !password || !cpassword)
+      showSnackBar('Please Fill all Details Properly!');
+    else if (cpassword !== password)
+      showSnackBar("Password Confirmation Doesn't Match!");
+    else dispatch(signupUser({name, username: email, password}));
   };
+
+  useEffect(() => {
+    if (token?.length) router.replace('/');
+  }, [token]);
 
   useEffect(() => {
     if (error?.length) {
@@ -67,10 +76,6 @@ function Signup({}) {
       dispatch(noError());
     }
   }, [error]);
-
-  useEffect(() => {
-    if (token?.length) router.replace('/');
-  }, [token]);
 
   return (
     <main className={styles.main}>
@@ -82,7 +87,8 @@ function Signup({}) {
           className={styles.container}
           style={{display}}>
           <div className={styles.backdrop}>
-            <div className={styles.boxContainer}>
+            <div
+              className={`${styles.boxContainer} ${styles.signup_container}`}>
               <Link href="/" passHref>
                 <div className={styles.logo}>
                   TRAV<span style={{color: '#03a6a7'}}>MING</span>
@@ -107,6 +113,14 @@ function Signup({}) {
               </div>
               <div className={styles.text}>or use your email account</div>
               <CssTextField
+                label="Name"
+                type="text"
+                size="small"
+                variant="outlined"
+                fullWidth={true}
+                onChange={e => setName(e.target.value)}
+              />
+              <CssTextField
                 label="Email"
                 type="email"
                 size="small"
@@ -123,7 +137,7 @@ function Signup({}) {
                 fullWidth={true}
                 InputProps={{
                   endAdornment: (
-                    <InputAdornment position="end" style={{cursor: 'pointer'}}>
+                    <InputAdornment style={{cursor: 'pointer'}} position="end">
                       {!passwordVisible ? (
                         <MdOutlineVisibility
                           aria-label="toggle password visibility"
@@ -143,24 +157,47 @@ function Signup({}) {
                   ),
                 }}
               />
-              <Link href="#" passHref>
-                <motion.button
-                  whileHover={{backgroundColor: '#037e7e', cursor: 'pointer'}}
-                  whileTap={{scale: 0.95}}
-                  className={styles.button}
-                  onClick={handleLogin}>
-                  {loginLoading ? (
-                    <Spinner color="##fff" size={10} />
-                  ) : (
-                    'SIGN IN'
-                  )}
-                </motion.button>
-              </Link>
+              <CssTextField
+                type={passwordVisible ? 'text' : 'password'}
+                size="small"
+                label="Confirm Password"
+                variant="outlined"
+                onChange={e => setCpassword(e.target.value)}
+                fullWidth={true}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment style={{cursor: 'pointer'}} position="end">
+                      {!passwordVisible ? (
+                        <MdOutlineVisibility
+                          aria-label="toggle password visibility"
+                          onClick={togglePassword}
+                          onMouseDown={e => e.preventDefault()}
+                          color="white"
+                        />
+                      ) : (
+                        <MdOutlineVisibilityOff
+                          aria-label="toggle password visibility"
+                          onClick={togglePassword}
+                          onMouseDown={e => e.preventDefault()}
+                          color="white"
+                        />
+                      )}
+                    </InputAdornment>
+                  ),
+                }}
+              />
+              <motion.button
+                whileHover={{backgroundColor: '#037e7e', cursor: 'pointer'}}
+                whileTap={{scale: 0.95}}
+                className={styles.button}
+                onClick={handleSignup}>
+                {signupLoading ? <Spinner color="#fff" size={10} /> : 'SIGN UP'}
+              </motion.button>
               <div className={styles.text}>
-                Dont have an account?{' '}
+                Already have an account?{' '}
                 <span style={{color: '#03a6a7'}}>
-                  <Link href="/signup" passHref>
-                    Sign Up
+                  <Link href="/auth/signin" passHref>
+                    Sign In
                   </Link>
                 </span>
               </div>
