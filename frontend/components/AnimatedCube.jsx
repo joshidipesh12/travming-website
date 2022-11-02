@@ -1,8 +1,12 @@
 import React from 'react';
+import {motion} from 'framer-motion';
 
 function AnimatedCube() {
   return (
-    <>
+    <motion.div
+      style={{flex: 1, background: '#FF0074'}}
+      initial={{opacity: 0}}
+      whileInView={{opacity: 1}}>
       <div className="slider">
         <div className="container">
           <div className="slide x"></div>
@@ -45,7 +49,7 @@ function AnimatedCube() {
           display: block;
           width: inherit;
           height: inherit;
-          // background: url('https://via.placeholder.com/200.webp?text=SIDE+%20+base'); /* https://cdn.dribbble.com/users/5031/screenshots/7008431/dribbble.png */
+          // background: url('https://cdn.dribbble.com/users/5031/screenshots/7008431/dribbble.png');
           position: absolute;
           -webkit-transform-style: preserve-3d;
           transform-style: preserve-3d;
@@ -60,95 +64,95 @@ function AnimatedCube() {
 
         .slide.x:after {
           content: '';
-          background-image: url('https://via.placeholder.com/200.webp?text=SIDE+%20+1'); /* https://cdn.dribbble.com/users/730703/screenshots/6988911/elenidebo-thisiscolossal-theroad-forchicagodesignmuseum.jpg */
+          background-image: url('https://cdn.dribbble.com/users/730703/screenshots/6988911/elenidebo-thisiscolossal-theroad-forchicagodesignmuseum.jpg');
           -webkit-transform: translateZ(100px) rotateZ(-90deg);
           transform: translateZ(100px) rotateZ(-90deg);
         }
 
         .slide.x:before {
           content: '';
-          background-image: url('https://via.placeholder.com/200.webp?text=SIDE+%20+2'); /* https://cdn.dribbble.com/users/329207/screenshots/6220354/bemocs_geneseo_sailing.jpg */
+          background-image: url('https://cdn.dribbble.com/users/329207/screenshots/6220354/bemocs_geneseo_sailing.jpg');
           -webkit-transform: translateZ(-100px) rotateZ(-90deg) rotateY(180deg);
           transform: translateZ(-100px) rotateZ(-90deg) rotateY(180deg);
         }
-        
+
         .slide.y {
           -webkit-transform: rotateX(90deg);
           transform: rotateX(90deg);
         }
-        
+
         .slide.y:after {
           content: '';
-          background-image: url('https://via.placeholder.com/200.webp?text=SIDE+%20+3'); /* https://cdn.dribbble.com/users/63407/screenshots/5705689/dribbble_moonlight_2x.png */
+          background-image: url('https://cdn.dribbble.com/users/63407/screenshots/5705689/dribbble_moonlight_2x.png');
           -webkit-transform: translateZ(100px) scale(-1);
           transform: translateZ(100px) scale(-1);
         }
 
         .slide.y:before {
           content: '';
-          background-image: url('https://via.placeholder.com/200.webp?text=SIDE+%20+4'); /* https://cdn.dribbble.com/users/1355613/screenshots/6441984/landscape_2x.jpg */
+          background-image: url('https://cdn.dribbble.com/users/1355613/screenshots/6441984/landscape_2x.jpg');
           -webkit-transform: translateZ(-100px) rotateX(180deg);
           transform: translateZ(-100px) rotateX(180deg);
         }
-        
+
         .slide.z {
           -webkit-transform: rotateX(0);
           transform: rotateX(0);
         }
-        
+
         .slide.z:after {
           content: '';
-          background-image: url('https://via.placeholder.com/200.webp?text=SIDE+%20+5'); /* https://cdn.dribbble.com/users/3178178/screenshots/7013817/the_caravan_by_patryk_wojciechowicz_2x.png */
+          background-image: url('https://cdn.dribbble.com/users/3178178/screenshots/7013817/the_caravan_by_patryk_wojciechowicz_2x.png');
           -webkit-transform: translateZ(100px);
           transform: translateZ(100px);
         }
 
         .slide.z:before {
           content: '';
-          background-image: url('https://via.placeholder.com/200.webp?text=SIDE+%20+6'); /* https://cdn.dribbble.com/users/1361661/screenshots/6673317/music_girl.png */
+          background-image: url('https://cdn.dribbble.com/users/1361661/screenshots/6673317/music_girl.png');
           -webkit-transform: translateZ(-100px) rotateY(180deg);
           transform: translateZ(-100px) rotateY(180deg);
         }
 
         .container {
-          -webkit-animation: rotate 30s infinite
+          -webkit-animation: rotate 40s infinite
             cubic-bezier(1, -0.75, 0.5, 1.2);
-          animation: rotate 30s infinite cubic-bezier(1, -0.75, 0.5, 1.2);
+          animation: rotate 40s infinite cubic-bezier(1, -0.75, 0.5, 1.2);
         }
 
         @-webkit-keyframes rotate {
           0%,
-          5% {
+          10% {
             -webkit-transform: rotateY(0deg) rotateX(0deg);
             transform: rotateY(0deg) rotateX(0deg);
           }
-          17%,
-          28% {
+          15%,
+          20% {
             -webkit-transform: rotateY(180deg) rotateX(0deg);
             transform: rotateY(180deg) rotateX(0deg);
           }
-          27%,
-          33% {
-            -webkit-transform: rotateY(180deg) rotateX(270deg) rotateZ(-180deg);
-            transform: rotateY(180deg) rotateX(270deg) rotateZ(-180deg);
+          25%,
+          35% {
+            -webkit-transform: rotateY(180deg) rotateX(270deg);
+            transform: rotateY(180deg) rotateX(270deg);
           }
-          42%,
-          48% {
+          40%,
+          50% {
             -webkit-transform: rotateY(180deg) rotateX(90deg);
             transform: rotateY(180deg) rotateX(90deg);
           }
-          59%,
-          61% {
+          55%,
+          65% {
             -webkit-transform: rotateY(-90deg) rotateX(90deg);
             transform: rotateY(-90deg) rotateX(90deg);
           }
-          72%,
-          78% {
+          70%,
+          80% {
             -webkit-transform: rotateY(90deg) rotateX(90deg);
             transform: rotateY(90deg) rotateX(90deg);
           }
-          92%,
-          93% {
+          90%,
+          95% {
             -webkit-transform: rotateY(0deg) rotateX(90deg);
             transform: rotateY(0deg) rotateX(90deg);
           }
@@ -168,7 +172,7 @@ function AnimatedCube() {
           25%,
           35% {
             -webkit-transform: rotateY(180deg) rotateX(270deg);
-            transform: rotateY(180deg) rotateX(270deg);
+            transform: rotateY(180deg) rotateX(270deg) ;
           }
           40%,
           50% {
@@ -209,9 +213,9 @@ function AnimatedCube() {
           left: 0;
           right: 0;
           margin: auto;
-          -webkit-animation: rotateShadow 30s infinite
+          -webkit-animation: rotateShadow 40s infinite
             cubic-bezier(1, -0.75, 0.5, 1.2);
-          animation: rotateShadow 30s infinite cubic-bezier(1, -0.75, 0.5, 1.2);
+          animation: rotateShadow 40s infinite cubic-bezier(1, -0.75, 0.5, 1.2);
         }
 
         @-webkit-keyframes rotateShadow {
@@ -257,7 +261,7 @@ function AnimatedCube() {
           }
         }
       `}</style>
-    </>
+    </motion.div>
   );
 }
 

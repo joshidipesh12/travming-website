@@ -117,6 +117,9 @@ export default function Home() {
               ))}
             </div>
           </section>
+          <section className={`${styles.section} ${styles.section_4}`}>
+            <AnimatedCube />
+          </section>
         </>
       )}
     </main>

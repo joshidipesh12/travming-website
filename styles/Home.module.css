@@ -156,7 +156,7 @@
 
 .section_3 > .div_3 {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
   gap: 2rem;
   margin-top: 2rem;
 }
@@ -166,10 +166,7 @@
   position: relative;
   padding: 0;
   overflow: hidden;
-}
-
-.div_3 .card:hover > img {
-  transform: scale(1.1);
+  height: 55vh;
 }
 
 .div_3 .card:hover > .card_img_cover {
@@ -180,6 +177,11 @@
   transition: all 0.2s ease-out;
   object-fit: cover;
   height: 100%;
+  transform: scale(1.02);
+}
+
+.div_3 .card:hover > img {
+  transform: scale(1.1);
 }
 
 .div_3 .card .card_img_cover {
@@ -221,13 +223,24 @@
     max-width: 25rem;
   }
 
-  .section_2,
+  .section_2 {
+    padding: 3rem
+  }
   .section_3 {
-    padding: 3rem;
+    padding: 1rem;
   }
 
   .section_2 > .div_2 {
     grid-template-columns: 1fr 1fr;
     gap: 2rem;
+  }
+
+  .section_3 > .div_3 {
+    grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
+    gap: 1rem;
+  }
+
+  .div_3 .card {
+    height: 30vh;
   }
 }
