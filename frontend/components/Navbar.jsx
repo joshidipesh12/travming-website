@@ -136,7 +136,7 @@ const DrawerContent = ({toggle}) => {
         )}
         <ListItem
           onMouseDown={() => {
-            route('https://linkedin.com/in/joshidipesh12');
+            route('https://joshidipesh12.github.io');
           }}
           button>
           <AiFillLinkedin />
